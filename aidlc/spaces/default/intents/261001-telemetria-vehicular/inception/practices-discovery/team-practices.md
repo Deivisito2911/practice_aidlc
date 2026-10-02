@@ -1,10 +1,3 @@
-# Team-Level Rules
-
-> This team's affirmed practices and corrections. Loaded after `org.md` as
-> strict-additive guidance; contradictions with broader policy are rejected.
-> Populated by the practices-discovery affirmation gate. Edit at the gate,
-> not directly.
-
 ## Way of Working
 
 Trabajamos con desarrollo basado en tronco. Cada cambio se realiza en una rama de corta duración, pasa por *pull request* y se integra mediante fusión *squash* a `main`.
@@ -22,24 +15,10 @@ Construiremos primero una rebanada mínima de extremo a extremo que incluya la r
 - La integración continua ejecutará formato, *lint*, comprobación de tipos, pruebas y análisis de dependencias y secretos.
 - No se fija todavía un porcentaje numérico de cobertura; la estrategia mínima exige pruebas trazables a los requisitos y que el recorrido crítico permanezca verde.
 
-## Guard Policy
-
-<!-- Affirmed by the team. Mode: strict, relaxed, or off. Strict here holds for every intent and cannot be changed from chat. A section under the retired Change Control heading, written by an earlier release, is still read. -->
-
 ## Deployment
 
 Desplegamos automáticamente a *staging* después de integrar en `main` y exigimos aprobación manual antes de promover a producción. Definimos la infraestructura como código, usamos roles temporales mediante OIDC e IAM de mínimo privilegio, cifrado con KMS, auditoría con CloudTrail, alarmas operativas, DLQ y un plan de reversión. La estrategia concreta de despliegue de Lambda, los umbrales de alarma y reversión y la configuración detallada de entornos se concretarán en las etapas de diseño y despliegue.
 
 ## Code Style
 
-Usamos TypeScript y AWS CDK para la infraestructura como código. Los identificadores del contrato y del código se escriben en inglés y siguen las convenciones de TypeScript, incluidos `vehicleId`, `eventType`, `timestamp` y `value`. Prettier, ESLint y la comprobación de tipos son obligatorios y se ejecutan en CI antes de integrar cambios.## Forbidden
-
-<!-- Team-specific forbidden patterns -->
-
-## Mandated
-
-<!-- Team-specific mandates -->
-
-## Corrections
-
-<!-- Self-learning loop appends here. -->
+Usamos TypeScript y AWS CDK para la infraestructura como código. Los identificadores del contrato y del código se escriben en inglés y siguen las convenciones de TypeScript, incluidos `vehicleId`, `eventType`, `timestamp` y `value`. Prettier, ESLint y la comprobación de tipos son obligatorios y se ejecutan en CI antes de integrar cambios.

@@ -6,26 +6,28 @@ Execute.
 
 ## Rationale
 
-Las historias de usuario aportan valor porque la solución conecta varios actores y responsabilidades: sistemas productores que integran telemetría, equipos de operaciones que consumen alertas y personal de plataforma que mantiene disponibilidad, seguridad, auditoría y recuperación. El recorrido asíncrono, la idempotencia, la salida duradera y las DLQ introducen comportamientos y errores que se comprenden mejor como resultados observables por actor.
+Las historias son necesarias porque el servicio conecta a tres personas con resultados distintos: el Integrador de telemetría necesita una API predecible; el Operador de flota necesita alertas lógicas completas a través de un sistema externo; y el Ingeniero de plataforma necesita desplegar, observar y recuperar el flujo. La mensajería asíncrona, idempotencia, salida duradera, DLQ y objetivos operativos requieren escenarios explícitos de éxito, límite y fallo.
 
 ## Factors Considered
 
 - **Project type:** Greenfield.
-- **Scope:** `workshop`, con una rebanada funcional de extremo a extremo.
-- **User-facing scope:** integración por API y consumo de alertas, aunque no exista interfaz gráfica.
-- **Complexity:** API Gateway, dos colas SQS, Lambda, DynamoDB, salida duradera, KMS, CloudTrail y CI/CD.
-- **Cross-team coordination:** productores, consumidores de alertas, desarrollo, seguridad y operaciones.
-- **Requirements baseline:** 21 subrequisitos funcionales, 10 no funcionales y 7 restricciones.
+- **Scope:** `workshop`, con rebanada funcional de extremo a extremo.
+- **Personas:** tres, confirmadas en `user-stories-questions.md`.
+- **Breakdown:** rebanadas verticales de valor.
+- **Granularity:** 12 historias pequeñas con 3–6 criterios Given/When/Then.
+- **Priority:** todas las capacidades obligatorias son Must Have.
+- **Complexity:** API Gateway, SQS, Lambda, DynamoDB, salida duradera, KMS, CloudTrail, observabilidad y CI/CD.
 
 ## Key Areas Where Stories Add Value
 
-- Integración segura y predecible de productores de telemetría.
-- Persistencia idempotente y publicación fiable de alertas de batería.
-- Recuperación y diagnóstico de mensajes fallidos.
-- Operación medible frente a latencia, disponibilidad y procesamiento.
-- Despliegue reproducible, seguridad y auditoría verificables.
+- Contrato, aceptación, errores y límites para productores.
+- Persistencia idempotente y retención verificable desde `acceptedAt`.
+- Alertas sin pérdidas lógicas y deduplicables por `alertId`.
+- Fallos parciales, DLQ y redrive controlada con estados visibles.
+- SLO, observabilidad, infraestructura segura, auditoría y CI.
 
 ## Sources
 
 - `inception/requirements-analysis/requirements.md`
 - `inception/practices-discovery/team-practices.md`
+- `inception/user-stories/user-stories-questions.md`

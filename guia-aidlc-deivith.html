@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guía AI-DLC para QA — Deivith</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --paper:#F2F4F6; --surface:#FFFFFF; --ink:#18222D; --muted:#56657A;
+  --line:#D5DCE3; --signal:#D99A00; --signal-soft:#FFF3D1; --steel:#2F5D86; --steel-soft:#E3ECF5;
+  --skip:#C7CFD8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141A21; --surface:#1B232C; --ink:#E6EBF0; --muted:#9AA8B8;
+    --line:#2E3A47; --signal:#F2B51E; --signal-soft:#3A2F12; --steel:#7FB0DD; --steel-soft:#1F2F40;
+    --skip:#3A4654;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141A21; --surface:#1B232C; --ink:#E6EBF0; --muted:#9AA8B8;
+  --line:#2E3A47; --signal:#F2B51E; --signal-soft:#3A2F12; --steel:#7FB0DD; --steel-soft:#1F2F40;
+  --skip:#3A4654;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:1.0625rem;line-height:1.6}
+.wrap{max-width:46rem;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+h1,h2,h3{font-family:"Bricolage Grotesque","Atkinson Hyperlegible",system-ui,sans-serif;line-height:1.15;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.2rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:1.6rem;font-weight:700;margin:3.25rem 0 .9rem}
+h3{font-size:1.15rem;font-weight:700;margin:1.6rem 0 .5rem}
+p{margin:.6rem 0}
+a{color:var(--steel)}
+a:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.lede{font-size:1.2rem;color:var(--muted);max-width:38rem;margin-top:1rem}
+code,.cmd{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.92em}
+code{background:var(--steel-soft);padding:.1em .35em;border-radius:4px}
+pre{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--steel);
+  padding:.9rem 1rem;border-radius:6px;overflow-x:auto;margin:.8rem 0;line-height:1.5}
+pre code{background:none;padding:0}
+
+/* Lifecycle track — the one bold element */
+.track{margin:2.25rem 0 .5rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.25rem 1rem 1rem}
+.track-row{display:grid;grid-template-columns:3fr 7fr 9fr 7fr 7fr;gap:6px}
+.phase{display:flex;flex-direction:column;gap:6px}
+.phase-name{font-size:.8rem;color:var(--muted);font-weight:700}
+.phase.off .phase-name{text-decoration:line-through}
+.stages{display:flex;gap:3px;height:26px}
+.st{flex:1;border-radius:3px;background:var(--steel);opacity:.35;position:relative}
+.phase.off .st{background:var(--skip);opacity:1}
+.st.you{background:var(--signal);opacity:1}
+.st.you::after{content:attr(data-n);position:absolute;top:30px;left:50%;transform:translateX(-50%);
+  font-size:.72rem;font-weight:700;color:var(--ink);white-space:nowrap}
+.gate-legend{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.2rem;font-size:.85rem;color:var(--muted)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:.35rem}
+.caption{font-size:.95rem;color:var(--muted);margin-top:.6rem}
+
+/* Glossary */
+dl{margin:0;display:grid;grid-template-columns:minmax(7rem,max-content) 1fr;gap:.2rem 1.25rem}
+dt{font-weight:700;padding-top:.7rem;border-top:1px solid var(--line)}
+dd{margin:0;padding-top:.7rem;border-top:1px solid var(--line)}
+@media (max-width:520px){dl{grid-template-columns:1fr}dd{border-top:0;padding-top:0}}
+
+/* Steps */
+ol.steps{padding-left:1.4rem}
+ol.steps li{margin:.5rem 0;padding-left:.3rem}
+
+/* Stage focus list */
+.focus{border-left:4px solid var(--signal);background:var(--surface);border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:.9rem 0}
+.focus h3{margin-top:0;display:flex;gap:.6rem;align-items:baseline}
+.tag{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;background:var(--signal-soft);color:var(--ink);padding:.1rem .45rem;border-radius:4px}
+
+/* Checklists */
+.check{list-style:none;padding:0;margin:.6rem 0}
+.check li{display:flex;gap:.7rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.check input{width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--signal);flex:none}
+.check label{cursor:pointer}
+.check input:checked + label{color:var(--muted);text-decoration:line-through}
+.progress{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+
+.warn{background:var(--signal-soft);border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
+
+/* Command table */
+.tbl{overflow-x:auto;margin:.8rem 0}
+table{border-collapse:collapse;width:100%;min-width:30rem;font-size:.97rem}
+th,td{text-align:left;padding:.55rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:.9rem}
+td:first-child{white-space:nowrap}
+
+/* Day plan */
+.week{margin:1.6rem 0 .4rem;font-size:1.15rem}
+.days{list-style:none;padding:0;margin:0;border-left:2px solid var(--line);margin-left:.9rem}
+.day{position:relative;padding:.2rem 0 1.1rem 1.6rem}
+.day::before{content:"";position:absolute;left:-7px;top:.55rem;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--steel)}
+.day.key::before{background:var(--signal);border-color:var(--signal)}
+.day-h{font-weight:700;display:flex;flex-wrap:wrap;gap:.5rem;align-items:baseline}
+.day-n{font-family:"Bricolage Grotesque",system-ui,sans-serif;color:var(--steel)}
+.day p{margin:.25rem 0}
+.out{font-size:.95rem;color:var(--muted)}
+.out strong{color:var(--ink)}
+
+footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+.reset{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:.35rem .7rem;font:inherit;font-size:.9rem;cursor:pointer}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<h1>Tu primer mes con AI-DLC</h1>
+<p class="lede">Deivith, esta guía es tu mapa. AI-DLC es la forma en que vamos a trabajar en CarConnect: la IA hace el trabajo por etapas y una persona revisa y aprueba cada una antes de seguir. Como QA, tu trabajo es ser esa persona que no deja pasar nada que no se pueda probar.</p>
+
+<div class="track" role="img" aria-label="Ciclo de AI-DLC en cinco fases. En tu proyecto de práctica se salta la fase de Ideación. Tus etapas clave son 2.4, 3.2, 3.6 y 4.6.">
+  <div class="track-row">
+    <div class="phase"><span class="phase-name">0 Inicio</span><div class="stages"><i class="st"></i><i class="st"></i><i class="st"></i></div></div>
+    <div class="phase off"><span class="phase-name">1 Ideación</span><div class="stages"><i class="st"></i><i class="st"></i><i class="st"></i><i class="st"></i><i class="st"></i><i class="st"></i><i class="st"></i></div></div>
+    <div class="phase"><span class="phase-name">2 Incepción</span><div class="stages"><i class="st"></i><i class="st"></i><i class="st"></i><i class="st you" data-n="2.4"></i><i class="st"></i><i class="st"></i><i class="st"></i><i class="st"></i><i class="st"></i></div></div>
+    <div class="phase"><span class="phase-name">3 Construcción</span><div class="stages"><i class="st"></i><i class="st you" data-n="3.2"></i><i class="st"></i><i class="st"></i><i class="st"></i><i class="st you" data-n="3.6"></i><i class="st"></i></div></div>
+    <div class="phase"><span class="phase-name">4 Operación</span><div class="stages"><i class="st"></i><i class="st"></i><i class="st"></i><i class="st"></i><i class="st"></i><i class="st you" data-n="4.6"></i><i class="st"></i></div></div>
+  </div>
+  <div class="gate-legend">
+    <span><i class="sw" style="background:var(--signal)"></i>Donde más aportas como QA</span>
+    <span><i class="sw" style="background:var(--steel);opacity:.35"></i>Etapas que igual revisas y apruebas</span>
+    <span><i class="sw" style="background:var(--skip)"></i>No se corre en tu práctica</span>
+  </div>
+</div>
+<p class="caption">Cada rayita es una etapa. Al final de cada una hay una puerta: la IA se detiene y espera que tú apruebes, pidas cambios o rechaces.</p>
+
+<h2>La idea en 30 segundos</h2>
+<p>Imagina que tienes un equipo de especialistas (producto, arquitectura, desarrollo, QA, operaciones) y todos son agentes de IA. Tú le describes lo que quieres construir y ellos avanzan etapa por etapa: primero requisitos, luego diseño, luego código, luego pruebas. Cada etapa produce documentos (los "artefactos") y se detiene para que un humano los revise.</p>
+<p>La IA escribe rápido. Lo que no hace bien sola es decidir si lo que escribió tiene sentido. Eso te toca a ti.</p>
+
+<h2>Seis palabras que vas a escuchar</h2>
+<dl>
+  <dt>Intent</dt><dd>Lo que quieres lograr, en una frase. Cada trabajo nuevo empieza con un intent.</dd>
+  <dt>Scope</dt><dd>El tamaño del trabajo. Define qué etapas se corren. Un bug corre 9 etapas; un feature completo corre 33.</dd>
+  <dt>Etapa</dt><dd>Un paso del proceso, por ejemplo "User Stories" o "Build and Test". Están numeradas por fase: 2.4 es la cuarta etapa de la fase 2.</dd>
+  <dt>Puerta (gate)</dt><dd>La pausa al final de cada etapa. Nada avanza hasta que tú respondes.</dd>
+  <dt>Artefactos</dt><dd>Los documentos que genera cada etapa: requisitos, historias, diseño, plan de pruebas, resultados. Quedan guardados en la carpeta <code>aidlc/</code> del repo.</dd>
+  <dt>Test strategy</dt><dd>Cuántos tests genera. <em>Minimal</em>: uno por requisito. <em>Standard</em>: 5 a 8 por componente, unit + integración. <em>Comprehensive</em>: todo, incluido E2E y performance.</dd>
+</dl>
+
+<h2>Preparar Kiro</h2>
+<ol class="steps">
+  <li>Abre Kiro IDE e inicia sesión. En el chat, elige el modelo <strong>Claude Opus 4.8</strong>. Con modelos más débiles la IA se salta pasos de revisión y pasa las puertas sin esperar.</li>
+  <li>Instala AI-DLC desde una terminal.
+<pre><code># macOS / Linux / WSL
+curl -fsSL https://github.com/awslabs/aidlc-workflows/releases/latest/download/install.sh | sh
+
+# Windows PowerShell
+irm https://github.com/awslabs/aidlc-workflows/releases/latest/download/install.ps1 | iex</code></pre></li>
+  <li>Crea una carpeta nueva para tu proyecto de práctica, entra a ella y configura:
+<pre><code>aidlc config      # elige kiro-ide
+aidlc doctor</code></pre></li>
+  <li>Abre esa carpeta en Kiro y escribe en el chat <code>/aidlc --doctor</code>. Si todo sale en verde, estás listo.</li>
+  <li>Inicializa git en la carpeta y súbela a un repo. La carpeta <code>aidlc/</code> se commitea: así Ronnie puede ver qué aprobaste y por qué.</li>
+</ol>
+<p>En Kiro las puertas se responden con un número (la IA te da opciones numeradas). Si te pierdes, escribe <code>/aidlc --status</code> y te dice en qué etapa estás.</p>
+
+<h2>Semana 1: proyecto de práctica</h2>
+<p>Vas a construir algo pequeño que se parece a lo que hacemos en CarConnect: un servicio que recibe eventos de un vehículo (por ejemplo, "motor encendido" o "batería baja"), los encola y dispara una alerta cuando se cumple una regla. Usa Lambda, SQS y DynamoDB, que es la base de nuestra plataforma.</p>
+<p>No es producción. Puedes romperlo, rehacerlo y equivocarte. Empieza así:</p>
+<pre><code>/aidlc workshop Servicio que recibe eventos de vehículo por API, los encola en SQS, los guarda en DynamoDB y genera una alerta cuando la batería baja de 20%</code></pre>
+<p>Cuando te confirme el scope, sube las pruebas a Standard para ver una suite real:</p>
+<pre><code>/aidlc --test-strategy standard</code></pre>
+<p>Vas a pasar por unas 26 etapas. Aprueba todas con atención, pero en estas cuatro es donde más tienes que aportar:</p>
+
+<div class="focus">
+  <h3><span class="tag">2.4</span>User Stories</h3>
+  <p>La IA escribe historias con criterios de aceptación. Tu trabajo: cada criterio tiene que poder probarse con un sí o un no. "El sistema responde rápido" no sirve. "Responde en menos de 500 ms en el 95% de los casos" sí.</p>
+</div>
+<div class="focus">
+  <h3><span class="tag">3.2</span>NFR Requirements</h3>
+  <p>Los requisitos no funcionales: velocidad, volumen, qué pasa si algo falla. Pregunta siempre: ¿qué pasa si SQS reintenta un mensaje?, ¿a dónde van los mensajes que fallan?, ¿cuántos eventos por segundo aguanta?</p>
+</div>
+<div class="focus">
+  <h3><span class="tag">3.6</span>Build and Test</h3>
+  <p>Aquí se generan y corren los tests. Revisa que cada test pruebe un requisito y no un detalle del código. Arma una tabla simple: requisito a la izquierda, test que lo cubre a la derecha. Si un requisito no tiene test, lo pides.</p>
+</div>
+<div class="focus">
+  <h3><span class="tag">4.6</span>Performance Validation</h3>
+  <p>Pruebas de carga. La IA te entrega una tabla con el objetivo y el resultado real de cada requisito no funcional. Compárala con lo que pediste en 3.2.</p>
+</div>
+
+<h2>Semanas 2 y 3: un bug real</h2>
+<p>Ronnie te va a asignar un bug real de un repo de CarConnect. Configuras AI-DLC en ese repo igual que antes y arrancas con:</p>
+<pre><code>/aidlc bugfix Descripción corta del bug</code></pre>
+<p>Son 9 etapas. La IA primero lee el código existente para entenderlo. Tu regla principal: antes de corregir, tiene que existir un test que reproduzca el bug y falle. Después del fix, ese mismo test tiene que pasar.</p>
+<div class="warn"><strong>Cuidado:</strong> el scope bugfix incluye etapas de despliegue. Cuando llegues a Deployment Pipeline o Deployment Execution, detente y consulta con Ronnie. Nunca apruebes un despliegue a producción por tu cuenta.</div>
+
+<h2>Plan día por día</h2>
+<p>Son 15 días hábiles. El ritmo es una guía, no una carrera: si una etapa te toma más, está bien. Lo que no está bien es aprobar sin entender.</p>
+<p><strong>Todos los días, al cerrar:</strong> haz commit de la carpeta <code>aidlc/</code> y escribe tres líneas en un archivo <code>bitacora.md</code>: qué etapas pasaste, qué cambiaste o rechazaste, y qué no entendiste.</p>
+
+<h3 class="week">Semana 1 · Proyecto de práctica</h3>
+<ol class="days">
+  <li class="day"><div class="day-h"><span class="day-n">Día 1</span>Preparar todo</div>
+    <p>Lee las tres páginas del final de esta guía. Instala AI-DLC, configura Kiro, corre <code>/aidlc --doctor</code> y crea el repo de práctica. No arranques el proyecto todavía.</p>
+    <p class="out"><strong>Al terminar:</strong> doctor en verde y repo creado.</p></li>
+  <li class="day key"><div class="day-h"><span class="day-n">Día 2</span>Arrancar y definir qué se construye <span class="tag">0.1–2.4</span></div>
+    <p>Lanza el comando <code>/aidlc workshop …</code>. Pasas por Inicio, Practices Discovery, Requirements Analysis y User Stories. Dedica la mayor parte del día a User Stories: cada criterio de aceptación tiene que poder probarse.</p>
+    <p class="out"><strong>Al terminar:</strong> historias aprobadas y al menos un criterio que corregiste.</p></li>
+  <li class="day"><div class="day-h"><span class="day-n">Día 3</span>Diseño del sistema <span class="tag">2.5–2.9</span></div>
+    <p>Mockups, diseño de dominio, división en unidades, contratos y plan de entrega. Fíjate sobre todo en Contract Design: define qué se envía entre un componente y otro, y eso es justo lo que después se prueba en integración.</p>
+    <p class="out"><strong>Al terminar:</strong> una lista de los contratos que habrá que probar.</p></li>
+  <li class="day key"><div class="day-h"><span class="day-n">Día 4</span>Requisitos no funcionales y código <span class="tag">3.1–3.5</span></div>
+    <p>Diseño funcional, NFR Requirements, NFR Design, infraestructura y generación de código. El foco es NFR Requirements: cada requisito necesita un número (tiempo, volumen, reintentos) y un plan para cuando algo falla.</p>
+    <p class="out"><strong>Al terminar:</strong> todos los NFR con un valor medible y el código generado.</p></li>
+  <li class="day key"><div class="day-h"><span class="day-n">Día 5</span>Pruebas <span class="tag">3.6–3.7</span></div>
+    <p>Build and Test y CI Pipeline. Arma tu tabla de requisito → test. Si a un requisito le falta test, pídelo en la puerta. Al final del día revisas la semana con Ronnie.</p>
+    <p class="out"><strong>Al terminar:</strong> tabla de trazabilidad completa y tests pasando.</p></li>
+</ol>
+
+<h3 class="week">Semana 2 · Cerrar la práctica y empezar el bug</h3>
+<ol class="days">
+  <li class="day"><div class="day-h"><span class="day-n">Día 6</span>Despliegue de práctica <span class="tag">4.1–4.4</span></div>
+    <p>Pipeline, entornos, despliegue y observabilidad. Esto se despliega solo en la cuenta de AWS de pruebas que te dé Ronnie, nunca en otra.</p>
+    <p class="out"><strong>Al terminar:</strong> el servicio corriendo en la cuenta de pruebas.</p></li>
+  <li class="day key"><div class="day-h"><span class="day-n">Día 7</span>Carga y cierre <span class="tag">4.5–4.7</span></div>
+    <p>Incidentes, Performance Validation y feedback. Compara la tabla de objetivo contra resultado con lo que pediste el día 4. Cierra con una retro corta en tu bitácora: qué aprobaste que no debiste y qué detectaste a tiempo.</p>
+    <p class="out"><strong>Al terminar:</strong> proyecto de práctica completo y retro escrita.</p></li>
+  <li class="day"><div class="day-h"><span class="day-n">Día 8</span>Entender el bug <span class="tag">0.1–2.1</span></div>
+    <p>Ronnie te asigna un bug real. Configuras AI-DLC en ese repo y arrancas con <code>/aidlc bugfix …</code>. La IA lee el código existente (Reverse Engineering). Revisa que su explicación del módulo coincida con cómo funciona de verdad; pregúntale a un dev si dudas.</p>
+    <p class="out"><strong>Al terminar:</strong> puedes explicar con tus palabras dónde está el bug.</p></li>
+  <li class="day key"><div class="day-h"><span class="day-n">Día 9</span>Reproducir el bug <span class="tag">2.3</span></div>
+    <p>Requirements Analysis. Define el comportamiento correcto y asegúrate de que exista un test que reproduzca el bug y falle antes de tocar el código.</p>
+    <p class="out"><strong>Al terminar:</strong> un test que falla por la razón correcta.</p></li>
+  <li class="day key"><div class="day-h"><span class="day-n">Día 10</span>Corregir y probar <span class="tag">3.5–3.6</span></div>
+    <p>La IA genera el fix y corre las pruebas. El test del día 9 ahora tiene que pasar, y los tests que ya existían también. Abre el PR.</p>
+    <p class="out"><strong>Al terminar:</strong> PR abierto con el test de regresión.</p></li>
+</ol>
+
+<h3 class="week">Semana 3 · Entregar y dejar huella</h3>
+<ol class="days">
+  <li class="day"><div class="day-h"><span class="day-n">Día 11</span>Revisión del PR</div>
+    <p>Atiende los comentarios del code review. Detente antes de las etapas de despliegue.</p>
+    <p class="out"><strong>Al terminar:</strong> PR aprobado.</p></li>
+  <li class="day"><div class="day-h"><span class="day-n">Día 12</span>Despliegue acompañado <span class="tag">4.1, 4.3</span></div>
+    <p>Pasas las puertas de despliegue junto con Ronnie, en el entorno que él indique. Verifica en ese entorno que el bug ya no ocurre.</p>
+    <p class="out"><strong>Al terminar:</strong> fix mergeado y verificado.</p></li>
+  <li class="day"><div class="day-h"><span class="day-n">Día 13</span>Segundo bug, más solo</div>
+    <p>Repite el flujo de bugfix con otro bug pequeño, esta vez con menos ayuda. Llega hasta el PR.</p>
+    <p class="out"><strong>Al terminar:</strong> segundo PR abierto.</p></li>
+  <li class="day key"><div class="day-h"><span class="day-n">Día 14</span>Reglas de testing del equipo</div>
+    <p>Con lo que viste en tu bitácora, escribe una propuesta de reglas: cómo queremos que AI-DLC escriba tests en CarConnect (nombres, qué casos de error siempre cubrir, qué no aceptar). Una página basta.</p>
+    <p class="out"><strong>Al terminar:</strong> propuesta lista para revisar.</p></li>
+  <li class="day"><div class="day-h"><span class="day-n">Día 15</span>Presentar</div>
+    <p>Muéstrale a Ronnie tus entregables (la lista de abajo). Media hora: qué hiciste, qué rechazaste y por qué, y qué propones para el equipo.</p>
+    <p class="out"><strong>Al terminar:</strong> objetivos siguientes definidos.</p></li>
+</ol>
+
+<h2>Qué revisar en cada puerta</h2>
+<p>Antes de aprobar cualquier etapa, hazte estas preguntas. Si alguna respuesta es "no sé", pide cambios.</p>
+<ul class="check" data-group="gate">
+  <li><input type="checkbox" id="g1"><label for="g1">¿Entiendo lo que dice el documento? Si no lo entiendo yo, nadie del equipo lo va a entender.</label></li>
+  <li><input type="checkbox" id="g2"><label for="g2">¿Cada requisito o criterio se puede probar con un resultado claro?</label></li>
+  <li><input type="checkbox" id="g3"><label for="g3">¿Falta algún caso de error? (dato vacío, dato mal formado, servicio caído, mensaje duplicado)</label></li>
+  <li><input type="checkbox" id="g4"><label for="g4">¿La IA inventó algo que yo no pedí?</label></li>
+  <li><input type="checkbox" id="g5"><label for="g5">¿Anoté en una línea por qué aprobé, cambié o rechacé?</label></li>
+</ul>
+<p class="caption">Estas casillas son solo una ayuda para ti; se guardan en tu navegador.</p>
+
+<h2>Lo que vas a entregar</h2>
+<p>Esto es lo que vamos a revisar juntos en tus objetivos:</p>
+<ul class="check" data-group="deliver">
+  <li><input type="checkbox" id="d1"><label for="d1">Proyecto de práctica completo en un repo, con la carpeta <code>aidlc/</code> commiteada.</label></li>
+  <li><input type="checkbox" id="d2"><label for="d2">Tabla requisito → test del proyecto de práctica y del bug.</label></li>
+  <li><input type="checkbox" id="d3"><label for="d3">Al menos tres puertas donde pediste cambios o rechazaste, con el motivo anotado.</label></li>
+  <li><input type="checkbox" id="d4"><label for="d4">Un bug real corregido y mergeado, con su test de regresión.</label></li>
+  <li><input type="checkbox" id="d5"><label for="d5">Una propuesta de reglas de testing para el equipo: cómo queremos que AI-DLC escriba los tests en CarConnect.</label></li>
+</ul>
+<p class="progress" id="progress"></p>
+
+<h2>Chuleta de comandos</h2>
+<div class="tbl">
+<table>
+  <thead><tr><th>Escribe en el chat</th><th>Para qué</th></tr></thead>
+  <tbody>
+    <tr><td><code>/aidlc --doctor</code></td><td>Revisa que todo esté bien instalado.</td></tr>
+    <tr><td><code>/aidlc workshop …</code></td><td>Empieza un proyecto de práctica completo.</td></tr>
+    <tr><td><code>/aidlc bugfix …</code></td><td>Empieza la corrección de un bug.</td></tr>
+    <tr><td><code>/aidlc --status</code></td><td>Te dice en qué etapa estás.</td></tr>
+    <tr><td><code>/aidlc --test-strategy standard</code></td><td>Cambia cuántos tests se generan.</td></tr>
+    <tr><td><code>/aidlc --depth minimal</code></td><td>Hace los documentos más cortos, si se vuelven muy largos.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Para leer el primer día</h2>
+<p>Solo estas tres páginas. El resto lo aprendes haciendo.</p>
+<ol class="steps">
+  <li><a href="https://awslabs.github.io/aidlc-workflows/guide/02-your-first-workflow/">Your First Workflow</a>: un recorrido completo, paso a paso.</li>
+  <li><a href="https://awslabs.github.io/aidlc-workflows/guide/05-scopes-and-depth/">Scopes, Depth, and Test Strategy</a>: lee solo la parte de test strategy.</li>
+  <li><a href="https://awslabs.github.io/aidlc-workflows/guide/agents/quality-agent/">Quality Agent</a>: el agente con el que más vas a trabajar.</li>
+</ol>
+
+<footer>
+  <p>Si algo no funciona o no entiendes una puerta, no la apruebes para avanzar. Pregúntale a Ronnie. Una pregunta a tiempo vale más que diez etapas mal aprobadas.</p>
+  <button class="reset" id="reset" type="button">Desmarcar todas las casillas</button>
+</footer>
+</main>
+
+<script>
+(function(){
+  var KEY='aidlc-guia-checks';
+  var state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  var boxes=document.querySelectorAll('.check input[type=checkbox]');
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  function progress(){
+    var d=document.querySelectorAll('[data-group="deliver"] input');
+    var n=0; d.forEach(function(b){ if(b.checked) n++; });
+    document.getElementById('progress').textContent = n+' de '+d.length+' entregables listos';
+  }
+  boxes.forEach(function(b){
+    b.checked=!!state[b.id];
+    b.addEventListener('change',function(){ state[b.id]=b.checked; save(); progress(); });
+  });
+  document.getElementById('reset').addEventListener('click',function(){
+    state={}; save(); boxes.forEach(function(b){ b.checked=false; }); progress();
+  });
+  progress();
+})();
+</script>
+</body>
+</html>

@@ -4,6 +4,6 @@
 - **Qué no entendiste:** Todo claro con la lectura inicial de las páginas.
 
 # Día 2
-- **Qué etapas pasaste:** Desde Inicio (0.1) hasta la revisión final de Requirements Analysis (2.3).
-- **Qué cambiaste o rechazaste:** Rechacé la arquitectura inicial por falta de deduplicación en SQS y forcé límites estrictos de QA. Cambié a GPT 5.6 Sol porque Terra alucinaba, y apliqué workarounds para reparar la configuración y evitar bucles en los hooks de Kiro en Windows.
-- **Qué no entendiste:** Por qué los modelos de menor capacidad (Terra) fallan tanto estructurando orquestaciones complejas y la causa del bucle del hook `execute_pwsh` en Windows.
+- **Qué etapas pasaste:** Desde Inicio (0.1) hasta la aprobación de User Stories (2.4).
+- **Qué cambiaste o rechazaste:** (1) Rechacé la arquitectura inicial en Requirements Analysis por deduplicación. (2) Rechacé la historia US3.1 en User Stories exigiendo el uso estricto de `MessageDeduplicationId` en SQS para hacerla testeable (Completando 2 de 3 rechazos del taller). Al agotarse los créditos de Kiro, pasé a motor híbrido usando Antigravity y la terminal para forzar la aprobación del estado de AI-DLC.
+- **Qué no entendiste:** Por qué Kiro no maneja de forma segura los fallos de sus propios hooks en Windows, llevándolo a bucles infinitos que agotaron la cuota mensual de créditos de forma precipitada.

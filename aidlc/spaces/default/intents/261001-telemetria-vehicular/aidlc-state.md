@@ -1,4 +1,4 @@
-﻿# AI-DLC State Tracking
+# AI-DLC State Tracking
 
 ## Project Information
 - **Project**: Servicio de telemetría vehicular con API REST, SQS, Lambda, DynamoDB y alertas de batería por debajo del 20 por ciento.
@@ -7,7 +7,7 @@
 - **Scope**: workshop
 - **Start Date**: 2026-10-01T17:12:20Z
 - **State Version**: 8
-- **Active Agent**: aidlc-product-agent
+- **Active Agent**: aidlc-architect-agent
 - **Worktree Path**:
 - **Bolt Refs**:
 - **Practices Affirmed Timestamp**: 2026-10-02T01:46:39Z
@@ -17,11 +17,11 @@
 - **Stages to Skip**: 1.1 (intent-capture), 1.2 (market-research), 1.3 (feasibility), 1.4 (scope-definition), 1.5 (team-formation), 1.6 (rough-mockups), 1.7 (approval-handoff), 2.1 (reverse-engineering — greenfield)
 - **Depth**: Standard
 - **Test Strategy**: Minimal
-- **Review Override**: 
+- **Review Override**: none
 - **Guard Policy**: relaxed (from scope workshop)
 - **Sensors**: on (from scope workshop)
 - **Learnings**: on (from scope workshop)
-- **Summary Confirmation**: on (from scope workshop)
+- **Summary Confirmation**: off (set by you)
 
 ## Workspace State
 - **Project Root**: .
@@ -31,8 +31,8 @@
 
 ## Execution Plan Summary
 - **Total Stages**: 25
-- **Completed**: 5
-- **In Progress**: user-stories
+- **Completed**: 7
+- **In Progress**: units-generation
 
 ## Runtime State
 - **Revision Count**: 3
@@ -45,8 +45,8 @@
 
 - **Initialization**: Verified
 - **Ideation**: Skipped
-- **Inception**: Active
-- **Construction**: Pending
+- **Inception**: Verified
+- **Construction**: Active
 - **Operation**: Pending
 
 ## Stage Progress
@@ -71,15 +71,15 @@
 - [x] practices-discovery — EXECUTE
 - [x] requirements-analysis — EXECUTE
 - [x] user-stories — EXECUTE
-- [ ] refined-mockups — EXECUTE
-- [ ] domain-design — EXECUTE
-- [ ] units-generation — EXECUTE
-- [ ] contract-design — EXECUTE
-- [ ] delivery-planning — EXECUTE
+- [S] refined-mockups — EXECUTE
+- [x] domain-design — EXECUTE
+- [x] units-generation — EXECUTE
+- [x] contract-design — EXECUTE
+- [x] delivery-planning — EXECUTE
 
 ### CONSTRUCTION PHASE
-Per unit: [TBD]
-- [ ] functional-design — EXECUTE
+Per unit: [telemetry-backend - Bolt 1]
+- [-] functional-design — EXECUTE
 - [ ] nfr-requirements — EXECUTE
 - [ ] nfr-design — EXECUTE
 - [ ] infrastructure-design — EXECUTE
@@ -97,13 +97,13 @@ Per unit: [TBD]
 - [ ] feedback-optimization — EXECUTE
 
 ## Current Status
-- **Lifecycle Phase**: INCEPTION
-- **Current Stage**: user-stories
-- **Next Stage**: refined-mockups
-- **Status**: Running
-- **Last Updated**: 2026-10-04T02:05:31Z
+- **Lifecycle Phase**: CONSTRUCTION
+- **Current Stage**: functional-design
+- **Next Stage**: nfr-requirements
+- **Status**: Awaiting User Answers (Bolt 1)
+- **Last Updated**: 2026-10-05T19:05:00Z
 
 ## Session Resume Point
-- **Last Completed Stage**: requirements-analysis
-- **Next Action**: Execute User Stories
-- **Pending Artifacts**: none
+- **Last Completed Stage**: delivery-planning
+- **Next Action**: Execute functional-design (Bolt 1)
+- **Pending Artifacts**: Answer functional-design questions

@@ -99,3 +99,16 @@ Según la guía `guia-aidlc-deivith.html`, para aprobar el taller se requieren *
 - **Hito logrado:** Se completó el Rechazo 2/3 (exigido por Ronnie) al forzar la reescritura de la historia de alerta de batería (US3.1) para incluir deduplicación nativa de SQS, asegurando su testabilidad.
 - **Transición Operativa:** Debido al agotamiento del límite de créditos mensuales en Kiro IDE, el proyecto ha transicionado a modo híbrido (Agente Antigravity interactuando directamente con el motor CLI de AI-DLC). Kiro ya no será necesario para avanzar las etapas restantes.
 - **Siguiente paso pendiente:** Iniciar la etapa de Diseño (Refined Mockups o Domain Design) cuando el usuario retome el chat para el Día 3.
+
+
+### 8. Registro de Decisiones e Impacto (Cierre del Día 3 - Inception)
+- **Modo Operativo:** La sesión se manejó íntegramente de forma interactiva (simulando la experiencia Kiro IDE a través de la CLI y Antigravity), respetando la regla estricta de "Aprobación humana en cada puerta".
+- **Interacción 12 (Diseño de Dominio - 2.6):** Optamos por una arquitectura de única Lambda procesadora (en vez de integración directa API GW -> SQS) para mantener el "Walking Skeleton" acordado y facilitar la testeabilidad temprana.
+- **Interacción 13 (Diseño de Contratos - 2.8 y Rechazo #3):** Se completó el último rechazo requerido por el taller (3/3). El usuario rechazó el contrato base para exigir la propagación de la cabecera `X-Correlation-Id` (vital para trazabilidad en DLQ) y documentar el código HTTP `429 Too Many Requests` (para el Rate Limiting de los clientes IoT). *Impacto:* Asegura la madurez de las Day 2 Operations desde el contrato.
+- **Interacción 14 (Planificación de Entrega - 2.9):** Se definió la estrategia de ejecución para la Construcción: "Walking Skeleton" primero (Bolt 1 enfocado en Infraestructura) dividido en "Incrementos Funcionales" de 2 a 3 días.
+
+### 9. Resumen de Cierre (Día 3)
+- **Estado del Taller:** El Día 3 concluye exitosamente. Se finalizaron y aprobaron todas las etapas restantes de la fase de Inception (Domain Design, Units Generation, Contract Design, Delivery Planning).
+- **Hito logrado:** Se alcanzó y completó el requisito de 3/3 rechazos justificados exigido por el taller de Ronnie.
+- **Transición de Fase:** El motor AI-DLC (`aidlc-state.md`) ha sido formalmente actualizado. La fase Inception queda cerrada (Verified) y la fase Construction queda activa.
+- **Siguiente paso pendiente:** Al ejecutar `aidlc resume` o iniciar la próxima sesión (Día 4), el flujo arrancará en la etapa `functional-design` del **Bolt 1**, esperando las respuestas sobre la estructura del payload dummy en DynamoDB y el cuerpo de la respuesta HTTP 202.

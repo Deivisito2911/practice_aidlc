@@ -4360,3 +4360,488 @@
 **Source Baseline**: sha256:57e1b43bdcb234d0f67c536c347571d00c545e22dd8e62c9d66fb6b2ebb8d2cf
 
 ---
+
+## Stage Completion
+**Timestamp**: 2026-10-05T22:13:24Z
+**Event**: STAGE_COMPLETED
+**Stage**: user-stories
+**Validation Basis**: {"graphContract":"sha256:c75f05406db1b9ac835b39d17823589395911112ecd624d831c9997726414fca","inputs":[{"artifact":"requirements","contentHash":"sha256:68104e8544e422ded48acb40c3d6cd318a05f34009ccea93b4735b8658a90757","instanceCount":1,"presentCount":1,"producer":"requirements-analysis","required":true,"structureHash":"sha256:c1a0bea16749209e1549ad86b6a3941c2bb09cbf23fcfebb01adffd00e820b41"},{"artifact":"team-practices","contentHash":"sha256:b66b09d6d9901ff78f67777dfe9ac8aa4e0ef8f42a44b044a08fecb02b554298","instanceCount":1,"presentCount":1,"producer":"practices-discovery","required":false,"structureHash":"sha256:81cc3dad880da503718cbbe347e9c8247152203cf5ef1291a97f0c25135ddac2"}],"outputs":[{"artifact":"personas","contentHash":"sha256:1c3a7cd01ea65492800c37f21f44181ee45073e9731ec23832922f53e7de9b5d","instanceCount":1,"presentCount":1,"producer":"user-stories","required":true,"structureHash":"sha256:8800b7b2a0841f9fe705b96679b66da20e4dcc7872973ebd0900548849633298"},{"artifact":"stories","contentHash":"sha256:b7f0da1987e1676b2d80dbc051ffe9812bd444cc7da9a17986628d3fefd5fece","instanceCount":1,"presentCount":1,"producer":"user-stories","required":true,"structureHash":"sha256:4c68e1ec5876775759d1b4994af685cc7cbe7dd9cb211184786aededf3630dce"},{"artifact":"traceability","contentHash":"sha256:424f25f14f812478246d9692a61ff7f17ffbaa586240002437fbe71b8c801c70","instanceCount":1,"presentCount":1,"producer":"user-stories","required":true,"structureHash":"sha256:ffd130361309b8aaae22dac2611caf051a68ec95a7cd5875f11bf321d69ca731"},{"artifact":"user-stories-assessment","contentHash":"sha256:b5f61af582b2216fffeddacb251f954cada81ff7890813d3f6e86cb7a3381fe2","instanceCount":1,"presentCount":1,"producer":"user-stories","required":true,"structureHash":"sha256:3ef3bea73215c3fea7e66bc9726fb55f57ca42ba6d064117276d9b012d4236ff"}],"projectType":"greenfield","schema":3}
+**Details**: Stage User Stories completed
+
+---
+
+## Stage Start
+**Timestamp**: 2026-10-05T22:13:24Z
+**Event**: STAGE_STARTED
+**Stage**: refined-mockups
+**Agent**: aidlc-design-agent
+
+---
+
+## Stage Skip
+**Timestamp**: 2026-10-05T22:13:32Z
+**Event**: STAGE_SKIPPED
+**Stage**: refined-mockups
+**Reason**: Proyecto backend puro, no requiere mockups. Se definirá en Contract Design.
+**Skip Kind**: conditional-runtime
+
+---
+
+## Stage Start
+**Timestamp**: 2026-10-05T22:13:32Z
+**Event**: STAGE_STARTED
+**Stage**: domain-design
+**Agent**: aidlc-architect-agent
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:29:43Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-log
+**Command**: aidlc-log engine log answer --help
+**Error**: --help expects a value, got end of arguments.
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:29:51Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-log
+**Command**: aidlc-log engine log answer
+**Error**: Missing --stage <slug>
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:30:16Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-log
+**Command**: aidlc-log engine log decision
+**Error**: Missing --stage <slug>
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:30:38Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-log
+**Command**: aidlc-log engine log decision --stage domain-design
+**Error**: Missing --decision <text>
+
+---
+
+## Decision Recorded
+**Timestamp**: 2026-10-05T22:30:44Z
+**Event**: DECISION_RECORDED
+**Stage**: domain-design
+**Decision**: SUMMARY_CONFIRMED
+
+---
+
+## Ceremony Set
+**Timestamp**: 2026-10-05T22:31:52Z
+**Event**: CEREMONY_SET
+**Key**: summary_confirmation
+**Old**: on
+**New**: off
+**Source**: you
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:32:37Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-log
+**Command**: aidlc-log engine log review --stage domain-design --reviewer aidlc-architecture-reviewer-agent --verdict READY
+**Error**: Recording a review verdict requires --iteration <positive integer>.
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:32:45Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-log
+**Command**: aidlc-log engine log review --stage domain-design --reviewer aidlc-architecture-reviewer-agent --verdict READY --iteration 1
+**Error**: Cannot record a verdict for review iteration 1 on "domain-design" because no pending request with that number exists. Start or retry that review first.
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:33:23Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-utility
+**Command**: aidlc-utility config-change --guard-policy off
+**Error**: Setting Guard Policy off lowers fences and is the person's move: they type `/aidlc --guard-policy off` and the harness applies it as they say it. This command does not lower fences on its own.
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:33:32Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-utility
+**Command**: aidlc-utility config-change --review off
+**Error**: Unknown review class: "off". Valid: adversarial, advisory, none.
+
+---
+
+## Review Class Change
+**Timestamp**: 2026-10-05T22:33:44Z
+**Event**: REVIEW_CLASS_CHANGED
+**Old Override**: none set
+**New Override**: none
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:34:09Z
+**Event**: SENSOR_FIRED
+**Fire id**: 51892f12
+**Sensor ID**: required-sections
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/components.md
+
+---
+
+## Sensor Passed
+**Timestamp**: 2026-10-05T22:34:09Z
+**Event**: SENSOR_PASSED
+**Fire id**: 51892f12
+**Sensor ID**: required-sections
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/components.md
+**Duration ms**: 443
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:34:10Z
+**Event**: SENSOR_FIRED
+**Fire id**: 630d4062
+**Sensor ID**: required-sections
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/decisions.md
+
+---
+
+## Sensor Passed
+**Timestamp**: 2026-10-05T22:34:10Z
+**Event**: SENSOR_PASSED
+**Fire id**: 630d4062
+**Sensor ID**: required-sections
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/decisions.md
+**Duration ms**: 411
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:34:11Z
+**Event**: SENSOR_FIRED
+**Fire id**: 61911630
+**Sensor ID**: required-sections
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/traceability.json
+
+---
+
+## Sensor Passed
+**Timestamp**: 2026-10-05T22:34:11Z
+**Event**: SENSOR_PASSED
+**Fire id**: 61911630
+**Sensor ID**: required-sections
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/traceability.json
+**Duration ms**: 352
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:34:12Z
+**Event**: SENSOR_FIRED
+**Fire id**: 87b207e6
+**Sensor ID**: upstream-coverage
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/components.md
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:34:13Z
+**Event**: SENSOR_FAILED
+**Fire id**: 87b207e6
+**Sensor ID**: upstream-coverage
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/components.md
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/domain-design/upstream-coverage-87b207e6.md
+**Findings count**: 3
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:34:13Z
+**Event**: SENSOR_FIRED
+**Fire id**: 1dacb5e0
+**Sensor ID**: upstream-coverage
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/decisions.md
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:34:13Z
+**Event**: SENSOR_FAILED
+**Fire id**: 1dacb5e0
+**Sensor ID**: upstream-coverage
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/decisions.md
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/domain-design/upstream-coverage-1dacb5e0.md
+**Findings count**: 3
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:34:14Z
+**Event**: SENSOR_FIRED
+**Fire id**: 7516aad8
+**Sensor ID**: upstream-coverage
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/traceability.json
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:34:14Z
+**Event**: SENSOR_FAILED
+**Fire id**: 7516aad8
+**Sensor ID**: upstream-coverage
+**Stage slug**: domain-design
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/domain-design/traceability.json
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/domain-design/upstream-coverage-7516aad8.md
+**Findings count**: 3
+
+---
+
+## Stage Awaiting Approval
+**Timestamp**: 2026-10-05T22:34:14Z
+**Event**: STAGE_AWAITING_APPROVAL
+**Stage**: domain-design
+**Recovered**: true
+
+---
+
+## Gate Approved
+**Timestamp**: 2026-10-05T22:34:15Z
+**Event**: GATE_APPROVED
+**Stage**: domain-design
+**User Input**: Approve
+
+---
+
+## Stage Completion
+**Timestamp**: 2026-10-05T22:34:15Z
+**Event**: STAGE_COMPLETED
+**Stage**: domain-design
+**Validation Basis**: {"graphContract":"sha256:4e5ba0b6334a8c25f8dea5929cee93c113f34e58b422ef110b998ef5ff29e179","inputs":[{"artifact":"requirements","contentHash":"sha256:68104e8544e422ded48acb40c3d6cd318a05f34009ccea93b4735b8658a90757","instanceCount":1,"presentCount":1,"producer":"requirements-analysis","required":true,"structureHash":"sha256:c1a0bea16749209e1549ad86b6a3941c2bb09cbf23fcfebb01adffd00e820b41"},{"artifact":"stories","contentHash":"sha256:b7f0da1987e1676b2d80dbc051ffe9812bd444cc7da9a17986628d3fefd5fece","instanceCount":1,"presentCount":1,"producer":"user-stories","required":false,"structureHash":"sha256:4c68e1ec5876775759d1b4994af685cc7cbe7dd9cb211184786aededf3630dce"},{"artifact":"team-practices","contentHash":"sha256:b66b09d6d9901ff78f67777dfe9ac8aa4e0ef8f42a44b044a08fecb02b554298","instanceCount":1,"presentCount":1,"producer":"practices-discovery","required":false,"structureHash":"sha256:81cc3dad880da503718cbbe347e9c8247152203cf5ef1291a97f0c25135ddac2"}],"outputs":[{"artifact":"components","contentHash":"sha256:476e6ea199787b272b4f45ce74212541b645e3824c672e32ee5007cb1af01349","instanceCount":1,"presentCount":1,"producer":"domain-design","required":true,"structureHash":"sha256:b9cba8a3388bb9eb4c78d9ed08c05ac4777c3fe714c2e9572cbb19680637b7d1"},{"artifact":"decisions","contentHash":"sha256:d541305019d22a8b6d7b613a5fd8a5201b4fbd6088297fb5054a74eedd9a16ed","instanceCount":1,"presentCount":1,"producer":"domain-design","required":true,"structureHash":"sha256:8c4d60ffb332755d7f78fef3661acbb5d94d535a6b8c311d16a6be1228fba49a"},{"artifact":"traceability","contentHash":"sha256:334690168f00d335d43f71475e69414b3748b8c0c772092727bfbbd8bc0118ac","instanceCount":1,"presentCount":1,"producer":"domain-design","required":true,"structureHash":"sha256:57e2a1c7ce821c2581b2d1161584903be9e1e5c74cc123cd2251852bf29582a9"}],"projectType":"greenfield","schema":3}
+**Details**: Stage Domain Design approved by gate
+
+---
+
+## Stage Start
+**Timestamp**: 2026-10-05T22:34:15Z
+**Event**: STAGE_STARTED
+**Stage**: units-generation
+**Agent**: aidlc-architect-agent
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:42:05Z
+**Event**: SENSOR_FIRED
+**Fire id**: 41e66cee
+**Sensor ID**: required-sections
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work.md
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:42:06Z
+**Event**: SENSOR_FAILED
+**Fire id**: 41e66cee
+**Sensor ID**: required-sections
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work.md
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/units-generation/required-sections-41e66cee.md
+**Findings count**: 2
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:42:06Z
+**Event**: SENSOR_FIRED
+**Fire id**: 9e6121b4
+**Sensor ID**: required-sections
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work-dependency.md
+
+---
+
+## Sensor Passed
+**Timestamp**: 2026-10-05T22:42:07Z
+**Event**: SENSOR_PASSED
+**Fire id**: 9e6121b4
+**Sensor ID**: required-sections
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work-dependency.md
+**Duration ms**: 473
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:42:07Z
+**Event**: SENSOR_FIRED
+**Fire id**: c48da223
+**Sensor ID**: required-sections
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work-story-map.md
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:42:07Z
+**Event**: SENSOR_FAILED
+**Fire id**: c48da223
+**Sensor ID**: required-sections
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work-story-map.md
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/units-generation/required-sections-c48da223.md
+**Findings count**: 2
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:42:08Z
+**Event**: SENSOR_FIRED
+**Fire id**: 682886b0
+**Sensor ID**: required-sections
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/traceability.json
+
+---
+
+## Sensor Passed
+**Timestamp**: 2026-10-05T22:42:08Z
+**Event**: SENSOR_PASSED
+**Fire id**: 682886b0
+**Sensor ID**: required-sections
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/traceability.json
+**Duration ms**: 422
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:42:09Z
+**Event**: SENSOR_FIRED
+**Fire id**: 59d443fa
+**Sensor ID**: upstream-coverage
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work.md
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:42:10Z
+**Event**: SENSOR_FAILED
+**Fire id**: 59d443fa
+**Sensor ID**: upstream-coverage
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work.md
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/units-generation/upstream-coverage-59d443fa.md
+**Findings count**: 4
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:42:10Z
+**Event**: SENSOR_FIRED
+**Fire id**: 0191c047
+**Sensor ID**: upstream-coverage
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work-dependency.md
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:42:11Z
+**Event**: SENSOR_FAILED
+**Fire id**: 0191c047
+**Sensor ID**: upstream-coverage
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work-dependency.md
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/units-generation/upstream-coverage-0191c047.md
+**Findings count**: 4
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:42:11Z
+**Event**: SENSOR_FIRED
+**Fire id**: 67495621
+**Sensor ID**: upstream-coverage
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work-story-map.md
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:42:12Z
+**Event**: SENSOR_FAILED
+**Fire id**: 67495621
+**Sensor ID**: upstream-coverage
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/unit-of-work-story-map.md
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/units-generation/upstream-coverage-67495621.md
+**Findings count**: 4
+
+---
+
+## Sensor Fired
+**Timestamp**: 2026-10-05T22:42:13Z
+**Event**: SENSOR_FIRED
+**Fire id**: b1e796ca
+**Sensor ID**: upstream-coverage
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/traceability.json
+
+---
+
+## Sensor Failed
+**Timestamp**: 2026-10-05T22:42:13Z
+**Event**: SENSOR_FAILED
+**Fire id**: b1e796ca
+**Sensor ID**: upstream-coverage
+**Stage slug**: units-generation
+**Output path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/units-generation/traceability.json
+**Detail path**: aidlc/spaces/default/intents/261001-telemetria-vehicular/.aidlc-engine/sensors/units-generation/upstream-coverage-b1e796ca.md
+**Findings count**: 4
+
+---
+
+## Stage Awaiting Approval
+**Timestamp**: 2026-10-05T22:42:13Z
+**Event**: STAGE_AWAITING_APPROVAL
+**Stage**: units-generation
+**Recovered**: true
+
+---
+
+## Error Logged
+**Timestamp**: 2026-10-05T22:42:14Z
+**Event**: ERROR_LOGGED
+**Tool**: aidlc-state
+**Command**: aidlc-state engine state approve units-generation --user-input Approve --project-dir <project-dir>
+**Error**: Cannot approve "units-generation" because no new human reply has been received for this approval question. Wait for the human to type their choice, then retry the approval. This needs a fresh human turn: wait for the person to reply, then record it again.
+
+---

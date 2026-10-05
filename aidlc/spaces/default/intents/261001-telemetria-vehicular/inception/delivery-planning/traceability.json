@@ -1,0 +1,30 @@
+{
+  "stage": "2.9",
+  "artifacts": [
+    {
+      "file": "bolt-plan.md",
+      "tracesTo": [
+        "../units/unit-of-work.md",
+        "../contracts/contract-summary.md"
+      ]
+    },
+    {
+      "file": "risk-and-sequencing-rationale.md",
+      "tracesTo": [
+        "bolt-plan.md"
+      ]
+    },
+    {
+      "file": "team-allocation.md",
+      "tracesTo": [
+        "bolt-plan.md"
+      ]
+    },
+    {
+      "file": "external-dependency-map.md",
+      "tracesTo": [
+        "bolt-plan.md"
+      ]
+    }
+  ]
+}

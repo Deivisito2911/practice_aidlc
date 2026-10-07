@@ -12,3 +12,6 @@
 - **Qué etapas pasaste:** Desde Domain Design (2.6) hasta Delivery Planning (2.9), finalizando con éxito la fase de Inception.
 - **Qué cambiaste o rechazaste:** (1) En 2.6 hubo contradicciones arquitectónicas: la opción A impedía ciertos tests unitarios y la B creaba múltiples Lambdas que contradecían el Walking Skeleton acordado en el Día 2; optamos por una única Lambda directa. (2) En 2.8 rechacé el contrato base exigiendo trazas (`X-Correlation-Id`) y el código `429 Too Many Requests` para robustez de Day 2 Operations. 
 - **Qué no entendiste:** Aclarar con Ronnie las fricciones en la definición del Walking Skeleton en la etapa 2.6 y cómo la arquitectura impacta la testeabilidad temprana.
+
+# Día 4 
+esta etapa se demoro bastante, el agente presento problemas en el formato de algunos archivos por la migración desde kiro IDE al generar traceability.json dejo el arreglo de cobertura vacio lo que hizo que el flujo se empezara a romper

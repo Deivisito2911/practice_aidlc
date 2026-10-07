@@ -1,9 +1,13 @@
-# Functional Design Questions - Bolt 1: Walking Skeleton
+# Preguntas de Diseño Funcional
 
-1. **Estructura del Registro Dummy en DynamoDB**
-   Para este primer Bolt (Esqueleto Caminante), la Lambda debe probar la escritura en DynamoDB sin lógica compleja. ¿Prefieres que el registro dummy inserte el payload tal cual llega de API Gateway (para validar la recepción), o que inserte un campo estático tipo `{"status": "skeleton-test", "timestamp": "..."}` para distinguir fácilmente estas pruebas iniciales?
-   - [Answer]: 
+Para avanzar con el diseño funcional del backend de telemetría, necesitamos clarificar los siguientes puntos:
 
-2. **Cuerpo de la Respuesta HTTP 202**
-   El contrato especifica una respuesta HTTP 202 Accepted. Para facilitar las pruebas de este esqueleto end-to-end (Postman/cURL), ¿quieres que devolvamos un JSON con un mensaje como `{"status": "accepted", "msg_id": "..."}` (útil para debug), o mantenemos el cuerpo estrictamente vacío?
-   - [Answer]: 
+1. **Estructura del registro dummy en DynamoDB**
+   ¿Cuál debe ser la estructura exacta de los datos (por ejemplo: Partition Key, Sort Key y campos adicionales) del registro dummy que se va a insertar en DynamoDB?
+
+   [Answer]: Insertar el payload exactamente tal cual llega desde API Gateway, utilizando el `eventId` como Partition Key (PK). Queremos asegurar la trazabilidad del dato crudo.
+
+2. **Cuerpo de la respuesta HTTP 202**
+   ¿Cuál debe ser el formato y contenido del payload de la respuesta HTTP 202 (Accepted) que retornará la API al encolar o procesar correctamente los datos de telemetría?
+
+   [Answer]: El cuerpo de la respuesta debe ser un JSON que incluya el ID de correlación para facilitar el rastreo E2E. Ejemplo: `{"status": "accepted", "msg_id": "<X-Correlation-Id>"}`.

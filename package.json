@@ -1,0 +1,35 @@
+{
+  "name": "vehicle-telemetry",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "vitest run src/telemetry",
+    "test:integration": "vitest run tests/integration",
+    "format": "prettier --write src infra bin tests README.md package.json tsconfig.json vitest.config.ts",
+    "format:check": "prettier --check src infra bin tests README.md package.json tsconfig.json vitest.config.ts",
+    "lint": "eslint src infra bin tests",
+    "cdk:synth": "cdk synth",
+    "audit:deps": "npm audit --omit=dev --audit-level=high"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.900.0",
+    "@aws-sdk/client-sqs": "^3.900.0",
+    "@aws-sdk/lib-dynamodb": "^3.900.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.150",
+    "@types/node": "^22.15.0",
+    "aws-cdk": "^2.1030.0",
+    "aws-cdk-lib": "^2.220.0",
+    "constructs": "^10.4.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^9.37.0",
+    "prettier": "^3.6.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^5.0.3"
+  }
+}

@@ -1,0 +1,795 @@
+{
+  "/Telemetry-staging": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/EventsTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "EventsTableD24865E5"
+      }
+    }
+  ],
+  "/Telemetry-staging/OutboxTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "OutboxTable0731F305"
+      }
+    }
+  ],
+  "/Telemetry-staging/ApiUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:180:5)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/DataKey/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DataKey17AFBB84"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Key2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:25:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/InputDlq/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InputDlqC0235BAA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:30:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/InputQueue/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InputQueueFD90041C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:36:19)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/AlertQueue/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AlertQueue78A7D684"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Queue2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:43:20)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/EventsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventsTableD24865E5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Table2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:48:25)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/OutboxTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OutboxTable0731F305"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Table2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:58:25)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Ingest/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Ingest4069586C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:85:20)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:85:20)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/Processor/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Processor60228016"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:91:23)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Publisher/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublisherF0355618"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:97:23)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/PendingSweep/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PendingSweepA455F80E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Rule2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:126:5)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/PendingSweep/AllowEventRuleTelemetrystagingPublisher8B445409": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PendingSweepAllowEventRuleTelemetrystagingPublisher8B445409D94839D4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Rule2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:126:5)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiF70053CD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new RestApi2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:130:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/Account": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiAccountA18C9B29"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new RestApi2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:130:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/Endpoint": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiEndpoint4F160690"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new RestApi2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:130:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/AuditBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuditBucketB01E0AE8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:145:25)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/AuditTrail/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuditTrailFF0F2BB5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Trail2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:156:5)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/DlqAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DlqAlarmAA93C9B0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:162:5)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/InputAgeAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InputAgeAlarmCC509718"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:168:5)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/IngestErrorAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IngestErrorAlarm8D1F3E9F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:174:5)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/CDKMetadata/Condition": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadataAvailable"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/DataKey/Alias/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DataKeyAliasF989EB84"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Key2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:25:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Ingest/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IngestServiceRole0956ED6B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:85:20)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Ingest/LogRetention/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IngestLogRetentionA4981524"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:85:20)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:85:20)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/Processor/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProcessorServiceRole5039D372"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:91:23)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Processor/LogRetention/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProcessorLogRetention3AC18A3D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:91:23)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Processor/SqsEventSource:TelemetrystagingInputQueue45C52F51/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProcessorSqsEventSourceTelemetrystagingInputQueue45C52F5122F40BD9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...NodejsFunction.addEventSource in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:116:15)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Publisher/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublisherServiceRoleF4D9160F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:97:23)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Publisher/LogRetention/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublisherLogRetentionE4EC9FBA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:97:23)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Publisher/DynamoDBEventSource:TelemetrystagingOutboxTable7C4D159C/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublisherDynamoDBEventSourceTelemetrystagingOutboxTable7C4D159CAE24DB46"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...NodejsFunction.addEventSource in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:119:15)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/CloudWatchRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiCloudWatchRole73EC6FC4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new RestApi2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:130:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/Deployment/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiDeploymentB17BE62Dffca3dde10006e2c0e293ee8a38d9afa"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new RestApi2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:130:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/DeploymentStage.prod/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiDeploymentStageprod3EB9684E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new RestApi2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:130:17)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/UsagePlan/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiUsagePlanDBBE8AB1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...PropertyInjectable.addUsagePlan in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:137:22)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/UsagePlan/UsagePlanKeyResource:TelemetrystagingApiClientKey9666E81D": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiUsagePlanUsagePlanKeyResourceTelemetrystagingApiClientKey9666E81D175528A2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...PropertyInjectable.addApiKey in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:144:10)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/ClientKey/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiClientKey398C39A9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...PropertyInjectable.addApiKey in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:143:24)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/AuditBucket/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuditBucketPolicy9F807F4B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:145:25)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/Ingest/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IngestServiceRoleDefaultPolicyB95F9D07"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/Processor/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProcessorServiceRoleDefaultPolicyDA9D4DBA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/Publisher/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublisherServiceRoleDefaultPolicy0E21E942"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/Default/telemetry-events/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApitelemetryeventsE99B199C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...RootResource.addResource in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:135:8)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/Default/telemetry-events/POST/ApiPermission.TelemetrystagingApi49CCE7BC.POST..telemetry-events": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApitelemetryeventsPOSTApiPermissionTelemetrystagingApi49CCE7BCPOSTtelemetryevents5EEDA3C3"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...PropertyInjectable.addMethod in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:136:8)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/Default/telemetry-events/POST/ApiPermission.Test.TelemetrystagingApi49CCE7BC.POST..telemetry-events": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApitelemetryeventsPOSTApiPermissionTestTelemetrystagingApi49CCE7BCPOSTtelemetryeventsA22EF143"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...PropertyInjectable.addMethod in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:136:8)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/Api/Default/telemetry-events/POST/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApitelemetryeventsPOST5B7CE7AB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...PropertyInjectable.addMethod in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:136:8)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:56)",
+        "...node internals, tsx..."
+      ]
+    }
+  ]
+}

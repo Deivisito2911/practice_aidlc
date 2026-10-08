@@ -149,3 +149,20 @@ Según la guía `guia-aidlc-deivith.html`, para aprobar el taller se requieren *
 - **Incidencia Técnica Documentada (El Bucle de Bun):**
   - *Diagnóstico:* Durante la validación final del esqueleto, el motor AI-DLC entró en un bucle fantasma (`load-steering`). Descubrimos que el framework estaba fallando en silencio porque depende internamente de `bun` para parsear *hooks* de TypeScript rápido, y no estaba instalado en Windows.
   - *Solución Operativa:* La instalación clásica por `npm` descargaba un binario corrupto para la plataforma. Se solucionó instalando Bun con el script nativo de PowerShell (`irm bun.sh/install.ps1 | iex`) y registrando su ruta permanentemente en el `PATH` del usuario. Al abrir una nueva terminal, el framework reconoció el runtime, rompió el bucle fantasma y logró avanzar a la verificación de la unidad.
+
+### 14. Registro de Decisiones e Impacto (Día 6)
+- **Modo Operativo:** Continuamos en Codex CLI, superando definitivamente el bloqueo del Día 4 y cerrando el *Functional Design*. La sesión de hoy estuvo fuertemente enfocada en controlar el comportamiento del agente LLM y proteger la arquitectura acordada.
+
+- **Interacción 18 (El Atajo del LLM - "Laziness"):** Al pasar a la etapa de `nfr-design`, Codex intentó saltarse el trabajo emitiendo comandos de auto-aprobación (`awaiting-approval` y `approved`) a espaldas del usuario. 
+  - *Acción:* El usuario intervino con una orden estricta en el comando `/aidlc resume`, obligando al agente a detener la auto-aprobación, redactar el análisis real y abrir la puerta humana para revisión.
+
+- **Interacción 19 (La Alucinación de las 3 Lambdas y Rechazo de Infraestructura):** En `infrastructure-design`, el agente generó una propuesta sobrediseñada de 7 saltos que incluía 3 Lambdas (ingreso, procesadora, publicadora) y una SQS de entrada. 
+  - *Impacto:* Esto violaba frontalmente la estrategia "Minimal" del *Walking Skeleton* validada en el Día 5 y la decisión de "Única Lambda" del Día 3.
+  - *Acción:* El usuario aplicó un **Request Changes** contundente, forzando la corrección hacia el diseño original: API Gateway → Lambda Única → DynamoDB (con patrón Outbox).
+
+- **Interacción 20 (Disputa del Contrato y BVA - 400 vs 202):** El agente arquitecto intentó rebajar las reglas de QA para justificar su código (las 3 Lambdas), proponiendo emitir un HTTP `202` asíncrono incluso para eventos inválidos.
+  - *Decisión del Usuario:* Rechazo total. El usuario fue firme y exigió mantener la regla estricta de **Rechazo Temprano (400 Bad Request) de forma síncrona** ante cualquier fallo BVA. No se permite encolar "basura".
+
+- **Estado de Cierre y Bloqueo de Seguridad:** El agente corrigió el diseño a la perfección (1 sola Lambda, validación síncrona) y marcó el código actual de 3 Lambdas como un "GAP". Al intentar el usuario dar **Approve** final, el estricto motor de AI-DLC rechazó cerrar la etapa: debido a que los documentos de diseño habían cambiado radicalmente tras la corrección, el *checkpoint* anterior de `telemetry-backend` perdió validez.
+  - *Impacto:* Esta es una muestra brillante de la seguridad de AI-DLC. El framework impidió que el código malo de 3 Lambdas fuera "verificado" por accidente. 
+  - *Próximo Paso:* La etapa queda abierta de forma segura. En la próxima sesión se usará `aidlc --resume` para que el motor asimile el nuevo diseño y proceda a exigir la re-escritura/alineación del código en la siguiente etapa de Construcción.

@@ -23,3 +23,8 @@
 - **Qué etapas pasaste:** Desde la resolución del bucle en *functional-design* hasta la finalización de la etapa *Code Generation*, logrando que las 23 pruebas unitarias y la prueba integrada de nuestro *Walking Skeleton* pasaran en verde a la primera.
 - **Qué cambiaste o rechazaste:** En las puertas de aclaración prioricé los requisitos de negocio (BDD) sobre los contratos: permití IDs flexibles para hardware IoT y forcé el patrón Outbox transaccional para alertas. Además, cambié la estrategia de entorno inyectando manualmente las firmas de *trust* en Codex para evitar los bloqueos del TUI.
 - **Qué no entendiste:** Me costó entender por qué el framework entraba en un bucle fantasma de `load-steering`, hasta que descubrí que el motor dependía internamente de `bun` para ejecutar validaciones en TypeScript, el cual fallaba en silencio en Windows al instalarse vía npm.
+
+# Día 6
+- **Qué etapas pasaste:** Desde NFR Design (3.3) hasta el rediseño y revisión humana en Infrastructure Design (3.4).
+- **Qué cambiaste o rechazaste:** Rechacé tajantemente el diseño de infraestructura porque Codex "alucinó" una arquitectura de 3 Lambdas que rompía la estrategia minimalista. Obligué al agente a regresar a la "Única Lambda procesadora" acordada. También rechacé su intento de cambiar el contrato para aceptar basura asíncrona (código 202), forzándolo a mantener nuestro rechazo síncrono original (código 400).
+- **Qué no entendiste:** Me pareció curioso y confuso ver cómo el agente (Codex) intentaba "auto-aprobarse" las etapas sin hacer el trabajo (LLM laziness), y cómo el framework AI-DLC fue tan estricto al final que bloqueó el cierre de la etapa porque la corrección de los documentos de diseño invalidó el checkpoint del código anterior.

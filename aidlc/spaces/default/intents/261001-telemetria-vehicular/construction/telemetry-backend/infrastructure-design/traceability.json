@@ -42,8 +42,8 @@
     },
     {
       "id": "NFR1.2",
-      "status": "OK",
-      "target": "infrastructure-specification.md, monitoring-design.md"
+      "status": "GAP",
+      "target": "infrastructure-specification.md: 202 sigue a confirmación DynamoDB, no a SQS de entrada; requisito aguas arriba por reconciliar"
     },
     {
       "id": "NFR1.3",
@@ -53,17 +53,17 @@
     {
       "id": "NFR2.1",
       "status": "OK",
-      "target": "infrastructure-specification.md, monitoring-design.md"
+      "target": "infrastructure-specification.md, monitoring-design.md: aceptados con 202 ya persistidos tras BVA síncrona"
     },
     {
       "id": "NFR2.2",
       "status": "OK",
-      "target": "infrastructure-specification.md, monitoring-design.md"
+      "target": "monitoring-design.md: acceptedAt único para solicitudes válidas y medición hasta confirmación DynamoDB"
     },
     {
       "id": "NFR2.3",
-      "status": "OK",
-      "target": "infrastructure-specification.md, monitoring-design.md"
+      "status": "GAP",
+      "target": "infrastructure-specification.md: no existe consumo de SQS de entrada; conservar objetivo 100 solicitudes/s y reconciliar mecanismo aguas arriba"
     },
     {
       "id": "NFR3.1",
@@ -103,7 +103,7 @@
     {
       "id": "NFR5.4",
       "status": "OK",
-      "target": "infrastructure-specification.md, cicd-pipeline.md"
+      "target": "infrastructure-specification.md, cicd-pipeline.md: BVA síncrona y 400 antes de DynamoDB o SQS"
     },
     {
       "id": "NFR6.1",
@@ -112,8 +112,8 @@
     },
     {
       "id": "NFR7.1",
-      "status": "OK",
-      "target": "infrastructure-specification.md, monitoring-design.md"
+      "status": "GAP",
+      "target": "infrastructure-specification.md: sin lote SQS de entrada ni DLQ de ingreso; requisito aguas arriba por reconciliar"
     },
     {
       "id": "NFR7.2",
@@ -132,13 +132,13 @@
     },
     {
       "id": "NFR7.5",
-      "status": "OK",
-      "target": "infrastructure-specification.md, monitoring-design.md"
+      "status": "GAP",
+      "target": "monitoring-design.md: edad/profundidad de SQS de entrada ya no aplica; conservar métricas de outbox y alertas"
     },
     {
       "id": "NFR7.6",
-      "status": "OK",
-      "target": "infrastructure-specification.md, monitoring-design.md"
+      "status": "GAP",
+      "target": "monitoring-design.md: alarma DLQ de ingreso ya no aplica; reconciliar inventario de alarmas"
     },
     {
       "id": "NFR7.7",
@@ -172,8 +172,8 @@
     },
     {
       "id": "NFR9.3",
-      "status": "OK",
-      "target": "infrastructure-specification.md, monitoring-design.md"
+      "status": "GAP",
+      "target": "infrastructure-specification.md: SQS se conserva solo para alertas, no para ingreso; decisión de tecnología aguas arriba por reconciliar"
     },
     {
       "id": "NFR10.1",

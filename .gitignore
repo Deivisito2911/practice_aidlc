@@ -48,12 +48,6 @@ aidlc/.aidlc-unit-releases/
 aidlc/.aidlc-unit-merges/
 # Atomic active-space create staging (normally unlinked immediately).
 aidlc/.aidlc-active-space-*.tmp
-# Per-turn roll-forward guard (Kiro): a turn counter + a read-only/nav latch the
-# userPromptSubmit seam stamps and the engine done-guard / preToolUse backstop
-# read. Per-machine runtime, never shared truth. (Inert on Kiro IDE, which has no
-# userPromptSubmit/preToolUse seam — kept for parity with the Kiro CLI tree.)
-aidlc/.aidlc-turn-counter
-aidlc/.aidlc-readonly-latch
 # Per-conversation session→intent map (resume rebind, P8): per-user runtime
 # state keyed by Claude Code session_id, never shared truth.
 aidlc/.aidlc-sessions/
@@ -88,5 +82,9 @@ aidlc/diagnostics/
 # concurrent appends — there is intentionally NO .gitattributes merge=union,
 # which was proven to corrupt the multi-line audit blocks) ·
 # aidlc/spaces/*/intents/*/<phase>/<stage>/*.md (artifacts + diary).
+
+# kiro-ide harness
+aidlc/.aidlc-turn-counter
+aidlc/.aidlc-readonly-latch
 # END AI-DLC:gitignore
 aidlc.settings.local.json

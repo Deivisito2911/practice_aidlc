@@ -14,7 +14,7 @@
 <!-- example: 2026-05-29T10:14:32Z — confirm the retention window with compliance before the next stage hardens the schema -->
 
 ## Interpretations
-- 2026-10-08T04:04:03Z — La decisión posterior de alerta lógica prevalece sobre una historia que prometía una sola entrega física. Se corrigió AC3.1.5 para permitir reentregas con alertId estable y deduplicación contractual.
+- 2026-10-08T04:16:32Z — La validación por tipo y reloj exige una función de ingreso antes de SQS. Se alineó el catálogo de componentes y el contrato con esta decisión para que la implementación no dependa de una integración directa incapaz de expresar toda la validación.
 
 ## Tradeoffs
-- 2026-10-08T04:04:03Z — rawPayload conserva el cuerpo HTTP original y los metadatos se almacenan aparte. Así se satisface la trazabilidad del dato crudo junto con acceptedAt, TTL y la salida PENDING atómica.
+- 2026-10-08T04:16:32Z — Se eligieron tablas separadas para evento y salida, unidas por transacción, para mantener eventId como PK del evento y permitir recuperación de PENDING por índice.

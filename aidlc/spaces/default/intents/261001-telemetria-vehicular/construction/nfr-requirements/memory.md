@@ -14,7 +14,4 @@
 <!-- example: 2026-05-29T10:14:32Z — confirm the retention window with compliance before the next stage hardens the schema -->
 
 ## Interpretations
-- 2026-10-08T04:04:03Z — La decisión posterior de alerta lógica prevalece sobre una historia que prometía una sola entrega física. Se corrigió AC3.1.5 para permitir reentregas con alertId estable y deduplicación contractual.
-
-## Tradeoffs
-- 2026-10-08T04:04:03Z — rawPayload conserva el cuerpo HTTP original y los metadatos se almacenan aparte. Así se satisface la trazabilidad del dato crudo junto con acceptedAt, TTL y la salida PENDING atómica.
+- 2026-10-08T04:09:31Z — Los diez NFR de requisitos ya fijan las metas verificables de esta unidad. Se derivaron subrequisitos sin introducir objetivos RTO/RPO nuevos ni cifras de crecimiento no aprobadas.

@@ -1,0 +1,28 @@
+{
+  "stage": "code-generation",
+  "unit": "telemetry-backend",
+  "version": 1,
+  "writes": [
+    { "path": "src/telemetry/model.ts" },
+    { "path": "src/telemetry/model.test.ts" },
+    { "path": "src/telemetry/adapters.ts" },
+    { "path": "src/telemetry/adapters.test.ts" },
+    { "path": "src/telemetry/service.ts" },
+    { "path": "src/telemetry/service.test.ts" },
+    { "path": "src/telemetry/handlers.ts" },
+    { "path": "src/telemetry/handlers.test.ts" },
+    { "path": "infra/telemetry-stack.ts" },
+    { "path": "infra/telemetry-stack.test.ts" },
+    { "path": "bin/telemetry.ts" },
+    { "path": "tests/integration/telemetry-flow.test.ts" },
+    { "path": "package.json" },
+    { "path": "package-lock.json" },
+    { "path": "tsconfig.json" },
+    { "path": "vitest.config.ts" },
+    { "path": "eslint.config.mjs" },
+    { "path": ".prettierrc.json" },
+    { "path": "cdk.json" },
+    { "path": "README.md" },
+    { "path": "docs/telemetry-verification.md" }
+  ]
+}

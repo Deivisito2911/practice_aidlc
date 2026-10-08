@@ -1,0 +1,1 @@
+npm run test:integration -- tests/integration/telemetry-flow.test.ts

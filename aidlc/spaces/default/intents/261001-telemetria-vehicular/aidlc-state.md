@@ -42,6 +42,22 @@
 
 - **Skeleton Stance**: on
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- **Construction Verification Command**: npm run test:integration -- tests/integration/telemetry-flow.test.ts
+
 ## Phase Progress
 <!-- Status values: Pending, Active, Verified, Skipped -->
 
@@ -103,7 +119,7 @@ Per unit: [telemetry-backend - Bolt 1]
 - **Current Stage**: functional-design
 - **Next Stage**: nfr-requirements
 - **Status**: Running
-- **Last Updated**: 2026-10-06T23:01:33Z
+- **Last Updated**: 2026-10-08T05:08:24Z
 
 ## Session Resume Point
 - **Last Completed Stage**: delivery-planning

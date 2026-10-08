@@ -13,8 +13,5 @@
 ## Open questions
 <!-- example: 2026-05-29T10:14:32Z — confirm the retention window with compliance before the next stage hardens the schema -->
 
-## Interpretations
-- 2026-10-08T04:04:03Z — La decisión posterior de alerta lógica prevalece sobre una historia que prometía una sola entrega física. Se corrigió AC3.1.5 para permitir reentregas con alertId estable y deduplicación contractual.
-
 ## Tradeoffs
-- 2026-10-08T04:04:03Z — rawPayload conserva el cuerpo HTTP original y los metadatos se almacenan aparte. Así se satisface la trazabilidad del dato crudo junto con acceptedAt, TTL y la salida PENDING atómica.
+- 2026-10-08T04:12:35Z — No se añadió caché al camino de ingestión porque solo hay escrituras y no existe consulta histórica en alcance. La cola y la salida duradera aíslan el ingreso, la persistencia y la publicación de alertas.

@@ -1,0 +1,764 @@
+{
+  "stage": "code-generation",
+  "unit": "telemetry-backend",
+  "upstream_ids": [
+    "AC1.1.1",
+    "AC1.1.2",
+    "AC1.1.3",
+    "AC1.1.4",
+    "AC1.1.5",
+    "AC1.2.1",
+    "AC1.2.2",
+    "AC1.2.3",
+    "AC1.2.4",
+    "AC1.2.5",
+    "AC1.2.6",
+    "AC2.1.1",
+    "AC2.1.2",
+    "AC2.1.3",
+    "AC2.1.4",
+    "AC2.1.5",
+    "AC2.1.6",
+    "AC3.1.1",
+    "AC3.1.2",
+    "AC3.1.3",
+    "AC3.1.4",
+    "AC3.1.5",
+    "AC3.1.6",
+    "AC3.2.1",
+    "AC3.2.2",
+    "AC3.2.3",
+    "AC3.2.4",
+    "AC4.1.1",
+    "AC4.1.2",
+    "AC4.1.3",
+    "AC4.1.4",
+    "AC4.2.1",
+    "AC4.2.2",
+    "AC4.2.3",
+    "AC4.2.4",
+    "AC4.2.5",
+    "AC5.1.1",
+    "AC5.1.2",
+    "AC5.1.3",
+    "AC5.1.4",
+    "AC5.2.1",
+    "AC5.2.2",
+    "AC5.2.3",
+    "AC5.2.4",
+    "AC6.1.1",
+    "AC6.1.2",
+    "AC6.1.3",
+    "AC6.1.4",
+    "AC6.2.1",
+    "AC6.2.2",
+    "AC6.2.3",
+    "AC6.2.4",
+    "AC6.3.1",
+    "AC6.3.2",
+    "AC6.3.3",
+    "AC6.3.4",
+    "NFR1.1",
+    "NFR1.2",
+    "NFR1.3",
+    "NFR2.1",
+    "NFR2.2",
+    "NFR2.3",
+    "NFR3.1",
+    "NFR3.2",
+    "NFR4.1",
+    "NFR4.2",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR5.3",
+    "NFR5.4",
+    "NFR6.1",
+    "NFR7.1",
+    "NFR7.2",
+    "NFR7.3",
+    "NFR7.4",
+    "NFR7.5",
+    "NFR7.6",
+    "NFR7.7",
+    "NFR7.8",
+    "NFR8.1",
+    "NFR8.2",
+    "NFR9.1",
+    "NFR9.2",
+    "NFR9.3",
+    "NFR10.1",
+    "NFR10.2",
+    "NFR10.3",
+    "BR1.1",
+    "BR1.2",
+    "BR1.3",
+    "BR1.4",
+    "BR1.5",
+    "BR1.6",
+    "BR1.7",
+    "BR2.1",
+    "BR2.2",
+    "BR2.3",
+    "BR2.4",
+    "BR2.5",
+    "BR3.1",
+    "BR3.2",
+    "BR3.3",
+    "BR3.4",
+    "BR4.1",
+    "BR4.2",
+    "BR4.3",
+    "BR5.1",
+    "BR5.2",
+    "BR6.1",
+    "BR6.2",
+    "FR1",
+    "FR2",
+    "FR3",
+    "FR4",
+    "FR5",
+    "FR6",
+    "NFR1",
+    "NFR2",
+    "NFR3",
+    "NFR4",
+    "NFR5",
+    "NFR6",
+    "NFR7",
+    "NFR8",
+    "NFR9",
+    "NFR10"
+  ],
+  "coverage": [
+    {
+      "id": "AC1.1.1",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC1.1.2",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC1.1.3",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC1.1.4",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC1.1.5",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC1.2.1",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC1.2.2",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC1.2.3",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC1.2.4",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC1.2.5",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC1.2.6",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC2.1.1",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "AC2.1.2",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "AC2.1.3",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "AC2.1.4",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "AC2.1.5",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "AC2.1.6",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "AC3.1.1",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC3.1.2",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC3.1.3",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC3.1.4",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC3.1.5",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC3.1.6",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC3.2.1",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC3.2.2",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC3.2.3",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC3.2.4",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC4.1.1",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC4.1.2",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC4.1.3",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC4.1.4",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC4.2.1",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC4.2.2",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC4.2.3",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC4.2.4",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC4.2.5",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "AC5.1.1",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC5.1.2",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC5.1.3",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC5.1.4",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "AC5.2.1",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "AC5.2.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "AC5.2.3",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC5.2.4",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts"
+    },
+    {
+      "id": "AC6.1.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "AC6.1.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "AC6.1.3",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC6.1.4",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "AC6.2.1",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC6.2.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "AC6.2.3",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "AC6.2.4",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC6.3.1",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC6.3.2",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC6.3.3",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "AC6.3.4",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts"
+    },
+    {
+      "id": "NFR1.1",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts"
+    },
+    {
+      "id": "NFR1.3",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR2.1",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR2.2",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts"
+    },
+    {
+      "id": "NFR2.3",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR3.1",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR3.2",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR4.1",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "NFR4.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR5.3",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR5.4",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR7.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR7.2",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "NFR7.3",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts"
+    },
+    {
+      "id": "NFR7.4",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "NFR7.5",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR7.6",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR7.7",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts"
+    },
+    {
+      "id": "NFR7.8",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "NFR8.1",
+      "status": "OK",
+      "target": "package.json"
+    },
+    {
+      "id": "NFR8.2",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR9.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR9.2",
+      "status": "OK",
+      "target": "package.json"
+    },
+    {
+      "id": "NFR9.3",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR10.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR10.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR10.3",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "BR1.1",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "BR1.2",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "BR1.3",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "BR1.4",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "BR1.5",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "BR1.6",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "BR1.7",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "BR2.1",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "BR2.2",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "BR2.3",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "BR2.4",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "BR2.5",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "BR3.1",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "BR3.2",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "BR3.3",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "BR3.4",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "BR4.1",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "BR4.2",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "BR4.3",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "BR5.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "BR5.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "BR6.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "BR6.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "FR1",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts"
+    },
+    {
+      "id": "FR2",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts"
+    },
+    {
+      "id": "FR3",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "FR4",
+      "status": "OK",
+      "target": "src/telemetry/service.ts"
+    },
+    {
+      "id": "FR5",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "FR6",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR1",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR2",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR3",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR4",
+      "status": "OK",
+      "target": "src/telemetry/model.ts"
+    },
+    {
+      "id": "NFR5",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR6",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR7",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR8",
+      "status": "GAP",
+      "note": "Pendiente de validación o etapa posterior."
+    },
+    {
+      "id": "NFR9",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR10",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    }
+  ]
+}

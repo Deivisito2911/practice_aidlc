@@ -78,7 +78,7 @@ Todas las historias son `Must Have`. El backlog contiene 12 historias pequeñas 
 - **AC3.1.2:** Given `battery.value = 20`, When se procesa, Then no se crea ninguna alerta ni se encola ningún mensaje en SQS.
 - **AC3.1.3:** Given un evento `temperature` o `speed`, When se procesa, Then se ignora silenciosamente para las alertas de batería.
 - **AC3.1.4:** Given una alerta publicada, When un consumidor contractual la lee, Then contiene `vehicleId`, `battery.value`, `timestamp` original y `alertId` rastreable.
-- **AC3.1.5:** Given dos entregas de un evento con el mismo `eventId` y `battery.value < 20`, When Lambda intenta publicar la alerta en SQS, Then inyecta el `alertId` como `MessageDeduplicationId` nativo en la cola SQS, garantizando que el sistema externo reciba exactamente una (1) alerta y SQS descarte el duplicado.
+- **AC3.1.5:** Given dos entregas de un evento con el mismo `eventId` y `battery.value < 20`, When se publica o reintenta la alerta, Then todas las entregas conservan el mismo `alertId` y el consumidor contractual aplica un único efecto lógico; se permiten reentregas físicas.
 - **AC3.1.6:** Given eventos de batería fuera de orden cronológico, When llegan a la cola, Then se procesan sin estado acumulativo: cada evento dispara su alerta independiente si `value < 20`, sin cancelar alertas previas ni bloquear el hilo.
 
 **INVEST:** Valor para P2 a través del límite externo; duplicados y orden de llegada tienen resultados deterministas y verificables sin implementar al consumidor real.

@@ -2,76 +2,99 @@
 
 ```yaml
 components:
-  - name: TelemetryProcessor
-    summary: Process incoming telemetry events from SQS, enforce limits, persist to DynamoDB, and emit battery alerts
+  - name: TelemetryIngress
+    summary: Valida solicitudes HTTP y publica eventos aceptados en SQS.
     behaviour: >
-      Validates telemetry payloads (BVA constraints like battery 0-100, speed 0-300).
-      Enforces idempotency by checking DynamoDB before processing.
-      Calculates TTL (acceptedAt + 90 days).
-      Persists the valid event to DynamoDB.
-      Evaluates battery rule (value < 20); if triggered, publishes to Alerts SQS with deduplication ID.
+      Comprueba clave API en el borde, esquema, rangos y reloj; fija acceptedAt
+      y correlationId; conserva rawPayload y responde 202 solo tras confirmar SQS.
     responsibilities:
-      - Telemetry event validation and persistence
-      - Idempotency enforcement
-      - Battery alert generation
+      - Validación y aceptación HTTP
+      - Propagación de payload crudo y metadatos
     depends_on: []
-    dependents: []
     external_dependencies:
       - name: API Gateway
         kind: api-gateway
-        purpose: Direct integration to enqueue events
+        purpose: Ruta POST /telemetry-events y límites por clave.
       - name: Ingestion SQS
         kind: queue
-        purpose: Buffers incoming telemetry events
-      - name: Telemetry Table (DynamoDB)
-        kind: database
-        purpose: Durable storage for telemetry events
-      - name: Alerts SQS
+        purpose: Publicación asíncrona confirmada.
+    entities: []
+  - name: TelemetryProcessor
+    summary: Consume telemetría y persiste evento y salida de alerta atómicamente.
+    behaviour: >
+      Aplica idempotencia por eventId, conserva rawPayload y acceptedAt,
+      calcula expiresAt y crea una salida PENDING si battery.value es menor que 20.
+    responsibilities:
+      - Persistencia condicional de eventos
+      - Creación transaccional de salidas
+      - Fallos parciales y DLQ
+    depends_on: []
+    external_dependencies:
+      - name: Ingestion SQS
         kind: queue
-        purpose: Output destination for battery alerts
+        purpose: Fuente de eventos.
+      - name: Telemetry Table
+        kind: database
+        purpose: Eventos y retención.
+      - name: Alert Outbox Table
+        kind: database
+        purpose: Salidas duraderas.
     entities:
       - name: TelemetryEvent
         identifier: eventId
-        attributes: [vehicleId, eventType, timestamp, value, acceptedAt, expiresAt]
-      - name: BatteryAlert
+        attributes: [rawPayload, vehicleId, eventType, timestamp, value, correlationId, acceptedAt, expiresAt]
+      - name: AlertOutbox
         identifier: alertId
-        attributes: [eventId, vehicleId, timestamp, batteryLevel]
+        attributes: [eventId, vehicleId, alertType, batteryValue, occurredAt, correlationId, status]
+  - name: AlertPublisher
+    summary: Publica salidas pendientes y confirma su estado.
+    behaviour: >
+      Lee salidas PENDING, publica en SQS con alertId estable y marca PUBLISHED
+      solo tras confirmación; recupera pendientes tras fallos.
+    responsibilities:
+      - Publicación recuperable
+      - Transición condicional de estado
+    depends_on: [TelemetryProcessor]
+    external_dependencies:
+      - name: Alert Outbox Table
+        kind: database
+        purpose: Lectura y actualización de salidas.
+      - name: Alerts SQS
+        kind: queue
+        purpose: Entrega con deduplicación lógica por el consumidor.
+    entities: []
 ```
 
 ## Component Diagram
 
 ```mermaid
-graph TD
-    APIGW[API Gateway] -->|Direct Integration| SQSI[Ingestion SQS]
-    SQSI -->|Triggers| TP[TelemetryProcessor]
-    TP -->|Reads/Writes| DDB[(Telemetry Table)]
-    TP -->|Publishes| SQSA[Alerts SQS]
+flowchart LR
+    APIGW[API Gateway] --> IN[TelemetryIngress]
+    IN --> IQ[SQS de entrada]
+    IQ --> PR[TelemetryProcessor]
+    PR --> EV[(Tabla de eventos)]
+    PR --> OB[(Tabla de salidas)]
+    OB --> PUB[AlertPublisher]
+    PUB --> AQ[SQS de alertas]
 ```
+
+Texto alternativo: el ingreso valida y encola; el procesador persiste el evento y, cuando corresponde, la salida; el publicador entrega alertas pendientes.
 
 ## Component Summary
 
-| Component | Purpose | Depends On | Dependents | Entities Owned |
-|---|---|---|---|---|
-| TelemetryProcessor | Process telemetry, enforce limits, persist, and emit alerts | None | None | TelemetryEvent, BatteryAlert |
+| Component | Purpose | Depends On | Entities Owned |
+|---|---|---|---|
+| TelemetryIngress | Validar y encolar solicitudes HTTP. | Ningún componente propio. | Ninguna. |
+| TelemetryProcessor | Persistir eventos y salidas atómicas. | SQS de entrada. | TelemetryEvent, AlertOutbox. |
+| AlertPublisher | Publicar y recuperar salidas pendientes. | Salida creada por TelemetryProcessor. | Ninguna. |
 
 ## Entity Ownership
 
-| Entity | Owning Component | Identifier | Attributes | References |
-|---|---|---|---|---|
-| TelemetryEvent | TelemetryProcessor | `eventId` | `vehicleId`, `eventType`, `timestamp`, `value`, `acceptedAt`, `expiresAt` | None |
-| BatteryAlert | TelemetryProcessor | `alertId` | `eventId`, `vehicleId`, `timestamp`, `batteryLevel` | None |
-
-## External Dependencies
-
-| Component | Dependency | Kind | Purpose |
+| Entity | Owning Component | Identifier | References |
 |---|---|---|---|
-| TelemetryProcessor | API Gateway | api-gateway | Direct integration to enqueue events |
-| TelemetryProcessor | Ingestion SQS | queue | Buffers incoming telemetry events |
-| TelemetryProcessor | Telemetry Table (DynamoDB) | database | Durable storage for telemetry events |
-| TelemetryProcessor | Alerts SQS | queue | Output destination for battery alerts |
+| TelemetryEvent | TelemetryProcessor | eventId | Ninguna. |
+| AlertOutbox | TelemetryProcessor | alertId | TelemetryEvent.eventId. |
 
 ## Rationale
 
-| Component | Rationale |
-|---|---|
-| TelemetryProcessor | La funcionalidad principal es una única canalización de datos: leer de la cola, validar, guardar en base de datos y generar alertas si es necesario. Al agrupar esta lógica en un único componente (`TelemetryProcessor`), se simplifica el despliegue y se evita el exceso de sobrecarga en la red. **Alternatives Rejected:** Se rechazó crear una Lambda separada para la validación (API) y otra para alertas, ya que esto añadiría latencia y puntos de fallo innecesarios para el volumen de carga esperado (Option A & A seleccionadas). |
+La validación dependiente del reloj y del tipo de evento necesita lógica ejecutable antes de SQS; por eso el ingreso usa Lambda detrás de API Gateway. La salida duradera separa la transacción de DynamoDB de la publicación SQS y admite reentregas físicas sin perder la única alerta lógica.

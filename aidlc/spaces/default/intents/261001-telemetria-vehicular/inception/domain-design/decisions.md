@@ -1,19 +1,15 @@
-# Architecture Decision Records (Domain Design)
+# Decisiones de arquitectura
 
-## ADR-001: Direct Ingestion via API Gateway to SQS
+## ADR-001: Un componente lógico para el Walking Skeleton
 
-- **Context:** La historia US1.1 requiere procesar hasta 100 req/s con baja latencia y encolar el evento de manera asíncrona (NFR1, NFR2).
-- **Decision:** Utilizar la integración directa de AWS API Gateway a SQS sin código intermedio.
-- **Consequences:** 
-  - *Positivo:* Reduce la latencia de ingestión, elimina los costos y arranques en frío (cold starts) de una Lambda inicial y simplifica la arquitectura.
-  - *Negativo:* Las validaciones complejas de negocio no pueden realizarse de forma síncrona en la capa API; se deben manejar de forma asíncrona y utilizar el esquema de API Gateway para validación de forma.
-- **Alternatives Rejected:** Se rechazó crear un componente de software `TelemetryApi` (Lambda detrás de API Gateway) porque añadiría sobrecarga operativa y costo sin beneficios críticos para este flujo.
+- **Context** — El servicio debe validar HTTP sincrónicamente, guardar evento y Outbox de forma atómica, publicar alertas de batería y recuperar `PENDING` periódicamente. La arquitectura aprobada usa una única Lambda de telemetría y no tiene SQS de ingreso. Domain Design define componentes lógicos de código, no recursos desplegables.
+- **Decision** — Mantener un componente `TelemetryService` que posee las entidades `TelemetryEvent` y `OutboxEntry` y atiende dos entradas (HTTP y recuperación programada). DynamoDB y SQS son dependencias externas; API Gateway y EventBridge activan el mismo componente en la única Lambda.
+- **Consequences** — Los invariantes de idempotencia, escritura evento/Outbox, identidad de alerta y transición de estado quedan bajo un propietario. La solución inicia con menos coordinación. El componente puede organizar módulos internos por caso de uso; no se introduce un segundo límite de dominio sin evidencia de ciclo de cambio independiente.
+- **Alternatives Rejected** — `TelemetryIngestion` y `AlertDelivery` como dos componentes lógicos dentro del despliegue único separarían las rutas HTTP y periódica, pero añadirían coordinación y una frontera de propiedad que el Walking Skeleton no necesita. Dividirlos en Lambdas sería contrario a la arquitectura aprobada.
 
-## ADR-002: Unified Processing and Alerting
+## ADR-002: Propiedad conjunta de evento y Outbox
 
-- **Context:** La historia US3.1 requiere publicar una alerta en SQS cuando el nivel de batería es inferior al 20%.
-- **Decision:** El `TelemetryProcessor` evaluará la regla de batería y publicará directamente en la cola SQS de alertas.
-- **Consequences:**
-  - *Positivo:* Simplifica el diseño de componentes, consolida la lógica de telemetría en un único bloque de despliegue y evita buses de eventos adicionales (EventBridge/SNS).
-  - *Negativo:* El `TelemetryProcessor` adquiere múltiples responsabilidades (guardar y alertar), lo que podría requerir segregación futura si las reglas de alerta se vuelven muy complejas.
-- **Alternatives Rejected:** Se rechazó crear un componente independiente `BatteryAlertService` suscrito a un bus de eventos, debido a que añade una complejidad prematura para la rebanada funcional inicial ("Walking Skeleton").
+- **Context** — Una alerta depende de un evento válido y la salida `PENDING` debe crearse en la misma transacción que el evento. Reintentos físicos pueden ocurrir después de un resultado incierto.
+- **Decision** — `TelemetryService` posee ambos registros. `TelemetryEvent` se identifica por `eventId`; `OutboxEntry` por `alertId` determinista y referencia al `eventId` originador.
+- **Consequences** — La consistencia se mantiene en una escritura transaccional y la deduplicación lógica conserva una identidad estable. El esquema exacto, las condiciones y el índice de recuperación quedan para diseño funcional/infraestructura y contrato.
+- **Alternatives Rejected** — Un propietario separado para Outbox o un flujo que escriba evento y alerta en momentos distintos debilitaría la atomicidad y crearía estados parciales.

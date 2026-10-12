@@ -1,39 +1,40 @@
-# Evidencia de descubrimiento de prácticas
+# Evidencia de descubrimiento de prácticas — borrador de revisión
 
 ## Contexto y fuentes consultadas
 
-- `d:\guide_aidlc\aidlc\spaces\default\intents\261001-telemetria-vehicular\aidlc-state.md`: confirma proyecto Greenfield, alcance `workshop`, profundidad Standard, estrategia de pruebas Minimal y Practices Discovery en curso.
-- `d:\guide_aidlc\aidlc\spaces\default\memory\org.md`: proporcionó las prácticas organizacionales sugeridas para ramas, primera rebanada integrada, pruebas, despliegue y estilo. Se trataron como propuestas, no como decisiones del equipo.
-- `d:\guide_aidlc\aidlc\spaces\default\memory\phases\inception.md`: aportó las reglas obligatorias de calidad, arquitectura, trazabilidad e historias para la fase.
-- `d:\guide_aidlc\aidlc\spaces\default\intents\261001-telemetria-vehicular\inception\practices-discovery\practices-discovery-questions.md`: contiene las cinco respuestas humanas como opción A y la confirmación consolidada `[Answer]: Looks correct`.
-- La confirmación consolidada quedó registrada mediante `SUMMARY_CONFIRMATION_RECORDED` con `summary_authorization_id` `52772d1366e2c2f9c9941a932f233f463aaa37d65b512fa7e5426749e68da049`.
+- `aidlc-state.md`: proyecto Greenfield, alcance `workshop`, profundidad Standard y estrategia de pruebas Minimal.
+- `aidlc/spaces/default/memory/org.md` y `phases/inception.md`: defaults organizacionales y reglas de calidad, arquitectura y trazabilidad. Los defaults no se trataron como decisiones nuevas del equipo.
+- `aidlc/spaces/default/memory/team.md` y `project.md`: prácticas previamente afirmadas. La entrada sobre SQS de ingreso permanece allí hasta una promoción posterior a la nueva aprobación humana.
+- `inception/practices-discovery/practices-discovery-questions.md`: respuestas y confirmación de la primera ronda, más la pregunta diferencial 6 respondida `A. Adoptar propuesta.`; las elecciones históricas sobre SQS de entrada se conservan como registro, pero la respuesta 6 las sustituye para este borrador.
+- `construction/telemetry-backend/infrastructure-design/infrastructure-specification.md`: especificación de Lambda única, escritura transaccional de evento/Outbox y barrido periódico de salidas `PENDING` por EventBridge.
+- Feedback humano posterior a la primera implementación: solicitó reconciliar código y pruebas con esa especificación, eliminar la SQS de entrada y sustituirla por API Gateway → Lambda única → DynamoDB/Outbox, con EventBridge para pendientes. Indicó expresamente que la nueva decisión prevalece sobre requisitos y acuerdos anteriores que exigían SQS de entrada, y eligió **Modify** para actualizar prácticas compatibles.
+- `archive/20261012T010158Z-practices-discovery`: copia histórica de los cuatro artefactos y la memoria anteriores a esta revisión.
 
-## Contribuciones especialistas
+## Revisiones especialistas integradas
 
-- `d:\guide_aidlc\aidlc\spaces\default\intents\261001-telemetria-vehicular\inception\practices-discovery\contributions\aidlc-quality-agent.md`: revisó la postura `test-after`, los casos unitarios, el límite estricto de batería, la integración AWS simulada, los reintentos y las puertas de calidad.
-- `d:\guide_aidlc\aidlc\spaces\default\intents\261001-telemetria-vehicular\inception\practices-discovery\contributions\aidlc-developer-agent.md`: revisó nombres, límites entre capas, validación en fronteras, errores, idempotencia, organización por capacidad y convenciones de código.
-- `d:\guide_aidlc\aidlc\spaces\default\intents\261001-telemetria-vehicular\inception\practices-discovery\contributions\aidlc-devsecops-agent.md`: revisó controles de CI/CD, secretos y dependencias, identidad OIDC, IAM, cifrado, auditoría, DLQ, observabilidad y cadena de suministro.
+- `contributions/aidlc-quality-agent.md`: ratifica `test-after` y exige comprobar ambas invocaciones de la Lambda, atomicidad de la transacción, respuesta `202` después de persistir, rechazo sin efectos y recuperación de salidas `PENDING` tras fallos. Advierte que la entrega de SQS puede repetirse.
+- `contributions/aidlc-developer-agent.md`: confirma un único recurso Lambda con módulos internos separados por responsabilidad; recomienda `alertId` estable, transición condicional del Outbox y consulta acotada de pendientes. La arquitectura no promete entrega exactamente una vez.
+- `contributions/aidlc-devsecops-agent.md`: ratifica las puertas de CI y los controles OIDC/IAM/KMS/CloudTrail; recomienda permiso de EventBridge limitado a la regla, acceso DynamoDB y `sqs:SendMessage` solo a recursos necesarios, y evitar permisos de consumo de una cola de ingreso inexistente. Distingue posibles DLQ de invocación EventBridge y de consumidor de alertas, sin sustituir el Outbox.
+- Los tres revisores detectaron que `aidlc/spaces/default/memory/project.md` aún exige la SQS de entrada y contiene una obligación genérica de DLQ. La promoción que solo agregue nuevas reglas dejaría `ALWAYS` y `NEVER` incompatibles. Es imprescindible sustituir o retirar esas obligaciones anteriores por la vía autorizada antes de considerar afirmada la revisión.
 
-## Decisiones humanas confirmadas
+## Decisiones conservadas de la primera afirmación
 
-- Usar desarrollo basado en tronco con ramas cortas, *pull request* y fusión *squash* a `main`.
-- Construir primero una rebanada integrada que incluya API REST, SQS de entrada, Lambda, DynamoDB y la alerta de batería.
-- Adoptar `test-after`, pruebas unitarias por capa y una prueba crítica de integración con AWS simulado; ejecutar en CI formato, *lint* y análisis de dependencias y secretos.
-- Desplegar automáticamente a *staging* al fusionar a `main`, mantener una aprobación manual para producción y aplicar IaC, OIDC, IAM de mínimo privilegio, KMS, CloudTrail, alarmas, DLQ y reversión.
-- Usar TypeScript, AWS CDK, identificadores en inglés, Prettier, ESLint y comprobación de tipos obligatoria en CI.
+- Ramas cortas, *pull request*, fusión *squash* a `main`.
+- `test-after`, pruebas unitarias por capa y prueba integrada crítica con AWS simulado; puertas de CI para formato, *lint*, tipos, pruebas, dependencias y secretos.
+- Despliegue automático a *staging* tras fusionar y aprobación manual para producción; CDK, OIDC, IAM de mínimo privilegio, KMS, CloudTrail, alarmas y reversión.
+- TypeScript, identificadores en inglés, Prettier y ESLint.
+- El límite de batería sigue siendo estricto: `value < 20` genera alerta y `20` no.
 
-## Integración de hallazgos
+## Cambio solicitado y alcance
 
-- La recomendación de calidad sobre el límite estricto quedó reflejada en las prácticas: un valor de batería inferior a `20` genera alerta y `20` no la genera.
-- La prueba de integración con AWS simulado fue afirmada pese a que la estrategia general es Minimal; se conserva como excepción crítica para demostrar el recorrido distribuido.
-- Las propuestas especialistas no incluidas en las opciones confirmadas —por ejemplo, herramientas concretas de SAST/DAST, SBOM, firma de artefactos o estructura interna detallada— no se elevaron a prácticas afirmadas.
-- Las restricciones seleccionadas sobre OIDC, mínimo privilegio, KMS, CloudTrail, alarmas, DLQ y reversión sí se incorporaron porque forman parte explícita de la respuesta humana de despliegue.
+- Sustituir API/SQS de entrada/múltiples Lambdas por API Gateway REST/una Lambda/DynamoDB con evento y salida Outbox escritos atómicamente. EventBridge invoca periódicamente esa misma Lambda para recuperar salidas `PENDING`; SQS permanece solo como cola de alertas.
+- La antigua DLQ de ingreso y las prácticas de reintento por lote de esa cola dejan de aplicar. Una DLQ para un eventual consumidor de alertas y una eventual DLQ de invocación asíncrona de EventBridge son decisiones separadas de sus respectivos ámbitos; ninguna reemplaza el Outbox.
+- El `202` para eventos válidos debe interpretarse tras confirmación de DynamoDB; la validación BVA inválida conserva el `400` sin escritura ni publicación.
+- Requisitos, contrato, diseño funcional, código y pruebas anteriores aún contienen referencias a SQS de entrada. Requieren reconciliación posterior; este borrador no afirma que ya estén actualizados.
 
-## Incertidumbres pendientes
+## Revisión e incertidumbres pendientes
 
-- Definir el contrato detallado de la API y de los eventos: autenticación y autorización, límites de tasa, rangos y formatos, versionado y respuestas de error.
-- Precisar idempotencia, tratamiento de duplicados, reintentos, visibilidad SQS, procesamiento parcial de lotes, política de redrive y configuración de DLQ.
-- Definir el contenido de las alertas, su deduplicación y el comportamiento ante fallos de publicación.
-- Elegir el framework de pruebas, el simulador AWS, las herramientas exactas de análisis y la plataforma CI/CD.
-- Fijar, si corresponde, porcentaje de cobertura, umbrales de vulnerabilidad, tratamiento de pruebas inestables y proceso de excepciones.
-- Concretar estrategia de despliegue de Lambda, umbrales automáticos de reversión, cuentas, regiones, retención y responsables operativos.
+- La entrevista diferencial adoptó el nuevo recorrido y conservó la postura de pruebas, entrega y estilo. Falta la aprobación final y la promoción determinista; ninguna memoria se modificó durante esta integración.
+- El diseño posterior debe fijar la semántica comprobable de petición HTTP repetida, publicación incierta, `alertId` estable, transición condicional y concurrencia de invocaciones, consulta acotada de `PENDING`, frecuencia de EventBridge, antigüedad máxima, reintentos, alarmas y recuperación manual. Se debe probar caída de SQS, timeout tras envío y fallos de DynamoDB sin prometer entrega exactamente una vez.
+- El diseño de seguridad debe precisar autenticación y autorización del emisor, límites de tamaño y tasa, permisos IAM/KMS acotados, protección de datos en registros y alcance de eventos CloudTrail. El diseño de CI debe concretar herramientas y umbrales de SAST, análisis de IaC, dependencias y pruebas dinámicas; estas sugerencias no se elevan a `ALWAYS` sin decisión humana.
+- Siguen por definir plataforma de CI/CD, simulador AWS, porcentaje de cobertura si aplica y umbrales de despliegue y reversión.

@@ -66,6 +66,20 @@
 
 - NEVER excluir de la primera rebanada integrada la generación de alertas para valores de batería inferiores al 20 %. (affirmed 2026-10-02)
 
+- NEVER crear ni usar una SQS de entrada o una DLQ de ingreso en el flujo de telemetría. (affirmed 2026-10-12)
+
+- NEVER dividir la validación, persistencia y publicación de telemetría entre varias Lambdas para esta rebanada. (affirmed 2026-10-12)
+
+- NEVER integrar cambios directamente en `main` sin *pull request* ni fusión *squash*. (affirmed 2026-10-12)
+
+- NEVER promover un despliegue a producción sin aprobación manual. (affirmed 2026-10-12)
+
+- NEVER usar credenciales AWS persistentes en CI cuando el acceso debe realizarse mediante roles temporales OIDC. (affirmed 2026-10-12)
+
+- NEVER integrar cambios si fallan las comprobaciones obligatorias de formato, *lint*, tipos, pruebas, dependencias o secretos. (affirmed 2026-10-12)
+
+- NEVER excluir de la primera rebanada integrada la generación de alertas para valores de batería inferiores al 20 %. (affirmed 2026-10-12)
+
 ## Mandated
 
 <!-- Populated by practices-discovery affirmation gate. -->
@@ -76,7 +90,6 @@
 
 - ALWAYS someter cada cambio a *pull request* y fusionarlo mediante *squash* a `main`. (affirmed 2026-10-02)
 
-- ALWAYS construir primero una rebanada integrada que recorra API REST, SQS de entrada, Lambda, DynamoDB y la SQS de alertas de batería. (affirmed 2026-10-02)
 
 - ALWAYS aplicar la metodología `test-after`, con pruebas unitarias por capa y una prueba de integración crítica con servicios AWS simulados. (affirmed 2026-10-02)
 
@@ -86,12 +99,32 @@
 
 - ALWAYS definir la infraestructura como código mediante AWS CDK y autenticar el pipeline en AWS con roles temporales OIDC. (affirmed 2026-10-02)
 
-- ALWAYS aplicar IAM de mínimo privilegio, cifrado KMS, auditoría CloudTrail, alarmas, DLQ y un plan de reversión. (affirmed 2026-10-02)
 
 - ALWAYS implementar en TypeScript, usar identificadores en inglés y aplicar Prettier y ESLint. (affirmed 2026-10-02)
+
+- ALWAYS trabajar con desarrollo basado en tronco mediante ramas de corta duración. (affirmed 2026-10-12)
+
+- ALWAYS someter cada cambio a *pull request* y fusionarlo mediante *squash* a `main`. (affirmed 2026-10-12)
+
+- ALWAYS construir primero una rebanada integrada que recorra API Gateway REST, una única Lambda de telemetría, DynamoDB con evento y Outbox transaccionales, y la SQS de alertas para `value < 20`. (affirmed 2026-10-12)
+
+- ALWAYS invocar periódicamente la misma Lambda mediante EventBridge para recuperar salidas `PENDING` del Outbox. (affirmed 2026-10-12)
+
+- ALWAYS aplicar la metodología `test-after`, con pruebas unitarias por capa y una prueba de integración crítica con servicios AWS simulados. (affirmed 2026-10-12)
+
+- ALWAYS ejecutar en CI formato, *lint*, comprobación de tipos, pruebas y análisis de dependencias y secretos antes de integrar cambios. (affirmed 2026-10-12)
+
+- ALWAYS desplegar automáticamente a *staging* después de fusionar a `main` y exigir aprobación manual para producción. (affirmed 2026-10-12)
+
+- ALWAYS definir la infraestructura como código mediante AWS CDK y autenticar el pipeline en AWS con roles temporales OIDC. (affirmed 2026-10-12)
+
+- ALWAYS aplicar IAM de mínimo privilegio, cifrado KMS, auditoría CloudTrail, alarmas operativas y un plan de reversión. (affirmed 2026-10-12)
+
+- ALWAYS implementar en TypeScript, usar identificadores en inglés y aplicar Prettier y ESLint. (affirmed 2026-10-12)
 
 ## Corrections
 
 <!-- Project-specific corrections from human feedback. -->
 <!-- Format: NEVER/ALWAYS [behavior] (learned [date]) -->
 - Verificar que el modelo en Kiro en caso de no tener Claude Opus 4.8 sea GPT 5.6 Sol o superior, ya que con el modelo Terra o menores el razonamiento no rendía para todas las instrucciones de aidlc. (learned 2026-10-02) <!-- cid:261001-telemetria-vehicular:practices-discovery:263cd0f8ac99a5375c3692ad5c555959a81f8b7895ea2c3ec92fef3eb81b6b9b -->
+- Para el Walking Skeleton, se descartó la SQS de entrada para evitar sobrediseño prematuro. La validación temprana (400 BVA) debe ser síncrona en una sola Lambda, delegando la resiliencia asíncrona al patrón Outbox en DynamoDB con recuperación periódica por EventBridge. (learned 2026-10-12) <!-- cid:261001-telemetria-vehicular:practices-discovery:36098a4b468f2ab7e4cd6aca647f4da301d5116cc4088d1abc86841ac16ffe3d -->

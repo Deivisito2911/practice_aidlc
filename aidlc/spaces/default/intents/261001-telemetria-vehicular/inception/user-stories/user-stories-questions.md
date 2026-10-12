@@ -1,6 +1,6 @@
 # Plan de historias de usuario
 
-Las respuestas definirán las personas, el tamaño y la organización de las historias. Los requisitos funcionales y no funcionales ya aprobados permanecen como fuente obligatoria.
+Las respuestas históricas definen las personas, el tamaño y la organización de las historias. La decisión posterior al final del archivo sustituye sus menciones a SQS de entrada y DLQ de ingreso. Los requisitos funcionales y no funcionales revisados y aprobados permanecen como fuente obligatoria.
 
 ## Q1. Personas principales
 
@@ -83,3 +83,7 @@ Does this all look correct before I generate the artifact?
 - Request changes
 
 [Answer]: Looks correct
+
+## Decisión posterior para esta revisión — vigente
+
+El usuario eligió **Modify** para conservar los identificadores, las tres personas, las doce historias y las prioridades vigentes. La revisión aprobada de requisitos elimina la SQS de entrada y la DLQ de ingreso. Las respuestas históricas Q4 y Q6 se interpretan ahora para recuperación de salidas Outbox `PENDING`: el Ingeniero de plataforma detecta acumulaciones, inspecciona sin secretos y puede ejecutar un reintento controlado, mientras EventBridge invoca periódicamente la misma Lambda para la recuperación ordinaria. La entrega conserva el consumidor externo de alertas como límite contractual, sin crear otra Lambda consumidora. Los demás criterios de organización y granularidad permanecen vigentes.

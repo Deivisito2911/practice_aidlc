@@ -4,7 +4,7 @@
 
 - **Rol:** equipo o sistema responsable de conectar productores de telemetría vehicular con la API.
 - **Prioridad:** Primaria.
-- **Objetivos:** enviar eventos válidos con baja latencia; recibir respuestas y errores predecibles; respetar cuotas sin duplicar efectos.
+- **Objetivos:** enviar eventos válidos con baja latencia; recibir `202` solo cuando el evento y su salida Outbox aplicable estén persistidos, sin confundirlo con entrega de alerta al consumidor; recibir `400` temprano ante BVA inválida; respetar cuotas sin duplicar efectos.
 - **Puntos de dolor:** contratos ambiguos, errores sin correlación, límites desconocidos y reintentos que producen duplicados.
 - **Contexto:** integración máquina a máquina mediante `POST /telemetry-events`, clave de API y JSON.
 - **Comodidad técnica:** Alta.
@@ -24,9 +24,9 @@
 
 - **Rol:** persona responsable de desplegar, asegurar, observar y recuperar el servicio.
 - **Prioridad:** Primaria para operación y entrega.
-- **Objetivos:** desplegar infraestructura reproducible; cumplir SLO; detectar fallos; inspeccionar DLQ y salidas pendientes; ejecutar redrive idempotente; conservar auditoría.
+- **Objetivos:** desplegar infraestructura reproducible; cumplir SLO; detectar fallos; inspeccionar salidas Outbox `PENDING`; ejecutar reintentos controlados e idempotentes cuando la recuperación periódica no baste; conservar auditoría.
 - **Puntos de dolor:** fallos sin correlación, secretos expuestos, permisos excesivos, alertas pendientes invisibles y recuperación manual insegura.
-- **Contexto:** opera API Gateway, SQS, Lambda, DynamoDB, KMS, CloudTrail, alarmas y CI/CD en `staging`, con aprobación manual para producción. La experiencia puede implementarse con CLI, consola o procedimiento documentado; no requiere una GUI.
+- **Contexto:** opera API Gateway REST, una Lambda de telemetría, DynamoDB, EventBridge periódico, SQS de alertas, KMS, CloudTrail, alarmas y CI/CD en `staging`, con aprobación manual para producción. La experiencia puede implementarse con CLI, consola o procedimiento documentado; no requiere una GUI.
 - **Comodidad técnica:** Alta.
 - **Frecuencia:** Despliegues frecuentes, supervisión continua y recuperación bajo demanda.
 

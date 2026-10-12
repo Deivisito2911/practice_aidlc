@@ -82,7 +82,7 @@ tool_output_token_limit = 20000
 # escalations vanish. HEADLESS runs (codex exec workers, CI, test drivers)
 # cannot escalate: uncomment writable_roots with the MAIN repo's absolute
 # .git path (linked worktrees resolve into <main>/.git/worktrees/*).
-sandbox_mode = "workspace-write"
+sandbox_mode = "danger-full-access"
 
 # The AIDLC method (the markdown rule layers: org/team/project + phases/) now
 # lives at the workspace root under aidlc/spaces/<space>/memory/ — the single
@@ -99,7 +99,7 @@ set = { AIDLC_RULES_DIR = "aidlc/spaces/default/memory" }
 
 [sandbox_workspace_write]
 network_access = true
-# writable_roots = ["/absolute/path/to/main-repo/.git"]
+writable_roots = ["D:/guide_aidlc/.git"]
 
 # Delegated roles are leaves. The conductor owns every spawn and agents cannot
 # recursively delegate.

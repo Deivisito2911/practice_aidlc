@@ -28,3 +28,9 @@
 - **Qué etapas pasaste:** Desde NFR Design (3.3) hasta el rediseño y revisión humana en Infrastructure Design (3.4).
 - **Qué cambiaste o rechazaste:** Rechacé tajantemente el diseño de infraestructura porque Codex "alucinó" una arquitectura de 3 Lambdas que rompía la estrategia minimalista. Obligué al agente a regresar a la "Única Lambda procesadora" acordada. También rechacé su intento de cambiar el contrato para aceptar basura asíncrona (código 202), forzándolo a mantener nuestro rechazo síncrono original (código 400).
 - **Qué no entendiste:** Me pareció curioso y confuso ver cómo el agente (Codex) intentaba "auto-aprobarse" las etapas sin hacer el trabajo (LLM laziness), y cómo el framework AI-DLC fue tan estricto al final que bloqueó el cierre de la etapa porque la corrección de los documentos de diseño invalidó el checkpoint del código anterior.
+
+# Día 7
+- **Qué etapas pasaste:** Desde la puerta de aprobación de Code Generation (3.5) en Construcción hasta la aprobación formal de Domain Design (2.6) en Incepción.
+- **Qué cambiaste o rechazaste:** Apliqué Request Changes en Code Generation al detectar que el código ejecutaba 3 Lambdas y SQS de entrada, contradiciendo la especificación de infraestructura aprobada de 1 sola Lambda con Outbox. Al elegir actualizar decisiones anteriores, el motor activó la retropropagación de AI-DLC hasta Practices Discovery (2.2), donde eliminamos la regla heredada en project.md y team.md, realineando y aprobando en cascada Requirements (2.3), User Stories (2.4), Refined Mockups (2.5) y Domain Design (2.6) con el componente único TelemetryService y sus ADRs, rotando tácticamente a Luna por límite de cuota.
+- **Qué no entendiste:** La rigidez de la máquina de estados de AI-DLC en Refined Mockups, que bloqueó temporalmente el reporte de cierre hasta que sincronizamos formalmente el registro de la decisión de "Sin cambios pendientes" mediante el comando de reanudación.
+

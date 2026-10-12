@@ -1,19 +1,24 @@
-# Restricciones duras descubiertas
+# Restricciones duras propuestas
+
+La entrevista diferencial adoptó la propuesta de revisión. La nueva arquitectura aún requiere aprobación final y sustitución de las reglas antiguas en la memoria del proyecto.
 
 ## Mandated
 
 - ALWAYS trabajar con desarrollo basado en tronco mediante ramas de corta duración.
 - ALWAYS someter cada cambio a *pull request* y fusionarlo mediante *squash* a `main`.
-- ALWAYS construir primero una rebanada integrada que recorra API REST, SQS de entrada, Lambda, DynamoDB y la SQS de alertas de batería.
+- ALWAYS construir primero una rebanada integrada que recorra API Gateway REST, una única Lambda de telemetría, DynamoDB con evento y Outbox transaccionales, y la SQS de alertas para `value < 20`.
+- ALWAYS invocar periódicamente la misma Lambda mediante EventBridge para recuperar salidas `PENDING` del Outbox.
 - ALWAYS aplicar la metodología `test-after`, con pruebas unitarias por capa y una prueba de integración crítica con servicios AWS simulados.
 - ALWAYS ejecutar en CI formato, *lint*, comprobación de tipos, pruebas y análisis de dependencias y secretos antes de integrar cambios.
 - ALWAYS desplegar automáticamente a *staging* después de fusionar a `main` y exigir aprobación manual para producción.
 - ALWAYS definir la infraestructura como código mediante AWS CDK y autenticar el pipeline en AWS con roles temporales OIDC.
-- ALWAYS aplicar IAM de mínimo privilegio, cifrado KMS, auditoría CloudTrail, alarmas, DLQ y un plan de reversión.
+- ALWAYS aplicar IAM de mínimo privilegio, cifrado KMS, auditoría CloudTrail, alarmas operativas y un plan de reversión.
 - ALWAYS implementar en TypeScript, usar identificadores en inglés y aplicar Prettier y ESLint.
 
 ## Forbidden
 
+- NEVER crear ni usar una SQS de entrada o una DLQ de ingreso en el flujo de telemetría.
+- NEVER dividir la validación, persistencia y publicación de telemetría entre varias Lambdas para esta rebanada.
 - NEVER integrar cambios directamente en `main` sin *pull request* ni fusión *squash*.
 - NEVER promover un despliegue a producción sin aprobación manual.
 - NEVER usar credenciales AWS persistentes en CI cuando el acceso debe realizarse mediante roles temporales OIDC.

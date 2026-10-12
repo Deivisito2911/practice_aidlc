@@ -2,6 +2,8 @@
 
 Estas decisiones establecen cómo se construirá, comprobará y desplegará el servicio de telemetría. Las recomendaciones provienen de las prácticas organizacionales y de las revisiones independientes; no se considerarán acordadas hasta que el equipo las confirme.
 
+Las respuestas 1–5 y su confirmación documentan la primera decisión. La revisión 6 registra el cambio posterior de arquitectura y prevalece para el nuevo borrador; las prácticas revisadas aún requieren su aprobación final.
+
 ## 1. Forma de integrar cambios
 
 ¿Cómo quieres que se integren los cambios al proyecto?
@@ -69,3 +71,13 @@ Does this all look correct before I generate the artifact?
 - Request changes
 
 [Answer]: Looks correct
+
+## 6. Revisión de prácticas tras el cambio de arquitectura
+
+La decisión nueva elimina la SQS de entrada y las Lambdas separadas de ingreso y publicación. La propuesta conserva ramas cortas con *pull request* y fusión *squash*, `test-after`, las comprobaciones de CI, TypeScript/CDK, OIDC, IAM, KMS, CloudTrail, despliegue automático a *staging* y aprobación manual de producción. Cambia la primera rebanada y su prueba integrada a API Gateway REST → una Lambda → escritura transaccional en DynamoDB de evento y Outbox → SQS de alertas, con EventBridge para recuperar salidas `PENDING`. Retira la DLQ de ingreso; cualquier DLQ del consumidor de alertas se decidirá dentro del ámbito de ese consumidor. ¿Adoptamos esta revisión para integrar las prácticas?
+
+A. Adoptar propuesta.
+B. Revisar propuesta; indicar qué práctica debe cambiar.
+X. Other (please specify)
+
+[Answer]: A. Adoptar propuesta.

@@ -166,3 +166,51 @@ Según la guía `guia-aidlc-deivith.html`, para aprobar el taller se requieren *
 - **Estado de Cierre y Bloqueo de Seguridad:** El agente corrigió el diseño a la perfección (1 sola Lambda, validación síncrona) y marcó el código actual de 3 Lambdas como un "GAP". Al intentar el usuario dar **Approve** final, el estricto motor de AI-DLC rechazó cerrar la etapa: debido a que los documentos de diseño habían cambiado radicalmente tras la corrección, el *checkpoint* anterior de `telemetry-backend` perdió validez.
   - *Impacto:* Esta es una muestra brillante de la seguridad de AI-DLC. El framework impidió que el código malo de 3 Lambdas fuera "verificado" por accidente. 
   - *Próximo Paso:* La etapa queda abierta de forma segura. En la próxima sesión se usará `aidlc --resume` para que el motor asimile el nuevo diseño y proceda a exigir la re-escritura/alineación del código en la siguiente etapa de Construcción.
+
+### 15. Registro de Decisiones e Impacto (Día 7)
+- **Modo Operativo:** Continuación en Codex CLI con GPT-6-Sol. Diagnóstico de alucinaciones del LLM en el protocolo de transporte y blindaje del entorno Windows / Sandbox de Codex.
+
+- **Interacción 21 (Diagnóstico de Alucinación en `load-steering`):**
+  - *Problema:* Al ejecutar `$aidlc --resume`, Codex CLI entró en un bucle consumiendo bloques de reglas (`load-steering`) y reusó un token caducado (`'7xhytRx-'`). Al recibir el buffer repetido, el LLM alucinó afirmando falsamente que AI-DLC estaba en bucle y pidió ejecutar `$aidlc --doctor`.
+  - *Diagnóstico:* El motor AI-DLC estaba sano; el fallo fue puramente de retención de contexto del LLM al gestionar tokens efímeros de transporte.
+
+- **Interacción 22 (Resolución de Sandbox y Git `EPERM` en Codex):**
+  - *Problema:* El chequeo de `$aidlc --doctor` dentro de Codex arrojó `fail Stale branches: check failed - EPERM: operation not permitted, uv_spawn 'git'`.
+  - *Causa:* El modo sandbox `workspace-write` de Codex impedía que los procesos en segundo plano de AI-DLC invocaran el binario de Git.
+  - *Solución:* Se editó `.codex/config.toml` habilitando `writable_roots = ["D:/guide_aidlc/.git"]` bajo `[sandbox_workspace_write]`.
+
+- **Interacción 23 (Persistencia de PATH en Windows):**
+  - *Problema:* Aviso de `Runtime hook PATH: aidlc is interactive-only at C:\Users\Deivisito\AppData\Local\aidlc\bin\aidlc.cmd`.
+  - *Solución:* Se agregó `C:\Users\Deivisito\AppData\Local\aidlc\bin` permanentemente a las Variables de Entorno del Usuario en Windows. Se confirmó que no se requiere reiniciar la PC, únicamente abrir una nueva terminal.
+
+- **Estrategia de Modelos para la Siguiente Sesión:**
+  - Mantener **GPT-6-Sol (High)** para iniciar la etapa de `code-generation` y revisar el Plan de Generación de Código (garantizando que refleje la arquitectura corregida de 1 sola Lambda).
+  - Rotar a un modelo más económico (Astra / Luna / Terra) una vez aprobado el plan de código, antes de ejecutar la escritura masiva de archivos y pruebas.
+
+### 16. Registro de Decisiones e Impacto (Día 8 - Control Arquitectónico y Reconciliación en Cascada)
+- **Modo Operativo:** Continuación en Codex CLI (GPT-6-Sol). Ejecución de gobernanza de calidad estricta y protocolo de retropropagación del framework AI-DLC.
+
+- **Interacción 24 (Detección de Discrepancia y Rechazo en Code Generation):**
+  - *Contexto:* El código generado en la primera rebanada de `telemetry-backend` superó todas las pruebas (`test:integration` con código 0). Sin embargo, el código implementaba la arquitectura obsoleta (3 Lambdas + SQS de entrada y DLQ), mientras que la especificación de infraestructura aprobada (`infrastructure-specification.md`) exigía 1 sola Lambda sin SQS de entrada (API Gateway → Lambda Única → DynamoDB con Outbox y barrido periódico por EventBridge).
+  - *Acción:* El usuario aplicó un **Request Changes** en la puerta de aprobación de la rebanada, rechazando validar código que contradecía la arquitectura acordada.
+  - *Decisión de Reconciliación:* Ante la consulta del motor, el usuario eligió `Actualizar decisiones anteriores` (prevalencia de la arquitectura de Lambda única) y seleccionó la opción `Modify` para reutilizar y preservar las decisiones funcionales válidas (BVA, idempotencia por `eventId`, retención TTL, `alertId`).
+
+- **Interacción 25 (Retropropagación a Inception - Practices Discovery):**
+  - *Comportamiento del Framework:* En lugar de aplicar un parche superficial en código, el motor AI-DLC navegó automáticamente hacia atrás hasta la etapa raíz de origen en la fase de Incepción: `practices-discovery` (Etapa 2.2).
+  - *Sincronización de Reglas y Memoria:* El protocolo multi-agente (Ensemble) detectó y resolvió el conflicto en la capa de memoria del proyecto (`project.md`), eliminando la exigencia heredada de la SQS de entrada y promoviendo las nuevas prácticas a `team.md`.
+  - *Registro de Aprendizaje (Learnings):* Se registró la nota formal clasificada como **Decisión entre alternativas**: *"Para el Walking Skeleton, se descartó la SQS de entrada para evitar sobrediseño prematuro. La validación temprana (400 BVA) debe ser síncrona en una sola Lambda, delegando la resiliencia asíncrona al patrón Outbox en DynamoDB con recuperación periódica por EventBridge."*
+  - *Cierre de Puerta:* El usuario emitió **Approve** formal en `practices-discovery`.
+
+- **Interacción 26 (Alineación en Cascada de Inception hasta Domain Design):**
+  - *Requirements Analysis (2.3):* Se seleccionó `Modify` y se aprobó la especificación formal con rechazo `400` síncrono por BVA y `202` tras confirmación de DynamoDB.
+  - *User Stories (2.4):* Se seleccionó `Modify` y se preservaron los criterios BDD testeables (US3.1 con `alertId`), ajustando la semántica de la respuesta 202.
+  - *Rotación de Modelos:* Ante la alerta de cuota (<10% del límite de 5 horas de Codex en Sol), se rotó exitosamente a `gpt-6-luna`, logrando respuestas ágiles y cuidando el presupuesto.
+  - *Refined Mockups (2.5):* Se destrabó la decisión de experiencia de API con `$aidlc resume`, seleccionando `Keep` y aprobando los mockups sin UI gráfica.
+  - *Domain Design (2.6):* Se confirmó un único componente lógico `TelemetryService` como dueño de `TelemetryEvent` y `OutboxEntry` con dos activadores (HTTP y EventBridge), formalizando `ADR-001`, `ADR-002` y logrando 100% de cobertura en `traceability.json`. Etapa cerrada y aprobada formalmente.
+
+### 17. Nota Estratégica: Justificación para Ronnie (Retorno de Construcción a Incepción)
+- **Principio de Calidad:** Pasar tests no equivale a tener la arquitectura correcta. Aprobar código de 3 Lambdas simplemente porque la prueba integrada dio código 0 habría significado admitir deuda técnica y violar el principio Minimal del *Walking Skeleton*.
+- **Backward Reconciliation:** En AI-DLC, cuando una decisión arquitectónica en Construcción altera acuerdos normativos, el framework exige retropropagar el cambio hasta su raíz en Incepción (`practices-discovery` y `project.md`) para redefinir las políticas de equipo antes de reescribir código.
+- **Trazabilidad Pura:** Evita contratos rotos. Si no se regresaba a Incepción, los requisitos y contratos HTTP seguirían exigiendo colas SQS mientras el código persistía síncronamente en DynamoDB. La alineación en cascada garantizó que `traceability.json` mantuviera el 100% de cobertura sin contradicciones.
+- **Demostración de QA:** Demuestra el rol activo del usuario como QA Gatekeeper capaz de gobernar a los agentes y aplicar rechazos justificados en lugar de permitir parches ciegos.
+

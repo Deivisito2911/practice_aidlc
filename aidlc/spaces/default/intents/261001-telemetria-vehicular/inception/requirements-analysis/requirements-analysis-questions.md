@@ -1,6 +1,6 @@
 # Preguntas de análisis de requisitos
 
-Estas preguntas concretan el contrato observable del servicio, sus límites y los criterios de aceptación. Las prácticas ya afirmadas —TypeScript, AWS CDK, `test-after`, ramas cortas, CI y despliegue— no se vuelven a preguntar.
+Estas preguntas documentan las respuestas originales sobre el contrato observable, los límites y los criterios de aceptación. La decisión humana posterior, registrada al final, sustituye las respuestas que dependían de SQS de entrada; se conservan aquí como historial, no como requisitos vigentes. Las prácticas ya afirmadas —TypeScript, AWS CDK, `test-after`, ramas cortas, CI y despliegue— no se vuelven a preguntar.
 
 ## Q1. Contrato de entrada HTTP
 
@@ -165,3 +165,17 @@ Does this all look correct before I generate the requirements artifact?
 - Request changes
 
 [Answer]: Looks correct
+
+## Decisión posterior de arquitectura — vigente
+
+El usuario solicitó reconciliar código y pruebas con `construction/telemetry-backend/infrastructure-design/infrastructure-specification.md`: API Gateway REST → una única Lambda de telemetría → DynamoDB con escritura transaccional de evento y salida Outbox → SQS de alertas; EventBridge invoca periódicamente la misma Lambda para recuperar salidas `PENDING`. La validación BVA y su `400` son síncronos. El `202` para solicitudes válidas se conserva, pero solo después de confirmar la escritura en DynamoDB. No existen SQS de entrada, DLQ de ingreso ni Lambdas separadas para ingreso y publicación. El usuario confirmó que esta decisión actualiza los requisitos y acuerdos anteriores que exigían la cola de entrada y eligió **Modify** para estos dos artefactos.
+
+- **Q1:** se conserva `POST /telemetry-events`, JSON, `202` y correlación; la condición para `202` pasa de publicación en SQS de entrada a confirmación transaccional en DynamoDB.
+- **Q4:** se conserva `eventId` como identidad global; la repetición relevante es una solicitud HTTP duplicada. Se garantiza una sola alerta lógica por `alertId`, aunque SQS pueda entregar copias físicas.
+- **Q5:** los lotes SQS de ingreso, sus cinco recepciones y su DLQ quedan sustituidos por el Outbox `PENDING` y el barrido periódico de EventBridge.
+- **Q6:** se conservan los campos de alerta; un fallo de publicación conserva la salida `PENDING` para reintento con el mismo `alertId`, sin fallar retroactivamente la ingestión ya confirmada.
+- **Q7:** se conservan p95 ≤ 500 ms a 100 solicitudes válidas/s, 99,9 % de disponibilidad mensual y 90 días de retención. La persistencia y, cuando corresponda, la creación de salida ocurren antes del `202`, por lo que satisfacen el objetivo previo de 99 % en menos de 30 segundos.
+- **Q8:** se conservan los límites funcionales; la cola que permanece en la solución es exclusivamente la SQS de alertas.
+- **Q13:** se conserva `expiresAt` a partir del instante de aceptación HTTP asociado al `202`.
+
+La especificación de infraestructura y las prácticas afirmadas son las fuentes actuales de topología. Los detalles de concurrencia, consulta acotada y reintento del Outbox se concretarán en diseño, sin reabrir la decisión de eliminar SQS de entrada.

@@ -4,11 +4,11 @@
   "intent": "261001-telemetria-vehicular",
   "selections": [
     {
-      "candidate_id": "user-addition-model-selection",
+      "candidate_id": "user-addition-1",
       "type": "learning",
       "scope": "project",
       "heading": "Corrections",
-      "text": "Verificar que el modelo en Kiro en caso de no tener Claude Opus 4.8 sea GPT 5.6 Sol o superior, ya que con el modelo Terra o menores el razonamiento no rendía para todas las instrucciones de aidlc.",
+      "text": "Para el Walking Skeleton, se descartó la SQS de entrada para evitar sobrediseño prematuro. La validación temprana (400 BVA) debe ser síncrona en una sola Lambda, delegando la resiliencia asíncrona al patrón Outbox en DynamoDB con recuperación periódica por EventBridge.",
       "source": "user_addition"
     }
   ]

@@ -214,3 +214,56 @@ Según la guía `guia-aidlc-deivith.html`, para aprobar el taller se requieren *
 - **Trazabilidad Pura:** Evita contratos rotos. Si no se regresaba a Incepción, los requisitos y contratos HTTP seguirían exigiendo colas SQS mientras el código persistía síncronamente en DynamoDB. La alineación en cascada garantizó que `traceability.json` mantuviera el 100% de cobertura sin contradicciones.
 - **Demostración de QA:** Demuestra el rol activo del usuario como QA Gatekeeper capaz de gobernar a los agentes y aplicar rechazos justificados en lugar de permitir parches ciegos.
 
+### 18. Registro de Decisiones e Impacto (Día 9 - Cierre de Incepción, Entrada a Construcción y Plan de Código U1)
+- **Modo Operativo:** Sesión ágil en Codex CLI (GPT-6-Sol y rotación a gpt-6-luna). Asistencia en tiempo real con Gemini 3.8 Flash en Antigravity.
+- **Meta del Día:** Avanzar la construcción de la unidad U1 para alcanzar el hito del Día 6 de la guía de Ronnie (despliegue real en la cuenta AWS asignada: `Impoventura dev (139592264545)` en `sa-east-1`).
+
+- **Interacción 27 (Units Generation - 2.7):**
+  - *Decisión:* Descomposición en 3 unidades: U1 (Núcleo integrado / Walking Skeleton), U2 (Ampliación operativa) y U3 (Controles de entrega y CI).
+  - *Impacto:* U2 y U3 supeditados formalmente a que U1 esté probado de extremo a extremo, acotando el riesgo y evitando dependencias circulares. Puerta aprobada.
+
+- **Interacción 28 (Contract Design - 2.8):**
+  - *Decisiones:* 
+    1. Duplicado exacto responde `202 Accepted` original; mismo `eventId` con contenido distinto responde `409 IDEMPOTENCY_CONFLICT`.
+    2. Identificadores acotados estrictamente a ASCII 1–128 caracteres `[A-Za-z0-9._:-]`, con autogeneración de `X-Correlation-Id` si falta.
+    3. Errores formateados como `{ code, message, correlationId }`.
+    4. Políticas de compatibilidad aditivas en `/telemetry-events`.
+  - *Impacto:* Contratos C1 a C5 blindados, sin colas de ingreso y con `alertId` inyectivo determinista (`LOW_BATTERY:{eventId}`). Puerta aprobada.
+
+- **Interacción 29 (Delivery Planning - 2.9 y Cierre Oficial de Incepción):**
+  - *Decisión:* Secuencia de entrega priorizada U1 → U3 → U2. Entrega de CI (U3) antes de ampliar operaciones para contar con canales seguros de despliegue. Acceso real a AWS/OIDC diferido hasta la Fase 4 de Operación.
+  - *Impacto:* Trazabilidad completa con 37/37 requisitos y 12/12 historias cubiertas (`phase-check-inception.md: PASS`).
+  - *Hito:* **Fase Inception queda oficialmente `Verified`**. Se activa formalmente la **Fase de Construcción**.
+
+- **Interacción 30 (Functional Design - 3.1 - U1):**
+  - *Decisión:* Envío inmediato a SQS tras confirmar la transacción en DynamoDB con límite de latencia (150 ms). EventBridge actúa como mecanismo de rescate periódico (*background sweeper*) para mensajes que fallen.
+  - *Impacto:* Evita saturar a EventBridge y reduce la latencia de las alertas de batería baja a milisegundos en el 99% de los casos. Entidades formalizadas en `entities.md` con Outbox autónomo y control de concurrencia (`claimToken`, `leaseUntil`).
+
+- **Interacción 31 (NFR Requirements - 3.2 a Infrastructure Design - 3.4):**
+  - *Decisiones:* Recuperación eventual de alertas sin fijar SLA rígido prematuro en U1; clasificación de datos de telemetría como **Confidencial** (KMS en reposo, exclusión de logs crudos en CloudWatch).
+  - *Impacto:* Infraestructura CDK sintetizada para una sola Lambda (API REST + EventBridge cada minuto), dos tablas DynamoDB y una cola SQS de alertas, purgando definitivamente las 3 Lambdas obsoletas.
+
+- **Interacción 32 (Code Generation Plan - 3.5 y Gestión de Cuota):**
+  - *Acción:* Se generó y validó `code-generation-plan.md` con 13 pasos secuenciales (metodología test-after con Vitest). El plan desmantela el código anterior y lo sustituye por la Lambda única con patrón Outbox.
+  - *Gobernanza de Modelos:* Ante el consumo del 99% del límite de 5 horas de GPT-6-Sol, se planificó la rotación a `gpt-6-luna` para la escritura de código y tests, preservando el restablecimiento al 100% de Sol para la integración y el despliegue en AWS.
+
+- **Interacción 33 (Implementación y Verificación del Walking Skeleton - U1):**
+  - *Acción:* Generación y ejecución de código para U1 (`src/telemetry/model.ts`, `src/telemetry/service.ts`, `src/telemetry/handlers.ts`, `src/telemetry/adapters.ts`, `infra/telemetry-stack.ts`).
+  - *Evidencia:* Se superaron 30/30 pruebas unitarias y la prueba de integración de flujo crítico (`tests/integration/telemetry-flow.test.ts`) con código de salida 0.
+  - *Impacto:* Rechazo temprano síncrono `400 Bad Request` ante violación de BVA, `202 Accepted` tras confirmar la transacción en DynamoDB con Outbox `PENDING` para batería `< 20%`, publicación en SQS con `alertId` inyectivo determinista (`LOW_BATTERY:{eventId}`) y recuperación mediante barrido programado de EventBridge. Topología de 1 sola Lambda confirmada. Checkpoint del esqueleto de U1 aprobado.
+
+- **Interacción 34 (Construcción Integral de U2 - Telemetry Operations):**
+  - *Acción:* Ejecución en modo autónomo (`Continue automatically`) a través de `functional-design`, `nfr-requirements`, `nfr-design`, `infrastructure-design` y `code-generation`.
+  - *Entrega:* Implementación de la CLI operativa en `src/telemetry/manual-recovery.ts` y sus pruebas (`manual-recovery.test.ts`, `handlers-operations.test.ts`, `tests/integration/telemetry-operations.test.ts`).
+  - *Impacto:* Capacidad de inspección previa (`preview` acotado a 25 registros), huella criptográfica (`fingerprint`), control de autorización IAM y reintentos manuales seguros preservando `PENDING` ante fallos parciales. Checkpoint de unidad verificado y aprobado formalmente con código 0.
+
+- **Interacción 35 (Construcción Integral de U3 - Delivery Controls):**
+  - *Acción:* U3 recorrió su diseño hasta la generación de código. Se seleccionó **GitHub Actions** como plataforma de CI para alinearse con el repositorio remoto (`https://github.com/Deivisito2911/practice_aidlc.git`) y el estándar de roles temporales OIDC en AWS sin credenciales estáticas (cumpliendo US6.2 AC6.2.1).
+  - *Entrega:* Se generó `docs/telemetry-delivery-controls.md` y la suite de aserciones CDK de infraestructura en `infra/telemetry-stack-delivery-controls.test.ts`.
+  - *Impacto:* Se validó formalmente que CloudTrail esté activo con cifrado KMS, retención inmutable de 90 días (Object Lock/S3) y límites IAM que impiden a la aplicación borrar logs de auditoría. Se corrigieron detalles menores de tipado estricto en el test.
+
+- **Interacción 36 (Entrada a 3.6 Build and Test y Auditoría de Seguridad):**
+  - *Acción:* Consolidación de las 3 unidades y arranque formal de la etapa `build-and-test`.
+  - *Pruebas Consolidadas:* Se verificaron 49 pruebas automatizadas (37 de aplicación, 10 de aserciones CDK de infraestructura y 2 de integración de flujo completo), todas con 100% de éxito.
+  - *Auditoría y Secretos:* Se verificó la corrección de dependencias en CDK (`brace-expansion` 5.0.12) y se ejecutó escaneo profundo de secretos con **Gitleaks 8.30.1** sobre el árbol de trabajo y el historial de Git, excluyendo únicamente 13 fingerprints de hashes sintéticos de CDK y cerrando con `Exit: 0`.
+  - *Cierre de Jornada:* La sesión pausó naturalmente tras alcanzar el límite temporal de cuota de OpenAI en Codex a las 20:28 (reinicio a las 20:33), con todo el código compilando, probado y respaldado en GitHub para proceder en el Día 10 al despliegue directo en AWS (`Impoventura dev 139592264545` en `sa-east-1`).

@@ -1,0 +1,878 @@
+[
+  {
+    "id": "AC1.1.1",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/handlers.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC1.1.2",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/handlers.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC1.1.3",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/model.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC1.1.4",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core N/A"
+    ]
+  },
+  {
+    "id": "AC1.1.5",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/handlers.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC1.1.6",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/handlers.test.ts"
+    ],
+    "reported": [
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC1.2.1",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/handlers-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC1.2.2",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/handlers-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC1.2.3",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/handlers-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC1.2.4",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: infra/telemetry-stack-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC1.2.5",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: infra/telemetry-stack-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC1.2.6",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: tests/integration/telemetry-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC2.1.1",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/adapters.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC2.1.2",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC2.1.3",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC2.1.4",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/adapters.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC2.1.5",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC2.1.6",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.1.1",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.1.2",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.1.3",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.1.4",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.1.5",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.1.6",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.2.1",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.2.2",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/service.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.2.3",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/adapters.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC3.2.4",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/adapters.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC4.1.1",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/handlers.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC4.1.2",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/adapters.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC4.1.3",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/adapters.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC4.1.4",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: src/telemetry/adapters.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC4.2.1",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/manual-recovery.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC4.2.2",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/manual-recovery.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC4.2.3",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/manual-recovery.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC4.2.4",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: tests/integration/telemetry-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC4.2.5",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: tests/integration/telemetry-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.1.1",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/handlers.ts"
+    ],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.1.2",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/handlers.ts"
+    ],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.1.3",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/handlers.ts"
+    ],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.1.4",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/model.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.1.5",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: src/telemetry/handlers.ts"
+    ],
+    "reported": [
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.2.1",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: infra/telemetry-stack-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.2.2",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: infra/telemetry-stack-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.2.3",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: infra/telemetry-stack-operations.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC5.2.4",
+    "status": "OK",
+    "targets": [
+      "u2-telemetry-operations: infra/telemetry-stack.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u2-telemetry-operations OK"
+    ]
+  },
+  {
+    "id": "AC6.1.1",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: infra/telemetry-stack.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC6.1.2",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: infra/telemetry-stack.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC6.1.3",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: infra/telemetry-stack.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC6.1.4",
+    "status": "OK",
+    "targets": [
+      "u1-telemetry-core: infra/telemetry-stack.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u1-telemetry-core OK"
+    ]
+  },
+  {
+    "id": "AC6.2.1",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u3-delivery-controls GAP"
+    ]
+  },
+  {
+    "id": "AC6.2.2",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u3-delivery-controls GAP"
+    ]
+  },
+  {
+    "id": "AC6.2.3",
+    "status": "OK",
+    "targets": [
+      "u3-delivery-controls: infra/telemetry-stack-delivery-controls.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u3-delivery-controls OK"
+    ]
+  },
+  {
+    "id": "AC6.2.4",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u3-delivery-controls GAP"
+    ]
+  },
+  {
+    "id": "AC6.3.1",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u3-delivery-controls GAP"
+    ]
+  },
+  {
+    "id": "AC6.3.2",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u3-delivery-controls GAP"
+    ]
+  },
+  {
+    "id": "AC6.3.3",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)",
+      "u3-delivery-controls GAP"
+    ]
+  },
+  {
+    "id": "AC6.3.4",
+    "status": "OK",
+    "targets": [
+      "u3-delivery-controls: tests/integration/telemetry-flow.test.ts"
+    ],
+    "reported": [
+      "telemetry-backend OK (histórico)",
+      "u3-delivery-controls OK"
+    ]
+  },
+  {
+    "id": "FR1",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "FR1.1",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR1.2",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR1.3",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR1.4",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR1.5",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR1.6",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR2",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "FR2.1",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR2.2",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR3",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "FR3.1",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR3.2",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR4",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "FR4.1",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR4.2",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR4.3",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR4.4",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR5",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "FR5.1",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR5.2",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR5.3",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR5.4",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR6",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "FR6.1",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR6.2",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "FR6.3",
+    "status": "GAP",
+    "targets": [],
+    "reported": []
+  },
+  {
+    "id": "NFR1",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)"
+    ]
+  },
+  {
+    "id": "NFR2",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)"
+    ]
+  },
+  {
+    "id": "NFR3",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)"
+    ]
+  },
+  {
+    "id": "NFR4",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "NFR5",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "NFR6",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)"
+    ]
+  },
+  {
+    "id": "NFR7",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "NFR8",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend GAP (histórico)"
+    ]
+  },
+  {
+    "id": "NFR9",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  },
+  {
+    "id": "NFR10",
+    "status": "GAP",
+    "targets": [],
+    "reported": [
+      "telemetry-backend OK (histórico)"
+    ]
+  }
+]

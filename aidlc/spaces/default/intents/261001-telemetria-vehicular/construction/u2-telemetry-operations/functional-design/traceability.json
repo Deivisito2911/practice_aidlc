@@ -1,0 +1,36 @@
+{
+  "stage": "functional-design",
+  "unit": "u2-telemetry-operations",
+  "upstream_ids": [
+    "AC1.2.1", "AC1.2.2", "AC1.2.3", "AC1.2.4", "AC1.2.5", "AC1.2.6",
+    "AC4.2.1", "AC4.2.2", "AC4.2.3", "AC4.2.4", "AC4.2.5",
+    "AC5.1.1", "AC5.1.2", "AC5.1.3", "AC5.1.4", "AC5.1.5",
+    "AC5.2.1", "AC5.2.2", "AC5.2.3", "AC5.2.4"
+  ],
+  "coverage": [
+    { "id": "AC1.2.1", "status": "OK", "target": "BR6.1" },
+    { "id": "AC1.2.2", "status": "OK", "target": "BR6.2" },
+    { "id": "AC1.2.3", "status": "OK", "target": "BR6.2" },
+    { "id": "AC1.2.4", "status": "OK", "target": "BR6.3" },
+    { "id": "AC1.2.5", "status": "OK", "target": "BR6.4" },
+    { "id": "AC1.2.6", "status": "OK", "target": "BR6.5" },
+    { "id": "AC4.2.1", "status": "OK", "target": "BR7.2" },
+    { "id": "AC4.2.2", "status": "OK", "target": "BR7.1, BR7.3" },
+    { "id": "AC4.2.3", "status": "OK", "target": "BR7.5" },
+    { "id": "AC4.2.4", "status": "OK", "target": "BR7.4" },
+    { "id": "AC4.2.5", "status": "OK", "target": "BR7.6" },
+    { "id": "AC5.1.1", "status": "OK", "target": "BR8.1" },
+    { "id": "AC5.1.2", "status": "OK", "target": "BR8.2, BR8.5" },
+    { "id": "AC5.1.3", "status": "OK", "target": "BR8.3" },
+    { "id": "AC5.1.4", "status": "OK", "target": "BR8.4" },
+    { "id": "AC5.1.5", "status": "OK", "target": "BR8.3" },
+    { "id": "AC5.2.1", "status": "OK", "target": "BR9.1" },
+    { "id": "AC5.2.2", "status": "OK", "target": "BR9.2" },
+    { "id": "AC5.2.3", "status": "OK", "target": "BR9.3" },
+    { "id": "AC5.2.4", "status": "OK", "target": "BR9.4" }
+  ],
+  "reverse": [
+    { "id": "BR7.3", "status": "N/A", "target": "Explicit confirmation bound to a current preview is the selected CLI decision and supports the authorized recovery acceptance criteria." },
+    { "id": "BR8.5", "status": "N/A", "target": "Correlation and cohort integrity are necessary supporting rules for NFR2 and NFR4 measurements." }
+  ]
+}

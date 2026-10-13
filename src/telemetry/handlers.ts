@@ -2,96 +2,231 @@ import { randomUUID } from 'node:crypto';
 import type {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
-  SQSBatchResponse,
-  SQSEvent,
+  Context,
+  EventBridgeEvent,
 } from 'aws-lambda';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { SQSClient } from '@aws-sdk/client-sqs';
 import { DynamoEventStore, SqsQueue, type EventStore, type Queue } from './adapters.js';
 import { validateEvent, ValidationError, type InboundMessage } from './model.js';
-import { processMessage, publishPending } from './service.js';
+import {
+  acceptMessage,
+  IdempotencyConflict,
+  recoverPending,
+  type ServiceOptions,
+} from './service.js';
+import { operateManually, type ManualOperation } from './manual-recovery.js';
 
-export function createIngestHandler(queue: Queue, clock: () => Date = () => new Date()) {
-  return async (request: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    if (request.httpMethod !== 'POST' || request.path !== '/telemetry-events')
-      return { statusCode: 404, body: JSON.stringify({ error: 'Ruta no encontrada' }) };
-    const acceptedAt = clock().toISOString();
-    const correlationId =
-      Object.entries(request.headers ?? {}).find(
-        ([key]) => key.toLowerCase() === 'x-correlation-id',
-      )?.[1] || randomUUID();
+type ScheduledEvent = EventBridgeEvent<'Scheduled Event', Record<string, never>>;
+type HandlerEvent = APIGatewayProxyEvent | ScheduledEvent;
+const validCorrelation = /^[A-Za-z0-9._:-]{1,128}$/;
+
+function response(statusCode: number, body: unknown): APIGatewayProxyResult {
+  const error = statusCode >= 500 ? 1 : 0;
+  console.log(
+    JSON.stringify({
+      _aws: {
+        Timestamp: Date.now(),
+        CloudWatchMetrics: [
+          {
+            Namespace: 'VehicleTelemetry',
+            Dimensions: [['Service']],
+            Metrics: [
+              { Name: 'HttpRequests', Unit: 'Count' },
+              { Name: 'HttpServiceErrors', Unit: 'Count' },
+            ],
+          },
+        ],
+      },
+      Service: 'TelemetryService',
+      HttpRequests: 1,
+      HttpServiceErrors: error,
+    }),
+  );
+  return {
+    statusCode,
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  };
+}
+function errorBody(code: string, message: string, correlationId: string) {
+  return { code, message, correlationId };
+}
+
+export function createTelemetryHandler(
+  store: EventStore,
+  queue: Queue,
+  options: ServiceOptions = {},
+) {
+  const clock = options.clock ?? (() => new Date());
+  const uuid = options.uuid ?? randomUUID;
+  return async (
+    event: HandlerEvent | Record<string, unknown>,
+    context?: Context,
+  ): Promise<APIGatewayProxyResult | { processed: number } | Record<string, unknown>> => {
+    if (isScheduled(event)) {
+      const runOptions = {
+        ...options,
+        clock,
+        remainingTimeMs: () => context?.getRemainingTimeInMillis() ?? 20_000,
+      };
+      if (store.pendingSnapshot) {
+        const snapshot = await store.pendingSnapshot(clock().toISOString());
+        metric('OutboxPendingCount', snapshot.count);
+        metric('OutboxOldestPendingAge', snapshot.oldestAgeSeconds);
+      }
+      const processed = await recoverPending(store, queue, runOptions);
+      let ttlEligible: number | undefined;
+      if (clock().getUTCMinutes() === 0 && store.ttlEligible) {
+        ttlEligible = await store.ttlEligible(Math.floor(clock().getTime() / 1000), 1001);
+        metric('TtlEligibleUndeleted', ttlEligible);
+      }
+      metric('ScheduledRecoveryInvocation', 1);
+      return { processed, ...(ttlEligible === undefined ? {} : { ttlEligible }) };
+    }
+    if (isManualOperation(event)) {
+      try {
+        const result = await operateManually(event, store, queue, { ...options, clock });
+        metric(
+          event.action === 'preview'
+            ? 'ManualPreview'
+            : event.action === 'execute'
+              ? 'ManualExecution'
+              : 'TtlBackfill',
+          1,
+        );
+        console.info(
+          JSON.stringify({
+            level: 'INFO',
+            operation: event.action,
+            category: 'telemetry-operations',
+            correlationId: event.correlationId,
+            ...safeManualLog(result),
+          }),
+        );
+        return result;
+      } catch (error) {
+        console.warn(
+          JSON.stringify({
+            level: 'WARN',
+            operation: event.action,
+            category: 'telemetry-operations',
+            correlationId: event.correlationId,
+            cause: error instanceof Error ? error.message : 'unknown',
+          }),
+        );
+        throw error;
+      }
+    }
+    if (!isHttpEvent(event))
+      return response(400, errorBody('UNRECOGNIZED_EVENT', 'Evento no reconocido', uuid()));
+    const correlationId = correlationFrom(event.headers, uuid);
+    if (event.httpMethod !== 'POST' || event.path !== '/telemetry-events') {
+      return response(404, errorBody('NOT_FOUND', 'Ruta no encontrada', correlationId));
+    }
     let message: InboundMessage;
     try {
-      if (!request.body) throw new ValidationError('Cuerpo requerido');
+      if (!event.body) throw new ValidationError('Cuerpo requerido');
+      const rawPayload = event.isBase64Encoded
+        ? Buffer.from(event.body, 'base64').toString('utf8')
+        : event.body;
+      const currentTime = clock();
+      const acceptedAt = `${currentTime.toISOString().slice(0, 19)}Z`;
       message = {
-        event: validateEvent(request.body, new Date(acceptedAt)),
-        rawPayload: request.body,
+        event: validateEvent(rawPayload, currentTime),
+        rawPayload,
         acceptedAt,
         correlationId,
       };
     } catch (error) {
       if (error instanceof ValidationError)
-        return { statusCode: 400, body: JSON.stringify({ error: error.message }) };
-      throw error;
+        return response(400, errorBody('VALIDATION_ERROR', error.message, correlationId));
+      return response(400, errorBody('VALIDATION_ERROR', 'Solicitud inválida', correlationId));
     }
     try {
-      await queue.send(JSON.stringify(message), correlationId);
-      return {
-        statusCode: 202,
-        body: JSON.stringify({ status: 'accepted', msg_id: correlationId, acceptedAt }),
-      };
+      const accepted = await acceptMessage(message, store, queue, { ...options, clock });
+      return response(202, accepted);
     } catch (error) {
+      const conflict = error instanceof IdempotencyConflict;
+      const statusCode = conflict ? 409 : 503;
+      const code = conflict ? 'IDEMPOTENCY_CONFLICT' : 'PERSISTENCE_UNAVAILABLE';
       console.error(
         JSON.stringify({
           level: 'ERROR',
-          operation: 'enqueue',
+          operation: 'telemetry-accept',
           correlationId,
+          eventId: message.event.eventId,
           cause: error instanceof Error ? error.name : 'unknown',
         }),
       );
-      return {
-        statusCode: 503,
-        body: JSON.stringify({ error: 'Ingreso temporalmente no disponible' }),
-      };
+      return response(
+        statusCode,
+        errorBody(
+          code,
+          conflict
+            ? 'El eventId ya existe con otro contenido'
+            : 'Persistencia temporalmente no disponible',
+          correlationId,
+        ),
+      );
     }
   };
 }
 
-export function createProcessHandler(store: EventStore) {
-  return async (event: SQSEvent): Promise<SQSBatchResponse> => {
-    const batchItemFailures: { itemIdentifier: string }[] = [];
-    for (const record of event.Records) {
-      let message: InboundMessage | undefined;
-      try {
-        message = JSON.parse(record.body) as InboundMessage;
-        await processMessage(message, store);
-      } catch (error) {
-        console.error(
-          JSON.stringify({
-            level: 'ERROR',
-            operation: 'process',
-            correlationId: message?.correlationId,
-            eventId: message?.event?.eventId,
-            receiveCount: record.attributes.ApproximateReceiveCount,
-            cause: error instanceof Error ? error.message : 'unknown',
-          }),
-        );
-        batchItemFailures.push({ itemIdentifier: record.messageId });
-      }
-    }
-    return { batchItemFailures };
-  };
+function isManualOperation(event: unknown): event is ManualOperation {
+  if (!event || typeof event !== 'object') return false;
+  const value = event as Record<string, unknown>;
+  return (
+    value.operation === 'manual-recovery' &&
+    ['preview', 'execute', 'backfill'].includes(String(value.action)) &&
+    typeof value.correlationId === 'string'
+  );
 }
 
-export function createPublishHandler(
-  store: EventStore,
-  queue: Queue,
-  clock: () => Date = () => new Date(),
-) {
-  return async (): Promise<{ published: number }> => ({
-    published: await publishPending(store, queue, clock().toISOString()),
-  });
+function metric(name: string, value: number): void {
+  console.log(
+    JSON.stringify({
+      _aws: {
+        Timestamp: Date.now(),
+        CloudWatchMetrics: [
+          {
+            Namespace: 'VehicleTelemetry',
+            Dimensions: [['Service']],
+            Metrics: [{ Name: name, Unit: 'Count' }],
+          },
+        ],
+      },
+      Service: 'TelemetryService',
+      [name]: value,
+    }),
+  );
+}
+
+function safeManualLog(result: Record<string, unknown>): Record<string, unknown> {
+  const { status, scope, count, limit, fingerprint, confirmed, failed, pending, scanned, updated } =
+    result;
+  return { status, scope, count, limit, fingerprint, confirmed, failed, pending, scanned, updated };
+}
+
+function correlationFrom(
+  headers: Record<string, string | undefined> | null,
+  uuid: () => string,
+): string {
+  const entry = Object.entries(headers ?? {}).find(
+    ([key]) => key.toLowerCase() === 'x-correlation-id',
+  )?.[1];
+  return entry && validCorrelation.test(entry) ? entry : uuid();
+}
+function isScheduled(event: unknown): event is ScheduledEvent {
+  if (!event || typeof event !== 'object') return false;
+  const value = event as Record<string, unknown>;
+  return value.source === 'aws.events' && value['detail-type'] === 'Scheduled Event';
+}
+function isHttpEvent(event: unknown): event is APIGatewayProxyEvent {
+  if (!event || typeof event !== 'object') return false;
+  const value = event as Record<string, unknown>;
+  return typeof value.httpMethod === 'string' && typeof value.path === 'string';
 }
 
 const sqs = new SQSClient({});
@@ -101,11 +236,11 @@ const store = new DynamoEventStore(
   process.env.EVENTS_TABLE ?? '',
   process.env.OUTBOX_TABLE ?? '',
 );
-export const ingestHandler = createIngestHandler(
-  new SqsQueue(sqs, process.env.INPUT_QUEUE_URL ?? ''),
-);
-export const processHandler = createProcessHandler(store);
-export const publishHandler = createPublishHandler(
-  store,
-  new SqsQueue(sqs, process.env.ALERT_QUEUE_URL ?? ''),
-);
+const alertsQueue = new SqsQueue(sqs, process.env.ALERT_QUEUE_URL ?? '');
+const runtimeOptions: ServiceOptions = {
+  immediateBudgetMs: Number(process.env.ALERT_SEND_BUDGET_MS ?? 150),
+  maxBatch: Number(process.env.OUTBOX_BATCH_SIZE ?? 25),
+  leaseSeconds: Number(process.env.OUTBOX_LEASE_SECONDS ?? 30),
+  maxBackoffMinutes: Number(process.env.OUTBOX_MAX_BACKOFF_MINUTES ?? 15),
+};
+export const telemetryHandler = createTelemetryHandler(store, alertsQueue, runtimeOptions);

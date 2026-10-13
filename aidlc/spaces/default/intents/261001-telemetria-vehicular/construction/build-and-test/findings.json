@@ -1,0 +1,65 @@
+[
+  {
+    "id": "F1",
+    "target": "NFR8.3 / dependencias",
+    "owner": "u3-delivery-controls",
+    "actual": "npm run audit:deps exit 1: aws-cdk-lib 2.272.0 incluye brace-expansion 5.0.9 afectado por tres advisories; la distribución oficial 2.273.0 incluye 5.0.12 corregido.",
+    "fix": "Actualizar dependencia y lockfile a aws-cdk-lib 2.273.0; comprobar instalación limpia, audit y compatibilidad CDK.",
+    "effort": "30–90 min",
+    "risk": "Bajo/medio: nueva versión CDK puede cambiar síntesis."
+  },
+  {
+    "id": "F2",
+    "target": "NFR7.3 / NFR7.8 / NFR7.9",
+    "owner": "u2-telemetry-operations",
+    "actual": "EMF emite Dimensions=[[Service]], Service=TelemetryService; todas las Metric de VehicleTelemetry en el stack omiten esa dimensión. Alarmas consultan una serie distinta.",
+    "fix": "Añadir dimensionsMap exacto y assertions por métrica; comprobar unidad Seconds en edad (hoy se emite Count).",
+    "effort": "1–2 h",
+    "risk": "Bajo: configuración y formato EMF."
+  },
+  {
+    "id": "F3",
+    "target": "NFR4.4 / NFR7.7",
+    "owner": "u2-telemetry-operations",
+    "actual": "ttlEligible consulta EventsTable/index/TtlByShard; el rol solo permite Query sobre OutboxTable/index/DueByShard. Falta el permiso mínimo al GSI TTL.",
+    "fix": "Permitir Query solo en el ARN TtlByShard y comprobar enlace efectivo al rol con prueba negativa para otros recursos.",
+    "effort": "30–60 min",
+    "risk": "Bajo: ampliación acotada y necesaria de Query."
+  },
+  {
+    "id": "F4",
+    "target": "NFR7.9",
+    "owner": "u2-telemetry-operations",
+    "actual": "Alarma de errores usa GREATER_THAN_THRESHOLD con threshold=1; exactamente 1% no alerta aunque el objetivo exige ≥1%.",
+    "fix": "Comparador >=1 y prueba en 100 requests / 1 error, bajo 100, y exclusión 4xx/cuotas del error de servicio.",
+    "effort": "30–60 min",
+    "risk": "Bajo: corrige frontera acordada."
+  },
+  {
+    "id": "F5",
+    "target": "NFR7.1 / NFR7.2 / NFR7.6 / NFR7.7 / NFR7.11",
+    "owner": "u2-telemetry-operations",
+    "actual": "HTTP emite solo HttpRequests/HttpServiceErrors sin status/correlación; no hay métricas completas de commit/SQS/conflicto ni medición recepción-a-commit. No hay dashboard, fórmula mensual ni su prueba sintética.",
+    "fix": "Instrumentar señales por resultado y latencias sin payload/secretos; añadir dashboard/definiciones SLI y cálculo mensual puro probado con todos los minutos, incluido mantenimiento. Conservar objetivos reales Unverified.",
+    "effort": "4–8 h",
+    "risk": "Medio: cambios de instrumentación en handler/servicio; comprobar regresión de ambos disparadores."
+  },
+  {
+    "id": "F6",
+    "target": "NFR5.7 / NFR5.8 / operación manual",
+    "owner": "u2-telemetry-operations",
+    "actual": "Huella solo liga scope+IDs; no tiene caducidad ni liga límite. Handler manual no transmite remainingTime de Context y logs no contienen requestId para enlazar identidad IAM auditable. No hay pruebas de conjunto alterado/no autorizado/expirado/repetido ni backfill condicional.",
+    "fix": "Completar contrato de preview con límite/tiempo de vigencia comprobable, presupuesto global y salida parcial; enlazar requestId con auditoría real de Invoke sin confiar en actor del payload; añadir los casos de frontera y regresiones del contrato operativo.",
+    "effort": "3–6 h",
+    "risk": "Medio: cambia la solicitud CLI; actualizar CLI y pruebas conjuntamente, sin confiar en una identidad declarada por el cliente."
+  },
+  {
+    "id": "F7",
+    "target": "Trazabilidad final / Testing Contract",
+    "owner": "u2-telemetry-operations / u3-delivery-controls",
+    "actual": "Los mapas actuales marcan como OK carga real, disponibilidad mensual y assertions inexistentes. Los IDs FR/NFR directos no tienen todos cobertura vigente. Una ruta existente no demuestra el objetivo.",
+    "fix": "Corregir referencias/estados con evidencia real; mapear FR directos verificables y conservar GAP/Unverified para controles externos o pruebas aún ausentes. No alterar documentos históricos para aparentar cumplimiento.",
+    "effort": "1–2 h",
+    "risk": "Bajo: corrección de evidencia; los GAP seguirán visibles."
+  }
+]

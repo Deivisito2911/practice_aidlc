@@ -1,0 +1,36 @@
+{
+  "stage": "infrastructure-design",
+  "unit": "u2-telemetry-operations",
+  "upstream_ids": [
+    "NFR1.4", "NFR1.5", "NFR1.6", "NFR2.4", "NFR3.5", "NFR3.6", "NFR3.7", "NFR4.4",
+    "NFR5.6", "NFR5.7", "NFR5.8", "NFR7.6", "NFR7.7", "NFR7.8", "NFR7.9", "NFR7.10", "NFR7.11",
+    "NFR9.7", "NFR9.8", "NFR9.9", "NFR9.10", "NFR9.11", "NFR9.12", "NFR9.13", "NFR10.3"
+  ],
+  "coverage": [
+    { "id": "NFR1.4", "status": "OK", "target": "Lambda/API Gateway existing sizing plus 15-minute 100 RPS staging profile" },
+    { "id": "NFR1.5", "status": "OK", "target": "API Gateway UsagePlan rateLimit 100, burstLimit 200, quota 5,000,000/day" },
+    { "id": "NFR1.6", "status": "OK", "target": "CloudWatch/API access metrics split service 5xx from 4xx/quota" },
+    { "id": "NFR2.4", "status": "OK", "target": "Lambda transaction-before-202 and correlated CloudWatch SLI" },
+    { "id": "NFR3.5", "status": "OK", "target": "CloudWatch SLI/dashboard with calendar-month denominator including maintenance" },
+    { "id": "NFR3.6", "status": "OK", "target": "Existing Outbox table/index, conditional state updates, EventBridge rule" },
+    { "id": "NFR3.7", "status": "OK", "target": "Same Lambda idempotent manual/scheduled recovery; no duplicate tables/messages identity" },
+    { "id": "NFR4.4", "status": "OK", "target": "TTL enabled Events table plus sharded TTL-by-expiry GSI and hourly aggregate metric" },
+    { "id": "NFR5.6", "status": "OK", "target": "OperatorRoleArn P3 invokes exact function ARN; no direct table or queue grants" },
+    { "id": "NFR5.7", "status": "OK", "target": "Synchronous CLI preview/execute with limit and recomputed candidate fingerprint" },
+    { "id": "NFR5.8", "status": "OK", "target": "CloudWatch structured summary logs and protected CloudTrail trail" },
+    { "id": "NFR7.6", "status": "OK", "target": "Existing Lambda log group, structured records and sensitive-field exclusion" },
+    { "id": "NFR7.7", "status": "OK", "target": "CloudWatch metrics for HTTP, Outbox, recovery, SQS, EventBridge, TTL" },
+    { "id": "NFR7.8", "status": "OK", "target": "CloudWatch alarms for PENDING age/count, SQS depth, and TTL eligible backlog" },
+    { "id": "NFR7.9", "status": "OK", "target": "CloudWatch EventBridge invocation and Lambda service-error alarms" },
+    { "id": "NFR7.10", "status": "OK", "target": "CloudWatch logs/dashboard correlation and CloudTrail principal trace" },
+    { "id": "NFR7.11", "status": "OK", "target": "CloudWatch dashboard and monthly SLI report definitions" },
+    { "id": "NFR9.7", "status": "OK", "target": "Existing single Lambda and capped CLI batch setting" },
+    { "id": "NFR9.8", "status": "OK", "target": "DueByShard and TtlByShard indexed bounded queries" },
+    { "id": "NFR9.9", "status": "OK", "target": "Lambda shared-capacity load test and API Gateway quota" },
+    { "id": "NFR9.10", "status": "OK", "target": "Existing TypeScript AWS CDK stack" },
+    { "id": "NFR9.11", "status": "OK", "target": "CLI uses IAM invoke of existing Lambda ARN" },
+    { "id": "NFR9.12", "status": "OK", "target": "Existing API/Lambda/DynamoDB/EventBridge/SQS topology" },
+    { "id": "NFR9.13", "status": "OK", "target": "CloudWatch dashboard/alarms and configured guard topic" },
+    { "id": "NFR10.3", "status": "OK", "target": "Existing multi-region CloudTrail to KMS Object Lock bucket" }
+  ]
+}

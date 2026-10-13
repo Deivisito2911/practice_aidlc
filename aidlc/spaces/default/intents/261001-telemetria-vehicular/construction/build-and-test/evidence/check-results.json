@@ -1,0 +1,194 @@
+[
+  {
+    "id": "check-01",
+    "command": "npm run test:unit -- src/telemetry",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/telemetry-backend/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-01.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 test:unit\nnpm notice run vitest run src/telemetry src/telemetry\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  6 passed (6)\n      Tests  37 passed (37)\n   Start at  20:10:32\n   Duration  2.82s (import 52%, transform 37%, tests 6%, worker 5%)\n\n    Isolate  6 workers spawned · ~618ms startup each (spawn + environment, per file)\n             at least ~618ms faster with isolate: false — reuses workers across files instead of one per file\n\n"
+  },
+  {
+    "id": "check-02",
+    "command": "npm run test:integration -- tests/integration/telemetry-flow.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/telemetry-backend/code-generation/unit-test-instructions.md",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-02.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 test:integration\nnpm notice run vitest run tests/integration tests/integration/telemetry-flow.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  2 passed (2)\n      Tests  2 passed (2)\n   Start at  20:10:32\n   Duration  2.30s (import 68%, transform 26%, tests 3%, worker 3%)\n\n"
+  },
+  {
+    "id": "check-03",
+    "command": "npm exec -- vitest run src/telemetry/model.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-03.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run src/telemetry/model.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  1 passed (1)\n      Tests  11 passed (11)\n   Start at  20:10:53\n   Duration  592ms (transform 45%, import 36%, tests 12%, worker 6%)\n\n"
+  },
+  {
+    "id": "check-04",
+    "command": "npm exec -- vitest run src/telemetry/adapters.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-04.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run src/telemetry/adapters.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  1 passed (1)\n      Tests  6 passed (6)\n   Start at  20:11:21\n   Duration  1.02s (import 66%, transform 26%, tests 5%, worker 2%)\n\n"
+  },
+  {
+    "id": "check-05",
+    "command": "npm exec -- vitest run src/telemetry/service.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-05.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run src/telemetry/service.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  1 passed (1)\n      Tests  8 passed (8)\n   Start at  20:11:21\n   Duration  804ms (transform 64%, import 18%, tests 14%, worker 3%)\n\n"
+  },
+  {
+    "id": "check-06",
+    "command": "npm exec -- vitest run src/telemetry/handlers.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-06.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run src/telemetry/handlers.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  1 passed (1)\n      Tests  5 passed (5)\n   Start at  20:11:21\n   Duration  1.05s (import 53%, transform 40%, tests 5%, worker 2%)\n\n"
+  },
+  {
+    "id": "check-07",
+    "command": "npm exec -- vitest run infra/telemetry-stack.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-07.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run infra/telemetry-stack.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\nBundling asset Telemetry-test/TelemetryHandler/Code/Stage...\nnpm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run esbuild --bundle D:\\guide_aidlc\\src\\telemetry\\handlers.ts --target=node22 --platform=node --outfile=C:\\Users\\DEIVIS~1\\AppData\\Local\\Temp\\cdk.outouHr8q\\bundling-temp-0de3a4b31b97a6cb6c2a5e4d4bcb59d5b99b011d6260d2ea2d6970836cc1bf85-building\\index.js --minify\n\n  ...2a5e4d4bcb59d5b99b011d6260d2ea2d6970836cc1bf85-building\\index.js  567.1kb\n\n⚡ Done in 618ms\n\n Test Files  1 passed (1)\n      Tests  4 passed (4)\n   Start at  20:12:00\n   Duration  29.40s (import 99%, transform 1%)\n\n"
+  },
+  {
+    "id": "check-08",
+    "command": "npm exec -- vitest run src/telemetry/model.test.ts src/telemetry/adapters.test.ts src/telemetry/service.test.ts src/telemetry/handlers.test.ts infra/telemetry-stack.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-08.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run src/telemetry/model.test.ts src/telemetry/adapters.test.ts src/telemetry/service.test.ts src/telemetry/handlers.test.ts infra/telemetry-stack.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\nBundling asset Telemetry-test/TelemetryHandler/Code/Stage...\nnpm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run esbuild --bundle D:\\guide_aidlc\\src\\telemetry\\handlers.ts --target=node22 --platform=node --outfile=C:\\Users\\DEIVIS~1\\AppData\\Local\\Temp\\cdk.outTr3MAl\\bundling-temp-a88b43661504e4b404a49e1c27f244f3db9b5f17287af9f60a81d3b3ffb619f0-building\\index.js --minify\n\n  ...a49e1c27f244f3db9b5f17287af9f60a81d3b3ffb619f0-building\\index.js  567.1kb\n\n⚡ Done in 663ms\n\n Test Files  5 passed (5)\n      Tests  34 passed (34)\n   Start at  20:12:00\n   Duration  29.29s (import 94%, transform 5%, tests 1%)\n\n"
+  },
+  {
+    "id": "check-09",
+    "command": "npx vitest run src/telemetry/manual-recovery.test.ts src/telemetry/handlers-operations.test.ts infra/telemetry-stack-operations.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-09.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run src/telemetry/manual-recovery.test.ts src/telemetry/handlers-operations.test.ts infra/telemetry-stack-operations.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\nBundling asset Ops-test/TelemetryHandler/Code/Stage...\nnpm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run esbuild --bundle D:\\guide_aidlc\\src\\telemetry\\handlers.ts --target=node22 --platform=node --outfile=C:\\Users\\DEIVIS~1\\AppData\\Local\\Temp\\cdk.outTUJuwh\\bundling-temp-1bb1abebe54ba1fd38388e90b8b29180c62b271575f8cb9701c93f0da8eac945-building\\index.js --minify\n\n  ...388e90b8b29180c62b271575f8cb9701c93f0da8eac945-building\\index.js  567.1kb\n\n⚡ Done in 680ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  20:12:00\n   Duration  28.44s (import 96%, transform 3%, tests 1%)\n\n"
+  },
+  {
+    "id": "check-10",
+    "command": "npx vitest run tests/integration/telemetry-operations.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-10.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run tests/integration/telemetry-operations.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  20:13:10\n   Duration  1.09s (import 56%, transform 32%, tests 10%, worker 2%)\n\n"
+  },
+  {
+    "id": "check-11",
+    "command": "npx vitest run infra/telemetry-stack-delivery-controls.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-11.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run vitest run infra/telemetry-stack-delivery-controls.test.ts\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\nBundling asset DeliveryControls-test/TelemetryHandler/Code/Stage...\nnpm notice run vehicle-telemetry@1.0.0 npx\nnpm notice run esbuild --bundle D:\\guide_aidlc\\src\\telemetry\\handlers.ts --target=node22 --platform=node --outfile=C:\\Users\\DEIVIS~1\\AppData\\Local\\Temp\\cdk.outQy4vAG\\bundling-temp-90fecdc8d9da963fa1977c95a8eac0f00c862aa01ee54944014b025103334221-building\\index.js --minify\n\n  ...977c95a8eac0f00c862aa01ee54944014b025103334221-building\\index.js  567.1kb\n\n⚡ Done in 298ms\n\n Test Files  1 passed (1)\n      Tests  4 passed (4)\n   Start at  20:13:10\n   Duration  23.05s (import 99%, transform 1%)\n\n"
+  },
+  {
+    "id": "check-12",
+    "command": "npm run test:unit",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/unit-test-instructions.md"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-12.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 test:unit\nnpm notice run vitest run src/telemetry\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  6 passed (6)\n      Tests  37 passed (37)\n   Start at  20:13:06\n   Duration  1.86s (import 58%, transform 28%, tests 9%, worker 4%)\n\n    Isolate  6 workers spawned · ~476ms startup each (spawn + environment, per file)\n             at least ~476ms faster with isolate: false — reuses workers across files instead of one per file\n\n"
+  },
+  {
+    "id": "check-13",
+    "command": "npm run build",
+    "sources": [
+      "package.json / contrato de pruebas"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-13.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 build\nnpm notice run tsc\n"
+  },
+  {
+    "id": "check-14",
+    "command": "npm run typecheck",
+    "sources": [
+      "package.json / contrato de pruebas"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-14.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 typecheck\nnpm notice run tsc --noEmit\n"
+  },
+  {
+    "id": "check-15",
+    "command": "npm run lint",
+    "sources": [
+      "package.json / contrato de pruebas"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-15.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 lint\nnpm notice run eslint src infra bin tests\n"
+  },
+  {
+    "id": "check-16",
+    "command": "npm run format:check",
+    "sources": [
+      "package.json / contrato de pruebas"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-16.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 format:check\nnpm notice run prettier --check src infra bin tests README.md package.json tsconfig.json vitest.config.ts\nChecking formatting...\nAll matched files use Prettier code style!\n"
+  },
+  {
+    "id": "check-17",
+    "command": "npm run test:integration",
+    "sources": [
+      "package.json / contrato de pruebas"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-17.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 test:integration\nnpm notice run vitest run tests/integration\n(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:\n  - ESM syntax in a file loaded as CommonJS (vitest.config.ts:1:1). Use a `.mjs` extension or set `\"type\": \"module\"` in the closest package.json\nSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.\n\n RUN  v5.0.3 D:/guide_aidlc\n\n\n Test Files  2 passed (2)\n      Tests  2 passed (2)\n   Start at  20:15:12\n   Duration  1.33s (import 52%, transform 37%, tests 8%, worker 2%)\n\n"
+  },
+  {
+    "id": "check-18",
+    "command": "npm run audit:deps",
+    "sources": [
+      "package.json / contrato de pruebas"
+    ],
+    "exit": 1,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-18.log",
+    "tail": "npm notice run vehicle-telemetry@1.0.0 audit:deps\nnpm notice run npm audit --omit=dev --audit-level=high\n# npm audit report\n\nbrace-expansion  4.0.0 - 5.0.11\nSeverity: high\nbrace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service - https://github.com/advisories/GHSA-q2hr-2g5m-vwhr\nbrace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion - https://github.com/advisories/GHSA-qhr7-859c-m2p7\nbrace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion - https://github.com/advisories/GHSA-6j4f-fj2g-mc7p\nfix available via `npm audit fix`\nnode_modules/aws-cdk-lib/node_modules/brace-expansion\n\n1 high severity vulnerability\n\nTo address all issues, run:\n  npm audit fix\n"
+  },
+  {
+    "id": "check-19",
+    "command": "npm run cdk:synth",
+    "sources": [
+      "package.json / contrato de pruebas"
+    ],
+    "exit": 0,
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/build-and-test/evidence/check-19.log",
+    "tail": " Ref: AWS::Region\n              - eu-south-1\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - eu-south-2\n      - Fn::Or:\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - eu-west-1\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - eu-west-2\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - eu-west-3\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - il-central-1\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - me-central-1\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - me-south-1\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - sa-east-1\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - us-east-1\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - us-east-2\n          - Fn::Equals:\n              - Ref: AWS::Region\n              - us-west-1\n      - Fn::Equals:\n          - Ref: AWS::Region\n          - us-west-2\nParameters:\n  BootstrapVersion:\n    Type: AWS::SSM::Parameter::Value<String>\n    Default: /cdk-bootstrap/hnb659fds/version\n    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]\n\n83 feature flags are not configured. Run 'cdk flags --unstable=flags' to learn more.\n"
+  }
+]

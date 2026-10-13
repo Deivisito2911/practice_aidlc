@@ -15,9 +15,9 @@ X-Correlation-Id: 6ce1a87c-85ae-4eb9-bec6-280e2c0e15fa
 {
   "eventId": "evt-001",
   "vehicleId": "veh-042",
-  "type": "battery",
+  "eventType": "battery",
   "value": 19.5,
-  "occurredAt": "2026-10-12T14:30:00Z"
+  "timestamp": "2026-10-12T14:30:00Z"
 }
 ```
 

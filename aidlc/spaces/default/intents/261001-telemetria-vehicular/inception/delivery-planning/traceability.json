@@ -1,29 +1,34 @@
 {
-  "stage": "2.9",
+  "stage": "delivery-planning",
   "artifacts": [
     {
       "file": "bolt-plan.md",
       "tracesTo": [
-        "../units/unit-of-work.md",
-        "../contracts/contract-summary.md"
-      ]
-    },
-    {
-      "file": "risk-and-sequencing-rationale.md",
-      "tracesTo": [
-        "bolt-plan.md"
+        "../units-generation/unit-of-work.md",
+        "../units-generation/unit-of-work-dependency.md",
+        "../units-generation/unit-of-work-story-map.md",
+        "../contract-design/contract-summary.md"
       ]
     },
     {
       "file": "team-allocation.md",
       "tracesTo": [
-        "bolt-plan.md"
+        "bolt-plan.md",
+        "../practices-discovery/team-practices.md"
+      ]
+    },
+    {
+      "file": "risk-and-sequencing-rationale.md",
+      "tracesTo": [
+        "bolt-plan.md",
+        "../requirements-analysis/requirements.md"
       ]
     },
     {
       "file": "external-dependency-map.md",
       "tracesTo": [
-        "bolt-plan.md"
+        "bolt-plan.md",
+        "../contract-design/contract-summary.md"
       ]
     }
   ]

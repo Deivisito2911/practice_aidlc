@@ -1,0 +1,17 @@
+{
+  "stage": "nfr-requirements",
+  "unit": "u2-telemetry-operations",
+  "upstream_ids": ["NFR1", "NFR2", "NFR3", "NFR4", "NFR5", "NFR6", "NFR7", "NFR8", "NFR9", "NFR10"],
+  "coverage": [
+    { "id": "NFR1", "status": "OK", "target": "NFR1.4, NFR1.5, NFR1.6" },
+    { "id": "NFR2", "status": "OK", "target": "NFR2.4" },
+    { "id": "NFR3", "status": "OK", "target": "NFR3.5, NFR3.6, NFR3.7" },
+    { "id": "NFR4", "status": "OK", "target": "NFR4.4" },
+    { "id": "NFR5", "status": "OK", "target": "NFR5.6, NFR5.7, NFR5.8" },
+    { "id": "NFR6", "status": "N/A", "target": "OIDC y credenciales temporales de CI/CD son responsabilidad de U3; U2 no modifica el pipeline." },
+    { "id": "NFR7", "status": "OK", "target": "NFR7.6, NFR7.7, NFR7.8, NFR7.9, NFR7.10, NFR7.11" },
+    { "id": "NFR8", "status": "N/A", "target": "Formato, análisis y puertas de CI corresponden a U3; U2 conserva la práctica de pruebas existente sin modificar el pipeline." },
+    { "id": "NFR9", "status": "OK", "target": "NFR9.7, NFR9.8, NFR9.9, NFR9.10, NFR9.11, NFR9.12, NFR9.13" },
+    { "id": "NFR10", "status": "OK", "target": "NFR10.3" }
+  ]
+}

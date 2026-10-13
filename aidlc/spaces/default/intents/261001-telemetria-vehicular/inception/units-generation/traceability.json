@@ -16,16 +16,16 @@
   ],
   "coverage": [
     { "id": "US1.1", "status": "OK", "target": "U1" },
-    { "id": "US1.2", "status": "OK", "target": "U1" },
+    { "id": "US1.2", "status": "OK", "target": "U2" },
     { "id": "US2.1", "status": "OK", "target": "U1" },
     { "id": "US3.1", "status": "OK", "target": "U1" },
     { "id": "US3.2", "status": "OK", "target": "U1" },
     { "id": "US4.1", "status": "OK", "target": "U1" },
-    { "id": "US4.2", "status": "OK", "target": "U1" },
-    { "id": "US5.1", "status": "OK", "target": "U1" },
-    { "id": "US5.2", "status": "OK", "target": "U1" },
+    { "id": "US4.2", "status": "OK", "target": "U2" },
+    { "id": "US5.1", "status": "OK", "target": "U2" },
+    { "id": "US5.2", "status": "OK", "target": "U2" },
     { "id": "US6.1", "status": "OK", "target": "U1" },
-    { "id": "US6.2", "status": "OK", "target": "U1" },
-    { "id": "US6.3", "status": "OK", "target": "U1" }
+    { "id": "US6.2", "status": "OK", "target": "U3" },
+    { "id": "US6.3", "status": "OK", "target": "U3" }
   ]
 }

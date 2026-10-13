@@ -1,0 +1,36 @@
+{
+  "stage": "nfr-design",
+  "unit": "u2-telemetry-operations",
+  "upstream_ids": [
+    "NFR1.4", "NFR1.5", "NFR1.6", "NFR2.4", "NFR3.5", "NFR3.6", "NFR3.7", "NFR4.4",
+    "NFR5.6", "NFR5.7", "NFR5.8", "NFR7.6", "NFR7.7", "NFR7.8", "NFR7.9", "NFR7.10", "NFR7.11",
+    "NFR9.7", "NFR9.8", "NFR9.9", "NFR9.10", "NFR9.11", "NFR9.12", "NFR9.13", "NFR10.3"
+  ],
+  "coverage": [
+    { "id": "NFR1.4", "status": "OK", "target": "Perfil de carga y reporte p50/p95/p99 en performance-design.md" },
+    { "id": "NFR1.5", "status": "OK", "target": "Cuotas por clave y prueba aislada descritas en performance-design.md y scalability-design.md" },
+    { "id": "NFR1.6", "status": "OK", "target": "Separación de errores y límites en performance-design.md y observability-design.md" },
+    { "id": "NFR2.4", "status": "OK", "target": "Commit antes de 202 y medición correlacionada en performance-design.md" },
+    { "id": "NFR3.5", "status": "OK", "target": "SLI mensual y denominador completo en reliability-design.md y observability-design.md" },
+    { "id": "NFR3.6", "status": "OK", "target": "PENDING hasta confirmación y recuperación compartida en reliability-design.md" },
+    { "id": "NFR3.7", "status": "OK", "target": "Repetición segura y elegibilidad programada en reliability-design.md" },
+    { "id": "NFR4.4", "status": "OK", "target": "TTL eventual y señal de elegibles pendientes en reliability-design.md y observability-design.md" },
+    { "id": "NFR5.6", "status": "OK", "target": "Identidad IAM P3 de mínimo privilegio en security-design.md" },
+    { "id": "NFR5.7", "status": "OK", "target": "Preview y ejecución ligada a huella en security-design.md" },
+    { "id": "NFR5.8", "status": "OK", "target": "Auditoría sin secretos/payload en security-design.md y observability-design.md" },
+    { "id": "NFR7.6", "status": "OK", "target": "Logs estructurados y reglas de no exposición en observability-design.md" },
+    { "id": "NFR7.7", "status": "OK", "target": "Inventario de métricas de servicio en observability-design.md" },
+    { "id": "NFR7.8", "status": "OK", "target": "Umbrales y acciones de backlog en observability-design.md" },
+    { "id": "NFR7.9", "status": "OK", "target": "Alarmas de fallo y distinción 4xx/limitación en observability-design.md" },
+    { "id": "NFR7.10", "status": "OK", "target": "Cadena de correlación de extremo a extremo en observability-design.md" },
+    { "id": "NFR7.11", "status": "OK", "target": "SLI, denominadores y panel de staging en observability-design.md" },
+    { "id": "NFR9.7", "status": "OK", "target": "Una Lambda y límites operativos en scalability-design.md y logical-components.md" },
+    { "id": "NFR9.8", "status": "OK", "target": "Consulta y procesamiento acotados en scalability-design.md" },
+    { "id": "NFR9.9", "status": "OK", "target": "Carga mixta e aislamiento de ingesta en performance-design.md y scalability-design.md" },
+    { "id": "NFR9.10", "status": "OK", "target": "TypeScript/CDK existente preservado en logical-components.md" },
+    { "id": "NFR9.11", "status": "OK", "target": "CLI con Invoke IAM y sin acceso directo a datos en security-design.md" },
+    { "id": "NFR9.12", "status": "OK", "target": "Topología y límites en logical-components.md" },
+    { "id": "NFR9.13", "status": "OK", "target": "Señales y destino operativo en observability-design.md" },
+    { "id": "NFR10.3", "status": "OK", "target": "Auditoría de invocación y rol restringido en security-design.md" }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "stage": "code-generation",
+  "unit": "u3-delivery-controls",
+  "upstream_ids": [
+    "AC6.2.1",
+    "AC6.2.2",
+    "AC6.2.3",
+    "AC6.2.4",
+    "AC6.3.1",
+    "AC6.3.2",
+    "AC6.3.3",
+    "AC6.3.4",
+    "NFR5.1",
+    "NFR5.2",
+    "NFR5.3",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR8.1",
+    "NFR8.2",
+    "NFR8.3",
+    "NFR8.4",
+    "NFR9.1",
+    "NFR9.2",
+    "NFR10.1",
+    "NFR10.2",
+    "NFR10.3",
+    "NFR10.4"
+  ],
+  "coverage": [
+    {
+      "id": "AC6.2.1",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "AC6.2.2",
+      "status": "GAP",
+      "target": "CloudTrail real-account management event evidence is pending AWS account access. The CDK logging/archive configuration is checked locally."
+    },
+    {
+      "id": "AC6.2.3",
+      "status": "OK",
+      "target": "infra/telemetry-stack-delivery-controls.test.ts"
+    },
+    {
+      "id": "AC6.2.4",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "AC6.3.1",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "AC6.3.2",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "AC6.3.3",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "AC6.3.4",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts"
+    },
+    {
+      "id": "NFR5.1",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack-delivery-controls.test.ts"
+    },
+    {
+      "id": "NFR5.3",
+      "status": "OK",
+      "target": "infra/telemetry-stack-delivery-controls.test.ts"
+    },
+    {
+      "id": "NFR6.1",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "NFR6.2",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "NFR6.3",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "NFR8.1",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "NFR8.2",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "NFR8.3",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "NFR8.4",
+      "status": "GAP",
+      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+    },
+    {
+      "id": "NFR9.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts"
+    },
+    {
+      "id": "NFR9.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack-delivery-controls.test.ts"
+    },
+    {
+      "id": "NFR10.1",
+      "status": "GAP",
+      "target": "CloudTrail real-account management event evidence is pending AWS account access. The CDK logging/archive configuration is checked locally."
+    },
+    {
+      "id": "NFR10.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack-delivery-controls.test.ts"
+    },
+    {
+      "id": "NFR10.3",
+      "status": "OK",
+      "target": "infra/telemetry-stack-delivery-controls.test.ts"
+    },
+    {
+      "id": "NFR10.4",
+      "status": "OK",
+      "target": "docs/telemetry-verification.md"
+    }
+  ]
+}

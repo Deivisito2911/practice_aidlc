@@ -1,0 +1,1413 @@
+[
+  {
+    "id": "u1-telemetry-core:NFR7.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR7.1",
+    "expected": [
+      "Logs estructurados distinguirán entrada HTTP aceptada/rechazada, fallo de validación, fallo o incertidumbre DynamoDB, fallo o incertidumbre SQS, reclamación perdida y recuperación programada. Llevarán correlationId y eventId cuando exista, sin clave API ni cuerpo crudo.",
+      "Eventos estructurados separados para validación, transacción, publicación, reclamación y barrido; niveles coherentes para éxito, recuperación y fallo."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F5: caminos 400/202 no registran status y correlación.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u1-telemetry-core:NFR7.2",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR7.2",
+    "expected": [
+      "Métricas contarán solicitudes 202/400/409/5xx, intentos y fallos de transacción, salidas PENDING/PUBLISHED, envíos SQS confirmados/fallidos/inciertos e invocaciones/fallos EventBridge.",
+      "Contadores de HTTP 202/400/409/5xx, commit, SQS confirmado/fallido/incierto, transición PUBLISHED, barridos y reclamaciones perdidas."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F5: contadores completos ausentes.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u1-telemetry-core:NFR7.3",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR7.3",
+    "expected": [
+      "Medir antigüedad máxima y cantidad de PENDING, profundidad de SQS de alertas y acumulación de eventos elegibles TTL aún presentes; alarmar una condición anómala para cada una.",
+      "Indicadores de cantidad/edad máxima PENDING, profundidad SQS y elegibles TTL. Alarmas de acumulación y fallos de barrido, con umbrales/ventanas/destinos parametrizados en Infrastructure Design."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F2/F3: alarmas consultan dimensiones incorrectas y TTL carece de permiso.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u1-telemetry-core:NFR7.4",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR7.4",
+    "expected": [
+      "Un operador autorizado podrá correlacionar petición API → Lambda única → evento/Outbox → SQS de alertas y EventBridge → la misma Lambda mediante correlationId y alertId, con acceso restringido a trazas.",
+      "Búsqueda correlacionada entre API, Lambda, DynamoDB/Outbox, SQS y EventBridge mediante correlationId y alertId. Trazas restringidas por rol."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/observability-setup/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR7.5",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR7.5",
+    "expected": [
+      "SLI de latencia p95, tiempo desde recepción hasta commit, disponibilidad mensual y edad de PENDING usarán definiciones estables y distinguirán errores de productor, limitación de cuota y fallos del servicio.",
+      "Panel de staging con p95, tasa válida, tiempo a commit, disponibilidad mensual y edad PENDING; publicar definición de denominador de cada SLI."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F5: dashboard/SLI ausentes.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u1-telemetry-core:NFR1.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR1.1",
+    "expected": [
+      "Bajo 100 solicitudes válidas/s sostenidas en staging, la latencia HTTP de extremo a extremo tendrá p95 ≤ 500 ms.",
+      "Medir desde el cliente p95 ≤ 500 ms a 100 solicitudes válidas/s sostenidas en staging, incluida una mezcla declarada de batería baja. La configuración de memoria, concurrencia y plazo SQS se ajusta con esa prueba."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/performance-requirements.md#Alcance",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR1.2",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR1.2",
+    "expected": [
+      "La primera publicación SQS de batería baja se intentará después del commit dentro de un presupuesto que permita cumplir NFR1.1; si se agota, la salida seguirá PENDING y la API devolverá 202.",
+      "El intento SQS tiene un presupuesto configurable menor que el tiempo restante del handler y no participa en la decisión de éxito. Al agotarlo, PENDING queda recuperable."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/performance-requirements.md#Alcance",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR2.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR2.1",
+    "expected": [
+      "El 100 % de respuestas 202 nuevas corresponderá a eventos confirmados y, cuando aplique, a salidas PENDING creadas atómicamente antes de la respuesta.",
+      "El único punto que autoriza un 202 nuevo es el commit transaccional confirmado; la respuesta copia acceptedAt del registro."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/performance-requirements.md#Alcance",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR2.2",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR2.2",
+    "expected": [
+      "Al menos 99 % de eventos HTTP válidos alcanzará persistencia confirmada en menos de 30 s desde la recepción, sin usar el envío SQS como condición.",
+      "Capturar recepción, commit y respuesta con relojes consistentes y calcular la fracción persistida antes de 30 s; SQS queda fuera del denominador de persistencia."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/performance-requirements.md#Alcance",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR3.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR3.1",
+    "expected": [
+      "El endpoint de ingestión en staging alcanzará disponibilidad ≥ 99,9 % en cada mes calendario: minutos que aceptan solicitudes válidas dentro de cuota / todos los minutos del mes, sin excluir mantenimiento.",
+      "Servicio gestionado con sondas externas para disponibilidad mensual de staging; cambios de Lambda compatibles y reversibles. No se excluyen ventanas de mantenimiento."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR3.2",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR3.2",
+    "expected": [
+      "Fallos transitorios DynamoDB o resultado de commit incierto no producirán un 202 nuevo sin prueba de persistencia; la transacción no dejará evento y Outbox parciales.",
+      "Transacción DynamoDB atómica, condiciones de no existencia y respuesta no exitosa cuando el commit es incierto y no verificable."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR3.3",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR3.3",
+    "expected": [
+      "Un fallo o resultado incierto de SQS dejará la salida PENDING, recuperable por la misma Lambda cuando EventBridge vuelva a invocarla. Todas las copias usarán el mismo alertId.",
+      "Outbox PENDING durable, alertId determinista y barrido EventBridge de la misma Lambda. SQS puede duplicar físicamente; consumidor contractual deduplica por alertId."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR3.4",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR3.4",
+    "expected": [
+      "La reclamación condicional tendrá vencimiento; una invocación caída o un propietario antiguo no bloqueará permanentemente PENDING ni podrá marcar PUBLISHED tras perder el token.",
+      "Reclamación condicional con claimToken y leaseUntil; solo dueño vigente marca PUBLISHED. Vencimiento recupera una salida abandonada."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR4.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR4.1",
+    "expected": [
+      "Todo evento confirmado conservará acceptedAt canónico a segundos y expiresAt = acceptedAt + 90 días exactos en segundos Unix; TTL estará habilitado sobre expiresAt.",
+      "acceptedAt único a precisión de segundos y expiresAt numérico = acceptedAt + 90 días; TTL habilitado solo en eventos."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR4.2",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR4.2",
+    "expected": [
+      "La eliminación física posterior a expiresAt será eventual y supervisada, sin promesa de plazo máximo. La idempotencia por eventId solo está garantizada mientras el registro exista; el productor no debe reutilizar IDs.",
+      "Vigilar registros elegibles aún presentes; tratar eliminación física como eventual. Documentar que un ID no se reutiliza después de TTL."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR4.3",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR4.3",
+    "expected": [
+      "Una salida PENDING conservará todos los datos para publicar sin leer un TelemetryEvent que TTL ya pudo eliminar; no se eliminará por el TTL del evento.",
+      "Copiar vehicleId, occurredAt, batteryValue y correlationId en Outbox; PENDING no comparte TTL del evento."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR1.3",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR1.3",
+    "expected": [
+      "El recorrido HTTP y transaccional soportará el perfil aprobado de 100 solicitudes válidas/s sostenidas por clave y ráfaga configurada de 200, sin incumplir NFR1.1. Las cuotas de API Gateway son objetivos aproximados, no una garantía exacta por solicitud.",
+      "Configurar el plan de uso por clave a 100 solicitudes/s, ráfaga 200 y cuota diaria 5.000.000, entendiendo que su cumplimiento es aproximado; la capacidad backend se comprueba bajo el perfil efectivo."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/scalability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR2.3",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR2.3",
+    "expected": [
+      "La capacidad de la única Lambda y de ambas tablas permitirá confirmar evento y Outbox antes del 202 para el perfil aprobado; la recuperación programada compartirá capacidad sin bloquear la ingesta.",
+      "Dimensionar Lambda y ambas tablas para 100 solicitudes válidas/s más barrido periódico; si aparece contención, ajustar recursos antes de modificar la topología."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/scalability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/scalability-design.md#Escalado y consulta"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR9.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR9.1",
+    "expected": [
+      "La consulta de recuperación será indexada, paginada y acotada a PENDING vencidos; no dependerá de un escaneo completo de Outbox.",
+      "Índice disperso de salidas PENDING por vencimiento, con particiones distribuidas y paginación. Consultar todos los segmentos debidos en lotes acotados; no hacer Scan de toda la tabla."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/scalability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/scalability-design.md#Escalado y consulta"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR9.2",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR9.2",
+    "expected": [
+      "El CDK definirá capacidad/concurrencia y parámetros por entorno de forma reproducible; Infrastructure Design fijará tamaño de lote, frecuencia EventBridge, distribución de índice y límites de Lambda.",
+      "Configurar frecuencia, lote, concurrencia, tiempo de arrendamiento y límites mediante parámetros CDK por entorno; la misma plantilla conserva la topología."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/scalability-requirements.md#tabla de objetivos",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/scalability-design.md#Escalado y consulta"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR5.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR5.1",
+    "expected": [
+      "API Gateway exigirá clave de API para POST /telemetry-events. Las claves ausentes o inválidas no invocarán la Lambda. La clave es control de consumo inicial y no autorización granular por vehículo.",
+      "Método POST protegido con clave de API y plan de uso; rechazo previo a Lambda."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR5.2",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR5.2",
+    "expected": [
+      "Las dos tablas DynamoDB y la SQS de alertas usarán cifrado KMS; el tránsito entre cliente, API y servicios AWS usará TLS.",
+      "KMS para ambas tablas y SQS; TLS para cliente/API y llamadas a servicios; políticas que impiden transporte no cifrado cuando aplique."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR5.3",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR5.3",
+    "expected": [
+      "El rol de la única Lambda tendrá permisos mínimos de lectura/escritura condicional y transacción sobre las tablas, SendMessage a la SQS de alertas y logs/métricas necesarios. Carecerá de permisos de recepción/borrado SQS y de recursos de cola de ingreso.",
+      "Un rol Lambda con acciones precisas de transacción/consulta/actualización en tablas y SendMessage en la cola de alertas; ninguna acción ReceiveMessage/DeleteMessage ni cola de ingreso. La regla EventBridge solo puede invocar esa Lambda."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR5.4",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR5.4",
+    "expected": [
+      "El acceso humano a evento, rawPayload y Outbox se limitará a roles operativos autorizados y quedará auditable. Logs, métricas y trazas no contendrán clave API, cuerpo crudo ni el rawPayload; vehicleId y eventId se registrarán solo cuando se necesiten para correlación y con acceso restringido.",
+      "Datos confidenciales en evento/Outbox; acceso humano solo por rol autorizado. rawPayload se conserva cifrado con el evento, sin registrarlo en logs/trazas/métricas. Los identificadores de correlación se exponen solo a operadores autorizados."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR5.5",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR5.5",
+    "expected": [
+      "El límite HTTP validará esquema, tipos, identificadores, reloj y rangos antes de cualquier escritura o publicación; la entrada programada se distinguirá por la forma EventBridge esperada.",
+      "Validación de esquema cerrado, identificadores, rangos y reloj antes de escribir; entrada EventBridge inválida no entra al caso HTTP."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR10.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR10.1",
+    "expected": [
+      "La infraestructura base de U1 habilitará auditoría CloudTrail de eventos de administración de API Gateway, Lambda, SQS, DynamoDB, KMS, IAM y CloudFormation/CDK.",
+      "Usar un trail de administración verificable para los servicios de la solución; el CDK provee la base si no existe una opción organizacional comprobada."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR10.2",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR10.2",
+    "expected": [
+      "Los registros CloudTrail estarán cifrados con KMS, retenidos al menos 90 días y fuera de permisos de borrado del rol de aplicación. U3 completará la verificación de identidad y protección de despliegue.",
+      "Entrega de CloudTrail a almacenamiento KMS con retención ≥90 días y denegación de borrado al rol de aplicación; separar su administración de la Lambda."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR9.3",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR9.3",
+    "expected": [
+      "TypeScript para la única Lambda de telemetría y AWS CDK para infraestructura."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR9.4",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR9.4",
+    "expected": [
+      "API Gateway REST para POST /telemetry-events, con clave y plan de uso."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1-telemetry-core:NFR9.5",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR9.5",
+    "expected": [
+      "DynamoDB con tabla de eventos y tabla Outbox; escritura transaccional condicional y TTL de eventos."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR9.6",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR9.6",
+    "expected": [
+      "Una SQS de alertas y una regla periódica EventBridge que invoca la misma Lambda."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u1-telemetry-core:NFR8.1",
+    "unit": "u1-telemetry-core",
+    "requirement": "NFR8.1",
+    "expected": [
+      "Prettier, ESLint, comprobación de tipos, pruebas unitarias por capa y prueba crítica de integración con AWS simulado."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+  },
+  {
+    "id": "u1-telemetry-core:testing-contract",
+    "unit": "u1-telemetry-core",
+    "requirement": "Testing Contract",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/code-generation-plan.md#Testing Contract",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
+    ],
+    "expected": [
+      "test-after; una prueba verificable por requisito al nivel efectivo; caso feliz por componente; suite existente verde; integración crítica AWS simulada; sin porcentaje de cobertura impuesto."
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR7.6",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR7.6",
+    "expected": [
+      "Logs estructurados correlacionan solicitudes aceptadas/rechazadas, fallos Lambda/DynamoDB, EventBridge, SQS, preview/confirmación manual y conteos finales, sin clave API, secretos ni cuerpo crudo."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F5/F6: correlación/cause incompletas.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR7.7",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR7.7",
+    "expected": [
+      "Métricas cubren estados HTTP, latencia p95, recepción-a-commit, cantidad/antigüedad PENDING, resultados de recuperación, fallos EventBridge/SQS, profundidad visible SQS y TTL elegible aún presente."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F2/F3/F5: unidades/serie/permisos incompletos.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR7.8",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR7.8",
+    "expected": [
+      "Alarmas de acumulación declaran indicador, umbral, ventana, severidad, destino y recuperación. Valores iniciales: edad máxima PENDING >10 min por 5 min (alta); cantidad PENDING >100 por 10 min (media); profundidad visible SQS >100 por 5 min (media); TTL elegible aún presente >1,000 con antigüedad >24 h durante 1 h (baja; investigar demora eventual)."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F2: dimensiones desalineadas. TTL cutoff >24h sí existe en adapter.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR7.9",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR7.9",
+    "expected": [
+      "Alarmas de fallo detectan al menos un fallo de invocación EventBridge en 5 min y error de servicio ≥1 % sobre al menos 100 solicitudes en 5 min; rechazos 4xx y límites de cuota se separan."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F2/F4: series incorrectas y comparador >1%.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR7.10",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR7.10",
+    "expected": [
+      "P3 recorre correlación desde API/solicitud a TelemetryService, evento/Outbox, SQS y EventBridge; puede buscar cada RecoveryRun por correlación."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/observability-setup/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR7.11",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR7.11",
+    "expected": [
+      "SLI de rendimiento, procesamiento, disponibilidad y TTL documentan denominador, exclusiones y periodo; mantenimiento no se excluye de disponibilidad."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F5: no existe cálculo mensual ni prueba sintética.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR1.4",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR1.4",
+    "expected": [
+      "En staging, una carga sostenida de 100 solicitudes válidas/s tendrá latencia HTTP de extremo a extremo p95 ≤ 500 ms. Reportar también p50, p99, tasa efectiva, 4xx/5xx, limitaciones y uso de recursos."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/performance-requirements.md#Alcance"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR2.4",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR2.4",
+    "expected": [
+      "El 100 % de respuestas `202` seguirá al commit durable del evento y de Outbox cuando corresponda; ≥99 % de eventos válidos alcanzará ese estado en menos de 30 s desde la recepción."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/performance-requirements.md#Alcance"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR1.5",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR1.5",
+    "expected": [
+      "La configuración por clave verifica tasa objetivo 100 solicitudes/s, ráfaga 200 y cuota diaria 5,000,000; tasa y limitación se reportan por clave."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/performance-requirements.md#Alcance"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR1.6",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR1.6",
+    "expected": [
+      "El informe de carga separa fallos de servicio de errores del productor y respuestas de cuota, sin excluirlos del conteo general de resultado."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/performance-requirements.md#Alcance"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR3.5",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR3.5",
+    "expected": [
+      "Staging reportará disponibilidad ≥99.9 % por mes calendario: minutos que aceptan solicitudes válidas dentro de cuota / todos los minutos; mantenimiento permanece en el denominador."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/reliability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR3.6",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR3.6",
+    "expected": [
+      "Una recuperación manual completa, fallida o parcial conserva identidad Outbox; solo publicación confirmada cierra una salida. Fallos/ incertidumbre dejan `PENDING` para intento posterior, incluido EventBridge."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/reliability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR4.4",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR4.4",
+    "expected": [
+      "Cada evento usa `expiresAt = acceptedAt + 90 días` exactos. La señal TTL separa registros elegibles que permanecen de la eliminación física eventual, sin plazo máximo de borrado."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/reliability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Not Met",
+    "actual": "F3: TTL GSI no autorizado.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR3.7",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR3.7",
+    "expected": [
+      "La repetición del comando manual no crea evento/Outbox adicional ni sustituye `alertId`; entradas no confirmadas siguen disponibles para el barrido programado."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/reliability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR9.7",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR9.7",
+    "expected": [
+      "Mantener una única Lambda y el contrato de ingesta; cada preview/ejecución CLI queda bajo un máximo operativo explícito y procesa solo candidatos mostrados."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/scalability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR9.8",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR9.8",
+    "expected": [
+      "Métricas, alarmas y recuperación no dependen de una lectura ilimitada del Outbox; barrido y reintento manual tienen límite por ejecución."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/scalability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR9.9",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR9.9",
+    "expected": [
+      "La concurrencia HTTP y de recuperación comparte TelemetryService y permite sostener 100 RPS sin que el proceso de pendientes bloquee la ingesta."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/scalability-requirements.md#tabla de objetivos"
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR5.6",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR5.6",
+    "expected": [
+      "La vista previa y ejecución manual requieren identidad P3 autorizada. Sus permisos se limitan a preparar la recuperación y solicitar la operación; no conceden administración de API, despliegue ni acceso general a tablas."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR5.7",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR5.7",
+    "expected": [
+      "La CLI muestra solo IDs, cantidad, límite y correlaciones necesarias; no devuelve secretos ni payload crudo. La confirmación se liga a la vista previa actual."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Not Met",
+    "actual": "F6: preview sin caducidad ni vínculo de límite.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR5.8",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR5.8",
+    "expected": [
+      "Las acciones registran actor, hora, alcance, límite, confirmación, correlación y conteos; logs y métricas excluyen claves API, secretos y cuerpo crudo."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Not Met",
+    "actual": "F6: auditoría operacional no registra identidad consultable.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR10.3",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR10.3",
+    "expected": [
+      "Las invocaciones administrativas conservan evidencia consultable junto al RecoveryRun/RecoveryResult; retención y protección siguen el baseline CloudTrail de la solución."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR9.10",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR9.10",
+    "expected": [
+      "Mantener TypeScript y AWS CDK del servicio existente."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR9.11",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR9.11",
+    "expected": [
+      "Entregar recuperación manual como CLI operativa propia con vista previa y confirmación."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR9.12",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR9.12",
+    "expected": [
+      "Mantener API Gateway REST, única Lambda, tablas evento/Outbox, EventBridge y SQS de alertas; ampliar señales y alarmas operativas."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u2-telemetry-operations:NFR9.13",
+    "unit": "u2-telemetry-operations",
+    "requirement": "NFR9.13",
+    "expected": [
+      "Usar los registros/métricas y el servicio de alarmas del entorno existente, con destino de guardia configurado por entorno."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u2-telemetry-operations:testing-contract",
+    "unit": "u2-telemetry-operations",
+    "requirement": "Testing Contract",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/code-generation-plan.md#Testing Contract",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ],
+    "expected": [
+      "test-after; una prueba verificable por requisito al nivel efectivo; caso feliz por componente; suite existente verde; integración crítica AWS simulada; sin porcentaje de cobertura impuesto."
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR5.1",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR5.1",
+    "expected": [
+      "Los roles de pipeline y despliegue tienen permisos mínimos; ningún rol de aplicación recibe permisos administrativos sobre CloudTrail o sus logs.",
+      "Mantener roles de pipeline separados de los roles de aplicación y limitar cada política IAM a acciones y recursos del entorno correspondiente. Ningún rol de aplicación puede administrar CloudTrail, sus logs o su bucket."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR5 — Cifrado y privilegios de la solución",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR5.2",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR5.2",
+    "expected": [
+      "Los cambios de U3 preservan cifrado KMS, TLS y la topología acordada; no añaden SQS de entrada ni DLQ de ingreso.",
+      "Mantener KMS para datos y registros, TLS en los límites de servicio y la topología contractual: API Gateway REST, una Lambda, dos tablas DynamoDB, EventBridge y SQS de alertas. No añadir SQS de entrada ni DLQ de ingreso."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR5 — Cifrado y privilegios de la solución",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u3-delivery-controls:NFR5.3",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR5.3",
+    "expected": [
+      "La revisión de CDK verifica políticas de IAM y cifrado para los recursos modificados; los permisos de operación quedan separados de los roles del servicio.",
+      "Revisar en cada cambio de CDK las políticas IAM, cifrado, confianza OIDC y límites de recursos; usar la síntesis como evidencia estática y bloquear cualquier ampliación no revisada de privilegios."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR5 — Cifrado y privilegios de la solución",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR9.1",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR9.1",
+    "expected": [
+      "Los recursos y cambios de infraestructura se definen con TypeScript y AWS CDK; staging se reproduce mediante síntesis/despliegue sin ajustes manuales ocultos.",
+      "Versionar la infraestructura en TypeScript/AWS CDK. Sintetizar el mismo commit en CI y desplegar a staging sin pasos manuales ocultos; guardar el digest del artefacto y el resultado de síntesis con la ejecución."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR9 — Infraestructura reproducible",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR9.2",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR9.2",
+    "expected": [
+      "U3 empaqueta el mismo servicio y conserva API Gateway REST, una Lambda, dos tablas, EventBridge y SQS de alertas únicamente.",
+      "El stack de U3 empaqueta el mismo servicio y conserva el conjunto de recursos acordado. No crear otra Lambda de telemetría ni cambiar las responsabilidades de API, EventBridge o SQS."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR9 — Infraestructura reproducible",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u3-delivery-controls:NFR6.1",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR6.1",
+    "expected": [
+      "El pipeline debe autenticarse en AWS mediante federación OIDC y roles temporales; el sujeto confiable debe limitarse al repositorio y a las referencias de rama/entorno autorizadas.",
+      "Configurar una relación de confianza OIDC por repositorio y entorno. El rol de validación solo permite leer artefactos necesarios; el rol de *staging* solo permite desplegar el stack de la aplicación a la cuenta/entorno de staging; el rol de producción solo se asume desde el entorno protegido tras aprobación. Rechazar tokens cuyo sujeto no coincida exactamente con repositorio, rama/tag y entorno autorizados."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR6 — Credenciales temporales de despliegue",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR6 — Identidad de CI/CD y privilegios"
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR6.2",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR6.2",
+    "expected": [
+      "No se guardan claves AWS de larga duración en código, variables persistentes, artefactos, registros ni cachés del pipeline. Los tokens y sesiones se limitan a la duración y acciones necesarias.",
+      "No crear secretos AWS persistentes. Intercambiar el token OIDC por sesión STS con duración mínima compatible con la tarea; no imprimir tokens, credenciales ni variables sensibles. Deshabilitar persistencia de credenciales en cachés y artefactos, y enmascarar los valores temporales del entorno de ejecución."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR6 — Credenciales temporales de despliegue",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR6 — Identidad de CI/CD y privilegios"
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR6.3",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR6.3",
+    "expected": [
+      "El rol de CI y cada rol de despliegue deben aplicar mínimo privilegio y separar acciones de validación, despliegue a staging y promoción a producción. La promoción de producción requiere aprobación humana explícita.",
+      "Separar roles de validación, despliegue a staging y producción. El rol de aplicación de Lambda queda fuera de esos roles y solo conserva permisos de ejecución sobre sus recursos. La promoción de producción requiere aprobación humana explícita y no comparte las credenciales ni el trabajo que construyó el artefacto."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR6 — Credenciales temporales de despliegue",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR6 — Identidad de CI/CD y privilegios"
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR8.1",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR8.1",
+    "expected": [
+      "Antes de integrar un pull request, CI ejecuta formato, ESLint y comprobación TypeScript con los scripts versionados del proyecto.",
+      "Instalar dependencias desde el lockfile y ejecutar formato, ESLint y `npm run typecheck`."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR8.2",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR8.2",
+    "expected": [
+      "CI ejecuta las pruebas unitarias y la prueba crítica de integración con AWS simulado. Cualquier fallo bloquea la integración.",
+      "Ejecutar `npm run test:unit` y la integración crítica `npm run test:integration -- tests/integration/telemetry-flow.test.ts` con AWS simulado."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR8.3",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR8.3",
+    "expected": [
+      "CI analiza dependencias y secretos; un hallazgo que supere los umbrales configurados o una credencial persistente bloquea la integración.",
+      "Ejecutar `npm run audit:deps` y análisis de secretos sobre el cambio y el historial incluido en el pull request. Una credencial detectada o vulnerabilidad por encima del umbral acordado bloquea integración; las excepciones requieren registro y responsable antes de reanudar."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Not Met",
+    "actual": "F1: vulnerabilidad high, exit 1.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u3-delivery-controls:NFR8.4",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR8.4",
+    "expected": [
+      "La rama `main` exige todas las comprobaciones obligatorias y revisión aprobada; la integración usa squash. Un resultado fallido no puede promoverse a staging.",
+      "Proteger `main`: exigir revisión aprobada y todos los checks verdes, permitir solo fusión *squash* y bloquear el despliegue a staging hasta completar esas condiciones. El workflow de producción exige su propia aprobación."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR10.1",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR10.1",
+    "expected": [
+      "CloudTrail registra creación, modificación y eliminación administrativa de API Gateway, Lambda, SQS, DynamoDB, KMS, IAM y CloudFormation usados por la solución, con identidad, acción, recurso y fecha consultables.",
+      "Configurar CloudTrail para registrar operaciones administrativas de API Gateway, Lambda, SQS, DynamoDB, KMS, IAM y CloudFormation de la solución, incluyendo identidad, operación, recurso y hora. En la verificación de cuenta, consultar eventos reales de administración posteriores al despliegue."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR10 — Auditoría CloudTrail protegida",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR10 — Auditoría protegida"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR10.2",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR10.2",
+    "expected": [
+      "Los logs se cifran con KMS y se conservan al menos 90 días; la política de retención protege la evidencia frente al borrado prematuro.",
+      "Enviar los logs a almacenamiento cifrado con KMS, retención mínima de 90 días y controles que impidan su borrado antes del vencimiento."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR10 — Auditoría CloudTrail protegida",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR10 — Auditoría protegida"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u3-delivery-controls:NFR10.3",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR10.3",
+    "expected": [
+      "Los roles de aplicación no pueden detener o modificar el trail, cambiar su cifrado/retención ni eliminar los logs o su bucket protegido.",
+      "Restringir la administración del trail y del destino de logs a un rol de auditoría separado; denegar a los roles de aplicación y despliegue de la app detener/modificar el trail o eliminar sus evidencias."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR10 — Auditoría CloudTrail protegida",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR10 — Auditoría protegida"
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u3-delivery-controls:NFR10.4",
+    "unit": "u3-delivery-controls",
+    "requirement": "NFR10.4",
+    "expected": [
+      "Las comprobaciones de U3 verifican la política de auditoría y documentan cualquier validación que requiera una cuenta AWS real; una síntesis CDK no se presenta como evidencia de eventos reales.",
+      "Añadir una comprobación de política/configuración en revisión CDK y una lista de verificación operativa para verificar eventos reales en la cuenta AWS. Marcar la síntesis CDK como evidencia estática, nunca como prueba de actividad CloudTrail."
+    ],
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR10 — Auditoría CloudTrail protegida",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR10 — Auditoría protegida"
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "u3-delivery-controls:testing-contract",
+    "unit": "u3-delivery-controls",
+    "requirement": "Testing Contract",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/code-generation-plan.md#Testing Contract",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/unit-test-instructions.md"
+    ],
+    "expected": [
+      "test-after; una prueba verificable por requisito al nivel efectivo; caso feliz por componente; suite existente verde; integración crítica AWS simulada; sin porcentaje de cobertura impuesto."
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "NFR1",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR1"
+    ],
+    "expected": [
+      "Latencia de ingestión. La API SHALL mantener una latencia p95 menor o igual a 500 ms en `staging` bajo una carga sostenida de 100 solicitudes válidas por segundo. **Verification:** una prueba de carga representativa calcula p95 ≤ 500 ms. **Source:** [Q7]."
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "NFR2",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR2"
+    ],
+    "expected": [
+      "Tiempo de procesamiento. El 100 % de las respuestas `202` SHALL corresponder a eventos ya persistidos y, cuando aplique, a una salida Outbox `PENDING` creada atómicamente. Al menos el 99 % de los eventos válidos SHALL alcanzar ese estado en menos de 30 segundos desde la recepción HTTP. **Verification:** una prueba integral correlaciona recepción, confirmación transaccional y respuesta; ninguna respuesta `202` antecede a la persistencia, y el percentil de cumplimiento alcanza ≥ 99 %. **Source:** [Q7], [Q11], [memory:M1]."
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "NFR3",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR3"
+    ],
+    "expected": [
+      "Disponibilidad. El endpoint de ingestión en `staging` SHALL alcanzar 99,9 % de disponibilidad por mes calendario, calculada como minutos en los que acepta solicitudes válidas dentro de cuota divididos entre todos los minutos del mes, sin excluir ventanas de mantenimiento. **Verification:** la métrica mensual calculada con ese denominador alcanza ≥ 99,9 %. **Source:** [Q7]."
+    ],
+    "owner": "performance-validation",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+  },
+  {
+    "id": "NFR4",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR4"
+    ],
+    "expected": [
+      "Retención. Cada registro de telemetría SHALL conservar el instante de aceptación HTTP asociado a la respuesta `202 Accepted`; `expiresAt` SHALL calcularse exactamente 90 días después de ese instante y el registro SHALL quedar entonces elegible para eliminación mediante TTL de DynamoDB. La eliminación física posterior SHALL ser eventual, supervisada y sin un plazo máximo propio. **Verification:** una prueba correlaciona la respuesta `202` con el registro persistido, comprueba que `expiresAt` equivale al instante de aceptación más 90 días, confirma TTL habilitado y verifica una métrica/alarma para acumulación anómala de registros elegibles aún no eliminados. **Source:** [Q7], [Q12], [Q13]."
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Not Met",
+    "actual": "F2/F3: configuración no puede emitir/alertar TTL como se exige.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "NFR5",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR5"
+    ],
+    "expected": [
+      "Cifrado y privilegios. La SQS de alertas y DynamoDB SHALL cifrarse con KMS, las comunicaciones SHALL usar TLS y el rol de la única Lambda SHALL limitarse a las tablas, la cola de alertas y las acciones requeridas. **Verification:** las plantillas IaC y comprobaciones de seguridad no contienen recursos sin cifrado, permisos de consumo de una cola de ingreso inexistente ni comodines innecesarios. **Source:** [memory:M1]."
+    ],
+    "owner": "build-and-test",
+    "verdict": "Met",
+    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+  },
+  {
+    "id": "NFR6",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR6"
+    ],
+    "expected": [
+      "Credenciales de despliegue. CI/CD SHALL acceder a AWS mediante roles temporales OIDC y SHALL no almacenar claves AWS persistentes. **Verification:** la configuración del pipeline usa federación OIDC y el escaneo de secretos no encuentra claves persistentes. **Source:** [memory:M1]."
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+  },
+  {
+    "id": "NFR7",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR7"
+    ],
+    "expected": [
+      "Observabilidad. El servicio SHALL emitir logs estructurados y métricas para solicitudes aceptadas/rechazadas, errores de la única Lambda, edad y cantidad de salidas `PENDING`, invocaciones y fallos de la regla periódica, profundidad de SQS de alertas, errores DynamoDB y fallos de publicación; SHALL configurar alarmas para condiciones operativas críticas. **Verification:** una comprobación desplegada provoca cada señal y confirma su presencia en logs, métricas o alarmas, sin métricas ni alarmas de una SQS de entrada o DLQ de ingreso. **Source:** [memory:M1], [Q11], [Q12]."
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F2/F4/F5: series, frontera y señales incompletas.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "NFR8",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR8"
+    ],
+    "expected": [
+      "Calidad de entrega. Todo cambio SHALL superar en CI Prettier, ESLint, comprobación de tipos, pruebas unitarias, prueba de integración crítica y análisis de dependencias y secretos antes de integrarse. **Verification:** una comprobación fallida bloquea el pull request y el recorrido verde permite continuar. **Source:** [memory:M1]."
+    ],
+    "owner": "ci-pipeline / deployment-pipeline",
+    "verdict": "Not Met",
+    "actual": "F1: auditoría high falla; CI obligatorio ausente.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "NFR9",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR9"
+    ],
+    "expected": [
+      "Infraestructura reproducible. Todos los recursos AWS de la solución SHALL definirse con TypeScript y AWS CDK, sin configuración manual necesaria para reproducir `staging`. **Verification:** desplegar la pila desde una cuenta preparada crea API Gateway REST, una sola Lambda de telemetría, las tablas DynamoDB de eventos y Outbox, la regla periódica EventBridge, una SQS de alertas, KMS, roles, logs, alarmas y auditoría requeridos; no crea SQS ni DLQ de ingreso. **Source:** [memory:M1]."
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "NFR10",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/requirements-analysis/requirements.md#NFR10"
+    ],
+    "expected": [
+      "Auditoría CloudTrail. CloudTrail SHALL registrar eventos de administración de API Gateway, Lambda, SQS, DynamoDB, KMS, IAM y CloudFormation/CDK de la solución; los logs SHALL cifrarse con KMS, protegerse contra eliminación por roles de aplicación y conservarse al menos 90 días. **Verification:** pruebas de creación, cambio de configuración y eliminación autorizada en cada servicio producen eventos consultables con identidad, acción, recurso y fecha, y las políticas impiden que los roles de aplicación borren el trail o sus logs. **Source:** [memory:M1]."
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u1:reliability-design:restore",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Reversión y protección de datos"
+    ],
+    "expected": [
+      "Restauración de tablas comprobada en entorno aislado antes de producción."
+    ],
+    "owner": "deployment-execution",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+  },
+  {
+    "id": "u3:security-design:immutable-artifact",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
+    ],
+    "expected": [
+      "Producción promueve el mismo digest validado y desplegado en staging sin reconstruir."
+    ],
+    "owner": "deployment-pipeline",
+    "verdict": "Unverified",
+    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
+    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-pipeline/"
+  },
+  {
+    "id": "u2:observability-design:dashboard",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-design/observability-design.md#Instrumentación"
+    ],
+    "expected": [
+      "Dashboard de p95, durable <30s, disponibilidad mensual completa, backlog, TTL y fallos, con fórmulas y denominadores visibles."
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F5: no existe AWS::CloudWatch::Dashboard.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  },
+  {
+    "id": "u2:security-design:actor",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-design/security-design.md#Autorización de recuperación"
+    ],
+    "expected": [
+      "Evidencia de actor efectivo, operación, confirmación, correlación y resumen; denegación IAM comprobada."
+    ],
+    "owner": "observability-setup",
+    "verdict": "Not Met",
+    "actual": "F6: falta enlace requestId/Invoke consultable.",
+    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+  }
+]

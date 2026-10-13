@@ -1,0 +1,40 @@
+{
+  "stage": "nfr-design",
+  "unit": "u3-delivery-controls",
+  "upstream_ids": [
+    "NFR5.1",
+    "NFR5.2",
+    "NFR5.3",
+    "NFR6.1",
+    "NFR6.2",
+    "NFR6.3",
+    "NFR8.1",
+    "NFR8.2",
+    "NFR8.3",
+    "NFR8.4",
+    "NFR9.1",
+    "NFR9.2",
+    "NFR10.1",
+    "NFR10.2",
+    "NFR10.3",
+    "NFR10.4"
+  ],
+  "coverage": [
+    { "id": "NFR5.1", "status": "OK", "target": "Security design: separate pipeline, deployment, application, and audit roles with resource-scoped IAM." },
+    { "id": "NFR5.2", "status": "OK", "target": "Security design: preserve KMS/TLS and the contract topology without inbound SQS or ingress DLQ." },
+    { "id": "NFR5.3", "status": "OK", "target": "Security design: review IAM, encryption, OIDC trust, and resource boundaries in each CDK change." },
+    { "id": "NFR6.1", "status": "OK", "target": "Security design: OIDC trust restricted to audience, repository, authorized reference, and environment." },
+    { "id": "NFR6.2", "status": "OK", "target": "Security design: temporary STS sessions only; no persistent AWS credentials in logs, caches, or artifacts." },
+    { "id": "NFR6.3", "status": "OK", "target": "Security design: separate validation, staging, and production roles; production promotion requires human approval." },
+    { "id": "NFR8.1", "status": "OK", "target": "Security design NFR8.1: lockfile install, format, ESLint, and TypeScript check block integration on failure." },
+    { "id": "NFR8.2", "status": "OK", "target": "Security design NFR8.2: unit suite and critical AWS-simulated integration suite block integration on failure." },
+    { "id": "NFR8.3", "status": "OK", "target": "Security design NFR8.3: dependency and secret scans block on configured findings; exceptions are recorded." },
+    { "id": "NFR8.4", "status": "OK", "target": "Security design NFR8.4: protected main, review, green checks, squash merge, and gated production promotion." },
+    { "id": "NFR9.1", "status": "OK", "target": "Security design NFR9.1: versioned TypeScript/CDK, repeatable synthesis, and artifact digest tracking." },
+    { "id": "NFR9.2", "status": "OK", "target": "Security design NFR9.2: preserve the service artifact and topology established by the contract." },
+    { "id": "NFR10.1", "status": "OK", "target": "Security design NFR10.1: CloudTrail administrative events and real-account verification checklist." },
+    { "id": "NFR10.2", "status": "OK", "target": "Security design NFR10.2: KMS-protected log storage with at least 90-day retention." },
+    { "id": "NFR10.3", "status": "OK", "target": "Security design NFR10.3: audit role separated; application and application-deployment roles cannot alter trail evidence." },
+    { "id": "NFR10.4", "status": "OK", "target": "Security design NFR10.4: static CDK policy check separated from verification of real CloudTrail events." }
+  ]
+}

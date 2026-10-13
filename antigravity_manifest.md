@@ -267,3 +267,26 @@ Según la guía `guia-aidlc-deivith.html`, para aprobar el taller se requieren *
   - *Pruebas Consolidadas:* Se verificaron 49 pruebas automatizadas (37 de aplicación, 10 de aserciones CDK de infraestructura y 2 de integración de flujo completo), todas con 100% de éxito.
   - *Auditoría y Secretos:* Se verificó la corrección de dependencias en CDK (`brace-expansion` 5.0.12) y se ejecutó escaneo profundo de secretos con **Gitleaks 8.30.1** sobre el árbol de trabajo y el historial de Git, excluyendo únicamente 13 fingerprints de hashes sintéticos de CDK y cerrando con `Exit: 0`.
   - *Cierre de Jornada:* La sesión pausó naturalmente tras alcanzar el límite temporal de cuota de OpenAI en Codex a las 20:28 (reinicio a las 20:33), con todo el código compilando, probado y respaldado en GitHub para proceder en el Día 10 al despliegue directo en AWS (`Impoventura dev 139592264545` en `sa-east-1`).
+
+### 19. Registro de Decisiones e Impacto (Día 10 - Revalidación de Construcción, Resolución de F1–F6 y Code Freeze)
+- **Modo Operativo:** Continuación en Codex CLI (GPT-6-Sol). Ejecución del protocolo de Loop-Back del framework AI-DLC y gobernanza multi-unidad (`unit-major`).
+
+- **Interacción 37 (Loop-Back de Build and Test y Revalidación de U1):**
+  - *Contexto:* `build-and-test` arrojó veredicto `FAILED` (18/19 comandos en verde, pero `audit:deps` falló con código 1 por vulnerabilidad en `brace-expansion`, sumado a los hallazgos F2–F7).
+  - *Acción:* El motor activó el retorno ordenado a `code-generation`. Se aprobó el plan de revalidación de U1 preservando estrictamente el código del núcleo.
+  - *Impacto:* Se certificó la no-regresión de la Lambda única y las tablas DynamoDB con evidencia sellada, mapeando las 16 brechas de assertions históricas hacia F7 para resolverlas en U2.
+
+- **Interacción 38 (Implementación Integral de U2 - Telemetry Operations):**
+  - *Acción:* Aprobación del plan de 15 pasos de U2 y ejecución en modo autónomo.
+  - *Entregables Técnicos:*
+    1. **Recuperación manual segura:** Módulos `manual-recovery.ts` y `recovery-preview.ts` con sobre versionado, límite de 25 registros, expiración de 300 s y firma autenticada con AWS KMS HMAC (`HMAC_SHA_256`). La CLI exige confirmación explícita `EXECUTE <digest>` y asocia la auditoría al `awsRequestId` del Context de Lambda (CloudTrail Invoke), sin confiar en el cliente.
+    2. **Observabilidad EMF:** Módulo `observability.ts` emitiendo métricas nativas CloudWatch bajo `VehicleTelemetry / Service=TelemetryService`, mapeando todas las ramificaciones HTTP y la métrica de latencia durable `ReceiveToCommit` sin fugar secretos ni payloads crudos.
+    3. **Alarmas y Mínimo Privilegio:** Alarma en CDK con comparador inclusivo `>= 1%` en `≥ 100` peticiones elegibles, y concesión de permiso `Query` exclusivo al ARN del índice `TtlByShard` de DynamoDB.
+    4. **Disponibilidad Mensual:** Módulo puro `availability.ts` con fórmula matemática estricta sin exclusión de ventanas de mantenimiento.
+  - *Impacto:* Batería de 146 pruebas automatizadas aprobadas con éxito. Verificaciones de tipos, lint, formato y síntesis de CDK en exit 0. Declaración formal de **Code Freeze**.
+
+- **Interacción 39 (Avance en U3 y Cierre del Defecto Bloqueante F1):**
+  - *Acción:* Entrada a la unidad U3 (`u3-delivery-controls`) para resolver F1.
+  - *Resolución de Vulnerabilidad:* Actualización dirigida de `aws-cdk-lib` a `2.273.0` (con `brace-expansion 5.0.12`). `npm ci` limpio y `npm run audit:deps` cerró con **0 vulnerabilidades (exit 0)**, resolviendo definitivamente el hallazgo F1.
+  - *Políticas CloudTrail y Secretos:* Ajuste de políticas KMS (`GenerateDataKey`/`DescribeKey`) e inicio de clasificación de falsos positivos en Gitleaks 8.30.1 sobre hashes SHA-256 de artefactos CDK en `cdk.out`.
+  - *Pausa de Cuota:* Sesión pausada naturalmente por límite de ventana de OpenAI a las 18:31, con reinicio programado para las 21:30 (9:30 PM) para ejecutar los últimos 4 pasos de U3 y reingresar a `build-and-test`.

@@ -31,37 +31,37 @@
     {
       "id": "AC6.2.1",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "OIDC/trust and absence of persistent CI credentials await GitHub/AWS provisioning. Local Gitleaks evidence: evidence/scanner-final.json."
     },
     {
       "id": "AC6.2.2",
       "status": "GAP",
-      "target": "CloudTrail real-account management event evidence is pending AWS account access. The CDK logging/archive configuration is checked locally."
+      "target": "CDK config is tested in infra/telemetry-stack-delivery-controls.test.ts; real CloudTrail events with identity/action/resource/date await AWS account verification."
     },
     {
       "id": "AC6.2.3",
-      "status": "OK",
-      "target": "infra/telemetry-stack-delivery-controls.test.ts"
+      "status": "GAP",
+      "target": "KMS/Object Lock COMPLIANCE >=90 days and Lambda IAM are checked in CDK; deployed logs and effective retention await AWS account verification."
     },
     {
       "id": "AC6.2.4",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "GitHub Actions staging and production approval await workflow, protected environments and live promotion."
     },
     {
       "id": "AC6.3.1",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Local checks passed (evidence/commands.json and scanner-final.json); GitHub Actions PR execution and required checks await CI Pipeline."
     },
     {
       "id": "AC6.3.2",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Required checks/branch protection on main await GitHub repository configuration and negative verification."
     },
     {
       "id": "AC6.3.3",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Squash merge and staging promotion await GitHub repository/workflow configuration and execution."
     },
     {
       "id": "AC6.3.4",
@@ -71,7 +71,7 @@
     {
       "id": "NFR5.1",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Lambda IAM least privilege checked in infra/telemetry-stack-delivery-controls.test.ts; pipeline/deployment roles and indirect CloudFormation/PassRole restrictions await provisioning."
     },
     {
       "id": "NFR5.2",
@@ -86,42 +86,42 @@
     {
       "id": "NFR6.1",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "OIDC trust subjects, audiences and AWS roles await repository/account/environment identities and deployment."
     },
     {
       "id": "NFR6.2",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Local Gitleaks scans and fixtures passed in evidence/scanner-final.json; pipeline secrets/caches/session boundaries await CI verification."
     },
     {
       "id": "NFR6.3",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Validation/staging/production role separation and production approval await CI and AWS provisioning."
     },
     {
       "id": "NFR8.1",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Local format/lint/typecheck passed in evidence/commands.json; mandatory PR CI execution awaits workflow and branch protection."
     },
     {
       "id": "NFR8.2",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Local 15-file/159-test regression passed in evidence/commands.json; mandatory PR CI execution awaits workflow and branch protection."
     },
     {
       "id": "NFR8.3",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Local npm audits and Gitleaks scans passed in evidence/commands.json and scanner-final.json; mandatory CI enforcement awaits pipeline."
     },
     {
       "id": "NFR8.4",
       "status": "GAP",
-      "target": "GitHub Actions workflow/OIDC trust, repository protections, or deployment enforcement remains pending the CI Pipeline stage and repository/AWS configuration; the approved Code Generation scope supplies provider-neutral documentation only."
+      "target": "Required checks, approved review and squash on main await GitHub repository protection."
     },
     {
       "id": "NFR9.1",
-      "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "status": "GAP",
+      "target": "TypeScript CDK synth passed in evidence/commands.json; reproducible deployed staging awaits environment provisioning."
     },
     {
       "id": "NFR9.2",
@@ -131,12 +131,12 @@
     {
       "id": "NFR10.1",
       "status": "GAP",
-      "target": "CloudTrail real-account management event evidence is pending AWS account access. The CDK logging/archive configuration is checked locally."
+      "target": "CDK CloudTrail selector/config tested locally; real administrative event identity/action/resource/date await AWS account verification."
     },
     {
       "id": "NFR10.2",
-      "status": "OK",
-      "target": "infra/telemetry-stack-delivery-controls.test.ts"
+      "status": "GAP",
+      "target": "CDK KMS/Object Lock COMPLIANCE >=90-day policy tested locally; effective deployed retention and logs await AWS account verification."
     },
     {
       "id": "NFR10.3",

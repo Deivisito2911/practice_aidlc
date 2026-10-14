@@ -1,29 +1,27 @@
-import { randomUUID } from 'node:crypto';
+﻿import { randomUUID } from 'node:crypto';
 import { LambdaClient, InvokeCommand } from '@aws-sdk/client-lambda';
 import { createInterface } from 'node:readline/promises';
-
-type Action = 'preview' | 'execute' | 'backfill';
-interface OperationResponse {
+import type { PreviewEnvelope } from '../src/telemetry/recovery-preview.js';
+export interface OperationResponse {
   statusCode?: number;
   status: string;
   scope?: string;
   ids?: string[];
   count?: number;
   limit?: number;
+  issuedAt?: number;
+  expiresAt?: number;
   fingerprint?: string;
-  confirmed?: number;
-  failed?: number;
-  pending?: number;
-  scanned?: number;
-  updated?: number;
+  envelope?: PreviewEnvelope;
   cursor?: Record<string, unknown>;
-  correlationId?: string;
+  invocationRequestId?: string;
+  invokeRequestId?: string;
+  [key: string]: unknown;
 }
-
 export async function invokeOperator(
   functionArn: string,
   payload: Record<string, unknown>,
-  client = new LambdaClient({}),
+  client: Pick<LambdaClient, 'send'> = new LambdaClient({}),
 ): Promise<OperationResponse> {
   const response = await client.send(
     new InvokeCommand({
@@ -33,105 +31,127 @@ export async function invokeOperator(
     }),
   );
   if (response.FunctionError)
-    throw new Error('Lambda operation failed; inspect correlated service logs.');
-  if (!response.Payload) throw new Error('Lambda returned no operation result.');
+    throw new Error('La operación Lambda falló; consulte los logs correlacionados.');
+  if (!response.Payload) throw new Error('Lambda no devolvió resultado.');
   const result = JSON.parse(Buffer.from(response.Payload).toString('utf8')) as OperationResponse;
   if (result.statusCode && result.statusCode >= 400)
-    throw new Error('Lambda rejected the operation.');
-  return result;
+    throw new Error('Lambda rechazó la operación.');
+  return { ...result, invokeRequestId: response.$metadata?.requestId };
 }
-
-export async function runOperatorCli(argv = process.argv.slice(2)): Promise<void> {
-  const [actionArg, ...args] = argv;
-  if (!['preview', 'execute', 'backfill'].includes(actionArg ?? '')) {
-    throw new Error('Usage: telemetry-operations <preview|execute|backfill> [--limit 1..25]');
-  }
-  const action = actionArg as Action;
-  const functionArn = process.env.TELEMETRY_FUNCTION_ARN;
-  if (!functionArn)
-    throw new Error('Set TELEMETRY_FUNCTION_ARN to the existing TelemetryService ARN.');
-  const limit = numberOption(args, '--limit', 25);
-  const base = { operation: 'manual-recovery', limit, correlationId: randomUUID() };
+interface CliPorts {
+  functionArn?: string;
+  invoke?: (arn: string, payload: Record<string, unknown>) => Promise<OperationResponse>;
+  question?: (prompt: string) => Promise<string>;
+  log?: (message: string) => void;
+  uuid?: () => string;
+}
+export async function runOperatorCli(
+  argv = process.argv.slice(2),
+  ports: CliPorts = {},
+): Promise<void> {
+  const [action, ...args] = argv;
+  if (!['preview', 'execute', 'backfill'].includes(action ?? ''))
+    throw new Error('Uso: telemetry-operations <preview|execute|backfill> [--limit 1..25]');
+  if (args.length && (args.length !== 2 || args[0] !== '--limit'))
+    throw new Error('Argumentos desconocidos o repetidos.');
+  const limit = args.length ? Number(args[1]) : 25;
+  if (!Number.isInteger(limit) || limit < 1 || limit > 25)
+    throw new Error('El límite debe estar entre 1 y 25.');
+  const arn = ports.functionArn ?? process.env.TELEMETRY_FUNCTION_ARN;
+  if (!arn) throw new Error('Configure TELEMETRY_FUNCTION_ARN.');
+  const invoke = ports.invoke ?? invokeOperator,
+    log = ports.log ?? console.log;
+  const base = { operation: 'manual-recovery', correlationId: ports.uuid?.() ?? randomUUID() };
+  const render = (result: OperationResponse) => {
+    const {
+      scope,
+      ids,
+      count,
+      limit,
+      issuedAt,
+      expiresAt,
+      fingerprint,
+      invocationRequestId,
+      invokeRequestId,
+    } = result;
+    log(
+      JSON.stringify(
+        {
+          scope,
+          ids,
+          count,
+          limit,
+          issuedAt,
+          expiresAt,
+          fingerprint,
+          invocationRequestId,
+          invokeRequestId,
+        },
+        null,
+        2,
+      ),
+    );
+  };
   if (action === 'preview') {
-    const result = await invokeOperator(functionArn, { ...base, action });
-    renderPreview(result);
+    render(await invoke(arn, { ...base, action, limit }));
     return;
   }
-  const terminal = createInterface({ input: process.stdin, output: process.stdout });
+  const terminal = ports.question
+    ? undefined
+    : createInterface({ input: process.stdin, output: process.stdout });
+  const question = ports.question ?? ((prompt: string) => terminal!.question(prompt));
   try {
     if (action === 'execute') {
-      const preview = await invokeOperator(functionArn, { ...base, action: 'preview' });
-      renderPreview(preview);
-      if (!preview.count || !preview.fingerprint) {
-        console.log('No eligible outputs. Nothing changed.');
+      const preview = await invoke(arn, { ...base, action: 'preview', limit });
+      render(preview);
+      if (!preview.count || !preview.envelope) {
+        log('No hay salidas elegibles.');
         return;
       }
-      const answer = await terminal.question(
-        `Type EXECUTE ${preview.fingerprint} to confirm this exact set: `,
-      );
-      if (answer !== `EXECUTE ${preview.fingerprint}`)
-        throw new Error('Confirmation did not match; nothing was executed.');
-      const result = await invokeOperator(functionArn, {
+      if (
+        (await question(
+          `Escriba EXECUTE ${preview.fingerprint} para confirmar el conjunto vigente: `,
+        )) !== `EXECUTE ${preview.fingerprint}`
+      )
+        throw new Error('Confirmación inválida; no se ejecutó.');
+      const result = await invoke(arn, {
         ...base,
         action,
-        fingerprint: preview.fingerprint,
+        preview: preview.envelope,
         confirmation: preview.fingerprint,
       });
-      console.log(JSON.stringify(result, null, 2));
+      log(JSON.stringify(result, null, 2));
       return;
     }
-    const answer = await terminal.question(
-      'Backfill writes missing deterministic TTL shards in batches of 25. Type BACKFILL to continue: ',
-    );
-    if (answer !== 'BACKFILL') throw new Error('Confirmation did not match; no backfill was run.');
+    if ((await question('Escriba BACKFILL para completar shards TTL por lotes: ')) !== 'BACKFILL')
+      throw new Error('Confirmación inválida; no se ejecutó backfill.');
     let cursor: Record<string, unknown> | undefined;
     do {
-      const result = await invokeOperator(functionArn, { ...base, action, cursor });
-      console.log(
+      const result = await invoke(arn, {
+        ...base,
+        action,
+        confirmation: 'BACKFILL',
+        ...(cursor ? { cursor } : {}),
+      });
+      const { status, scanned, updated, invocationRequestId, invokeRequestId } = result;
+      log(
         JSON.stringify({
-          status: result.status,
-          scanned: result.scanned,
-          updated: result.updated,
+          status,
+          scanned,
+          updated,
           hasMore: Boolean(result.cursor),
-          correlationId: result.correlationId,
+          invocationRequestId,
+          invokeRequestId,
         }),
       );
       cursor = result.cursor;
     } while (cursor);
   } finally {
-    terminal.close();
+    terminal?.close();
   }
 }
-
-function numberOption(args: string[], name: string, fallback: number): number {
-  const index = args.indexOf(name);
-  if (index < 0) return fallback;
-  const value = Number(args[index + 1]);
-  if (!Number.isInteger(value) || value < 1 || value > 25)
-    throw new Error(`${name} must be between 1 and 25.`);
-  return value;
-}
-
-function renderPreview(preview: OperationResponse): void {
-  console.log(
-    JSON.stringify(
-      {
-        scope: preview.scope,
-        ids: preview.ids,
-        count: preview.count,
-        limit: preview.limit,
-        fingerprint: preview.fingerprint,
-        correlationId: preview.correlationId,
-      },
-      null,
-      2,
-    ),
-  );
-}
-
-if (process.argv[1]?.endsWith('telemetry-operations.ts')) {
+if (process.argv[1]?.endsWith('telemetry-operations.ts'))
   runOperatorCli().catch((error: unknown) => {
-    console.error(error instanceof Error ? error.message : 'Operation failed.');
+    console.error(error instanceof Error ? error.message : 'Operación fallida.');
     process.exitCode = 1;
   });
-}

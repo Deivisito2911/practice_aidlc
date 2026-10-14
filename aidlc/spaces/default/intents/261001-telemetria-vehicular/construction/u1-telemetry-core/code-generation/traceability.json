@@ -84,423 +84,795 @@
     "NFR9.5",
     "NFR9.6",
     "NFR10.1",
-    "NFR10.2"
+    "NFR10.2",
+    "FR1.1",
+    "FR1.2",
+    "FR1.3",
+    "FR1.4",
+    "FR1.5",
+    "FR1.6",
+    "FR2.1",
+    "FR2.2",
+    "FR3.1",
+    "FR3.2",
+    "FR4.1",
+    "FR4.2",
+    "FR4.3",
+    "FR4.4",
+    "FR5.1",
+    "FR5.2",
+    "FR5.3",
+    "FR5.4",
+    "FR6.1",
+    "FR6.2",
+    "FR6.3",
+    "NFR1",
+    "NFR2",
+    "NFR3",
+    "NFR4",
+    "NFR5",
+    "NFR6",
+    "NFR7",
+    "NFR8",
+    "NFR9",
+    "NFR10"
   ],
   "coverage": [
     {
       "id": "AC1.1.1",
       "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC1.1.2",
       "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC1.1.3",
-      "status": "OK",
-      "target": "src/telemetry/model.test.ts"
+      "status": "GAP",
+      "target": "F7: modelo prueba varios límites, pero no todos (p. ej. speed=0); matriz completa pendiente.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC1.1.4",
-      "status": "N/A",
-      "target": "La latencia p95 de 500 ms bajo 100 solicitudes válidas/s requiere una prueba de carga en staging; la unidad valida configuración y flujo, pero no mide ese objetivo."
+      "status": "Deferred",
+      "target": "Unverified: p95 ≤500 ms a 100 solicitudes válidas/s requiere staging real.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC1.1.5",
-      "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: rechazo de ruta en API Gateway sin invocar Lambda requiere prueba desplegada; handler local solo acredita 404.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC1.1.6",
       "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC2.1.1",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC2.1.2",
-      "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "status": "GAP",
+      "target": "F7: duplicado secuencial cubierto; falta prueba de solicitudes simultáneas.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC2.1.3",
-      "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "status": "Deferred",
+      "target": "F5/F7: conflicto local comprobado; métrica/correlación completa pendiente en U2.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC2.1.4",
-      "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "status": "GAP",
+      "target": "F7: se verifica forma de transacción y fallo de save, sin interrupción/atomicidad de tablas simulada.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC2.1.5",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC2.1.6",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC3.1.1",
-      "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "status": "GAP",
+      "target": "F7: 19,99 crea PENDING; value=0 solo se valida, sin assertion de salida.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC3.1.2",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC3.1.3",
-      "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "status": "GAP",
+      "target": "F7: falta assertion de ausencia de Outbox/SQS para temperature y speed.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC3.1.4",
-      "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "status": "GAP",
+      "target": "F7: falta assertion de los seis campos completos de alerta y atributo correlationId.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC3.1.5",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC3.1.6",
-      "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "status": "GAP",
+      "target": "F7: falta escenario de eventos de batería fuera de orden.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC3.2.1",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC3.2.2",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC3.2.3",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC3.2.4",
-      "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "status": "GAP",
+      "target": "F7: falta escenario SQS confirmado seguido de fallo al marcar PUBLISHED y reentrega.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC4.1.1",
-      "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "status": "GAP",
+      "target": "F7: integración recupera PENDING, sin candidata PUBLISHED para demostrar exclusión.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC4.1.2",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "AC4.1.3",
-      "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "status": "GAP",
+      "target": "F5/F7: no hay assertions completas de logs/secretos para los tres tipos de fallo.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC4.1.4",
-      "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "status": "GAP",
+      "target": "F7: condition/token inspeccionados; falta carrera concurrente con dos invocaciones.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC6.1.1",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: plantilla local comprobada; falta despliegue en cuenta preparada.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC6.1.2",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: KMS/TLS y permisos locales parciales; falta inspección negativa de recursos desplegados.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC6.1.3",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: falta despliegue reproducible en segunda cuenta preparada.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "AC6.1.4",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: integración simulada y topología local; falta walking skeleton desplegado.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "BR1.1",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR1.2",
       "status": "OK",
-      "target": "src/telemetry/model.test.ts"
+      "target": "src/telemetry/model.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR1.3",
       "status": "OK",
-      "target": "src/telemetry/model.test.ts"
+      "target": "src/telemetry/model.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR1.4",
       "status": "OK",
-      "target": "src/telemetry/model.test.ts"
+      "target": "src/telemetry/model.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR1.5",
       "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR2.1",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR2.2",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR2.3",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR2.4",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR2.5",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR3.1",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR3.2",
       "status": "OK",
-      "target": "src/telemetry/model.test.ts"
+      "target": "src/telemetry/model.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR3.3",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR3.4",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR4.1",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR4.2",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR4.3",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR4.4",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR4.5",
       "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR5.1",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "BR5.2",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR1.1",
-      "status": "N/A",
-      "target": "El p95 de 500 ms requiere carga sostenida en staging y queda para Performance Validation."
+      "status": "Deferred",
+      "target": "Unverified: carga y p95 reales en staging pendientes.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR1.2",
-      "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "status": "GAP",
+      "target": "F7: timeout de 150 ms implementado; falta test de agotamiento y 202/PENDING.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR1.3",
-      "status": "N/A",
-      "target": "La prueba representativa a 100 solicitudes válidas/s requiere staging."
+      "status": "Deferred",
+      "target": "Unverified: capacidad bajo perfil 100/s y ráfaga 200 requiere staging.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR2.1",
-      "status": "OK",
-      "target": "tests/integration/telemetry-flow.test.ts"
+      "status": "GAP",
+      "target": "F7: código espera save y el recorrido final está verde; falta barrera antes/después de commit.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR2.2",
-      "status": "N/A",
-      "target": "El percentil de 99 % bajo 30 s requiere medición de extremo a extremo en staging."
+      "status": "Deferred",
+      "target": "Unverified: ≥99 % persistido antes de 30 s requiere carga real correlacionada.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR2.3",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: capacidad mixta HTTP/EventBridge y ausencia de backlog creciente requieren carga real.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR3.1",
-      "status": "N/A",
-      "target": "La disponibilidad mensual requiere datos de staging durante un mes calendario."
+      "status": "Deferred",
+      "target": "Unverified: disponibilidad ≥99,9 % requiere mes calendario completo, incluido mantenimiento.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR3.2",
-      "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "status": "GAP",
+      "target": "F7: fallo de persistencia cubierto parcialmente; falta commit incierto y atomicidad simulada.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR3.3",
       "status": "OK",
-      "target": "src/telemetry/service.test.ts"
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR3.4",
-      "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "status": "GAP",
+      "target": "F7: condiciones y tokens inspeccionados; falta vencimiento/propietario antiguo y concurrencia.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR4.1",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR4.2",
-      "status": "N/A",
-      "target": "La alarma sobre acumulación de registros TTL elegibles aún no forma parte de U1; completar con observabilidad operativa de U2."
+      "status": "Deferred",
+      "target": "F2/F3/F7: elegibilidad eventual documentada; supervisión efectiva TTL pendiente U2 y cuenta real.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR4.3",
-      "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "status": "GAP",
+      "target": "F7: Outbox tiene datos independientes; falta publicar tras eliminar evento de prueba.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR5.1",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: ApiKeyRequired local; falta rechazo real sin invocar Lambda.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR5.2",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: plantilla KMS/TLS local; falta inspección y rechazo TLS desplegados.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR5.3",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "F3/F7: permisos U1 inspeccionados; GSI TTL operativo y pruebas negativas pendientes U2 y cuenta real.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR5.4",
-      "status": "N/A",
-      "target": "U1 evita registrar clave y rawPayload; los roles humanos de acceso restringido y su verificación quedan para el diseño operativo de U2."
+      "status": "Deferred",
+      "target": "Unverified: restricción/auditoría de acceso humano y prueba completa de no divulgación pendientes.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR5.5",
       "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR7.1",
-      "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "status": "Deferred",
+      "target": "F5/F7: logs locales parciales; no cubren cada camino requerido.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR7.2",
-      "status": "N/A",
-      "target": "El conjunto completo de métricas de solicitudes, DynamoDB y publicación no está instrumentado en U1; ampliar en U2."
+      "status": "Deferred",
+      "target": "F2/F5/F7: contadores completos y series efectivas pendientes U2.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR7.3",
-      "status": "N/A",
-      "target": "U1 añade alarmas de errores de Lambda y antigüedad de SQS; faltan señales y alarmas de PENDING y acumulación TTL para U2."
+      "status": "Deferred",
+      "target": "F2/F3/F5/F7: alarmas y señales efectivas PENDING/TTL pendientes U2 y cuenta real.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR7.4",
-      "status": "OK",
-      "target": "src/telemetry/handlers.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: búsqueda correlacionada y acceso restringido a trazas requieren cuenta real.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR7.5",
-      "status": "N/A",
-      "target": "Los paneles y SLI de operación se completan en U2."
+      "status": "Deferred",
+      "target": "F5/F7: panel y definiciones SLI completos pendientes U2; resultados reales Unverified.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR8.1",
-      "status": "N/A",
-      "target": "Las verificaciones locales están verdes; el bloqueo de CI y análisis de dependencias/secretos se implementan en U3."
+      "status": "Deferred",
+      "target": "F1/F7: checks locales verdes; CI obligatorio, audit y secretos pendientes U3.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR9.1",
       "status": "OK",
-      "target": "src/telemetry/adapters.test.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR9.2",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: síntesis local ejecutada; comparación/despliegue en dos cuentas pendientes.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR9.3",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR9.4",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR9.5",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR9.6",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "note": "Vínculo a implementación/assertions existentes; no acredita AWS desplegado ni objetivos externos."
     },
     {
       "id": "NFR10.1",
-      "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "status": "Deferred",
+      "target": "Unverified: trail local definido; consultas de cambios reales pendientes.",
+      "evidence_status": "Unverified"
     },
     {
       "id": "NFR10.2",
+      "status": "Deferred",
+      "target": "Unverified: KMS/retención local; prueba negativa de borrado real pendiente U3.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "FR1.1",
       "status": "OK",
-      "target": "infra/telemetry-stack.test.ts"
+      "target": "infra/telemetry-stack.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR1.2",
+      "status": "OK",
+      "target": "src/telemetry/model.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR1.3",
+      "status": "OK",
+      "target": "src/telemetry/model.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR1.4",
+      "status": "OK",
+      "target": "src/telemetry/model.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR1.5",
+      "status": "OK",
+      "target": "src/telemetry/model.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR1.6",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR2.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR2.2",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR3.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR3.2",
+      "status": "OK",
+      "target": "src/telemetry/handlers.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR4.1",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR4.2",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR4.3",
+      "status": "OK",
+      "target": "src/telemetry/adapters.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR4.4",
+      "status": "OK",
+      "target": "src/telemetry/service.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR5.1",
+      "status": "OK",
+      "target": "src/telemetry/model.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR5.2",
+      "status": "OK",
+      "target": "src/telemetry/model.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR5.3",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR5.4",
+      "status": "OK",
+      "target": "src/telemetry/service.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR6.1",
+      "status": "OK",
+      "target": "src/telemetry/service.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR6.2",
+      "status": "OK",
+      "target": "src/telemetry/service.ts",
+      "evidence_status": "Local only",
+      "note": "Implementación inspeccionada; cobertura parcial de assertions se detalla en los AC/NFR y evidencia. No acredita ejecución AWS real."
+    },
+    {
+      "id": "FR6.3",
+      "status": "Deferred",
+      "target": "F5/F7: registro completo de validación, persistencia y publicación pendiente U2.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR1",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR2",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR3",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR4",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR5",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR6",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR7",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR8",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR9",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR10",
+      "status": "Deferred",
+      "target": "Verificación integral pendiente: consultar NFR detallados y F1–F7; checks locales no acreditan carga, operación, CI ni AWS desplegado.",
+      "evidence_status": "Unverified"
     }
-  ]
+  ],
+  "evidence": "evidence/revalidation-results.json",
+  "known_pending_findings": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7"
+  ],
+  "scope_note": "Revalidación sin cambios de aplicación. GAP describe assertions ausentes, no un defecto nuevo demostrado. Deferred conserva obligaciones futuras; Unverified es estado de evidencia, no status JSON."
 }

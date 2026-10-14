@@ -1,0 +1,108 @@
+{
+  "unit": "u2-telemetry-operations",
+  "source_frozen": true,
+  "note": "La fuente final está congelada. Las ejecuciones focales posteriores cubren cambios tras la regresión completa de 146 pruebas; no se afirma otra ejecución global sumando conteos. La síntesis es local y no constituye despliegue AWS.",
+  "historical_evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/check-results.json",
+  "checks": [
+    {
+      "history_index": 19,
+      "command": "npm exec -- vitest run src/telemetry/model.test.ts src/telemetry/adapters.test.ts src/telemetry/service.test.ts src/telemetry/handlers.test.ts src/telemetry/handlers-operations.test.ts src/telemetry/manual-recovery.test.ts src/telemetry/recovery-preview.test.ts src/telemetry/observability.test.ts src/telemetry/operations-cli.test.ts src/telemetry/availability.test.ts infra/telemetry-stack.test.ts infra/telemetry-stack-operations.test.ts tests/integration/telemetry-flow.test.ts tests/integration/telemetry-operations.test.ts",
+      "exit": 0,
+      "output_excerpt": " Test Files  14 passed (14)\n      Tests  146 passed (146)\n   Duration  22.57s (import 96%, transform 2%, tests 1%)",
+      "scope": "historical-full-regression"
+    },
+    {
+      "history_index": 24,
+      "command": "npm exec -- vitest run src/telemetry/service.test.ts src/telemetry/handlers.test.ts src/telemetry/adapters.test.ts tests/integration/telemetry-flow.test.ts",
+      "exit": 1,
+      "output_excerpt": "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n FAIL  src/telemetry/handlers.test.ts > logs de validación, persistencia y publicación conservan correlación sin cuerpo ni credenciales\nAssertionError: expected '[[\"{\\\"_aws\\\":{\\\"Timestamp\\\":179192433…' to contain 'VALIDATION_ERROR'\nExpected: \"VALIDATION_ERROR\"\n    222|     expect(output).toContain('VALIDATION_ERROR');\n Test Files  1 failed | 3 passed (4)\n      Tests  1 failed | 77 passed (78)\n   Duration  1.30s (import 49%, transform 29%, tests 19%, worker 2%)",
+      "scope": "historical-failed-focal"
+    },
+    {
+      "history_index": 25,
+      "command": "npm exec -- vitest run src/telemetry/service.test.ts src/telemetry/handlers.test.ts src/telemetry/adapters.test.ts tests/integration/telemetry-flow.test.ts",
+      "exit": 0,
+      "output_excerpt": " Test Files  4 passed (4)\n      Tests  78 passed (78)\n   Duration  2.02s (import 50%, transform 31%, tests 17%, worker 2%)",
+      "scope": "post-change-focal"
+    },
+    {
+      "history_index": 31,
+      "command": "npm exec -- vitest run src/telemetry/observability.test.ts src/telemetry/handlers-operations.test.ts",
+      "exit": 0,
+      "output_excerpt": " Test Files  2 passed (2)\n      Tests  9 passed (9)\n   Duration  673ms (import 44%, transform 44%, tests 8%, worker 3%)",
+      "scope": "post-change-focal"
+    },
+    {
+      "history_index": 32,
+      "command": "npm exec -- vitest run infra/telemetry-stack-operations.test.ts infra/telemetry-stack.test.ts",
+      "exit": 0,
+      "output_excerpt": " Test Files  2 passed (2)\n      Tests  8 passed (8)\n   Duration  16.69s (import 99%, transform 1%)",
+      "scope": "post-change-focal"
+    },
+    {
+      "history_index": 33,
+      "command": "npm exec -- vitest run src/telemetry/adapters.test.ts",
+      "exit": 0,
+      "output_excerpt": " Test Files  1 passed (1)\n      Tests  15 passed (15)\n   Duration  1.01s (import 58%, transform 30%, tests 10%, worker 2%)",
+      "scope": "final-frozen-source"
+    },
+    {
+      "history_index": 34,
+      "command": "npm run typecheck",
+      "exit": 0,
+      "output_excerpt": "npm notice run tsc --noEmit",
+      "scope": "final-frozen-source"
+    },
+    {
+      "history_index": 35,
+      "command": "npm run lint",
+      "exit": 0,
+      "output_excerpt": "npm notice run eslint src infra bin tests",
+      "scope": "final-frozen-source"
+    },
+    {
+      "history_index": 36,
+      "command": "npm run format:check",
+      "exit": 0,
+      "output_excerpt": "npm notice run prettier --check src infra bin tests README.md package.json tsconfig.json vitest.config.ts\nChecking formatting...\nAll matched files use Prettier code style!",
+      "scope": "final-frozen-source"
+    },
+    {
+      "history_index": 37,
+      "command": "npm run build",
+      "exit": 0,
+      "output_excerpt": "npm notice run tsc",
+      "scope": "final-frozen-source"
+    },
+    {
+      "history_index": 38,
+      "command": "npm run cdk:synth",
+      "exit": 0,
+      "output_excerpt": "83 feature flags are not configured. Run 'cdk flags --unstable=flags' to learn more.",
+      "scope": "final-frozen-source"
+    },
+    {
+      "history_index": 17,
+      "command": "npm run audit:deps",
+      "exit": 1,
+      "output_excerpt": "npm notice run npm audit --omit=dev --audit-level=high\nbrace-expansion  4.0.0 - 5.0.11\nSeverity: high\nbrace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service - https://github.com/advisories/GHSA-q2hr-2g5m-vwhr\nbrace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion - https://github.com/advisories/GHSA-qhr7-859c-m2p7\nbrace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion - https://github.com/advisories/GHSA-6j4f-fj2g-mc7p\nnode_modules/aws-cdk-lib/node_modules/brace-expansion\n1 high severity vulnerability",
+      "scope": "known-F1-U3"
+    },
+    {
+      "history_index": 18,
+      "command": "npm audit --audit-level=high",
+      "exit": 1,
+      "output_excerpt": "brace-expansion  4.0.0 - 5.0.11\nSeverity: high\nbrace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service - https://github.com/advisories/GHSA-q2hr-2g5m-vwhr\nbrace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion - https://github.com/advisories/GHSA-qhr7-859c-m2p7\nbrace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion - https://github.com/advisories/GHSA-6j4f-fj2g-mc7p\nnode_modules/aws-cdk-lib/node_modules/brace-expansion\n1 high severity vulnerability",
+      "scope": "known-F1-U3"
+    }
+  ],
+  "credential_pattern_scan": {
+    "exit": 0,
+    "command": "rg --files-with-matches '(AKIA|ASIA)[A-Z0-9]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----' src infra bin tests README.md package.json package-lock.json",
+    "output": "Local credential-pattern scan: no matching files; this does not prove CI enforcement.",
+    "note": "rg devolvió 1 (sin coincidencias), normalizado a exit 0 por el wrapper. Es heurístico; Gitleaks/CI siguen pendientes U3."
+  },
+  "pending_sessions": [],
+  "external_verification": "Unverified: carga staging, mes calendario real, IAM/CloudTrail desplegados, cuota antes de Lambda, alarmas y CI.",
+  "known_failure": "F1: audit:deps y npm audit --audit-level=high exit 1; brace-expansion high bajo aws-cdk-lib, pendiente U3."
+}

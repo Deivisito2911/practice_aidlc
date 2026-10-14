@@ -11,10 +11,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
     ],
-    "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F5: caminos 400/202 no registran status y correlación.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR7.2",
@@ -28,10 +28,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
     ],
-    "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F5: contadores completos ausentes.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR7.3",
@@ -45,10 +45,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
     ],
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
     "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F2/F3: alarmas consultan dimensiones incorrectas y TTL carece de permiso.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "u1-telemetry-core:NFR7.4",
@@ -62,10 +62,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
     ],
-    "owner": "observability-setup",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/observability-setup/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "observability-setup",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "u1-telemetry-core:NFR7.5",
@@ -79,10 +79,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/observability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/observability-design.md#Instrumentación"
     ],
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
     "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F5: dashboard/SLI ausentes.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "u1-telemetry-core:NFR1.1",
@@ -96,10 +96,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/performance-requirements.md#Alcance",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u1-telemetry-core:NFR1.2",
@@ -113,10 +113,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/performance-requirements.md#Alcance",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u1-telemetry-core:NFR2.1",
@@ -130,10 +130,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/performance-requirements.md#Alcance",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR2.2",
@@ -147,10 +147,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/performance-requirements.md#Alcance",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u1-telemetry-core:NFR3.1",
@@ -164,10 +164,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u1-telemetry-core:NFR3.2",
@@ -181,10 +181,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR3.3",
@@ -198,10 +198,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR3.4",
@@ -215,10 +215,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR4.1",
@@ -232,10 +232,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR4.2",
@@ -249,10 +249,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u1-telemetry-core:NFR4.3",
@@ -266,10 +266,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/reliability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/reliability-design.md#Persistencia y recuperación"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR1.3",
@@ -283,10 +283,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/scalability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/performance-design.md#Camino de respuesta"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u1-telemetry-core:NFR2.3",
@@ -300,10 +300,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/scalability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/scalability-design.md#Escalado y consulta"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u1-telemetry-core:NFR9.1",
@@ -317,10 +317,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/scalability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/scalability-design.md#Escalado y consulta"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR9.2",
@@ -334,10 +334,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/scalability-requirements.md#tabla de objetivos",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/scalability-design.md#Escalado y consulta"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u1-telemetry-core:NFR5.1",
@@ -351,10 +351,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u1-telemetry-core:NFR5.2",
@@ -368,10 +368,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u1-telemetry-core:NFR5.3",
@@ -385,10 +385,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR5.4",
@@ -402,10 +402,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u1-telemetry-core:NFR5.5",
@@ -419,10 +419,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR10.1",
@@ -436,10 +436,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u1-telemetry-core:NFR10.2",
@@ -453,10 +453,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/security-requirements.md#Clasificación y límites",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-design/security-design.md#Límites de confianza"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u1-telemetry-core:NFR9.3",
@@ -468,10 +468,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "deployment-execution",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR9.4",
@@ -483,10 +483,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "deployment-execution",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR9.5",
@@ -498,10 +498,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR9.6",
@@ -513,10 +513,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:NFR8.1",
@@ -528,10 +528,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "ci-pipeline / deployment-pipeline",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u1-telemetry-core:testing-contract",
@@ -544,10 +544,10 @@
     "expected": [
       "test-after; una prueba verificable por requisito al nivel efectivo; caso feliz por componente; suite existente verde; integración crítica AWS simulada; sin porcentaje de cobertura impuesto."
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u2-telemetry-operations:NFR7.6",
@@ -559,10 +559,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
     ],
-    "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F5/F6: correlación/cause incompletas.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR7.7",
@@ -574,10 +574,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
     ],
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
     "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F2/F3/F5: unidades/serie/permisos incompletos.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "u2-telemetry-operations:NFR7.8",
@@ -589,10 +589,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
     ],
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
     "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F2: dimensiones desalineadas. TTL cutoff >24h sí existe en adapter.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "u2-telemetry-operations:NFR7.9",
@@ -604,10 +604,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
     ],
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
     "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F2/F4: series incorrectas y comparador >1%.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "u2-telemetry-operations:NFR7.10",
@@ -619,10 +619,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
     ],
-    "owner": "observability-setup",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/observability-setup/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "observability-setup",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "u2-telemetry-operations:NFR7.11",
@@ -634,10 +634,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/observability-requirements.md#tabla de objetivos"
     ],
-    "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F5: no existe cálculo mensual ni prueba sintética.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR1.4",
@@ -649,10 +649,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/performance-requirements.md#Alcance"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u2-telemetry-operations:NFR2.4",
@@ -664,10 +664,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/performance-requirements.md#Alcance"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u2-telemetry-operations:NFR1.5",
@@ -679,10 +679,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/performance-requirements.md#Alcance"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u2-telemetry-operations:NFR1.6",
@@ -694,10 +694,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/performance-requirements.md#Alcance"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u2-telemetry-operations:NFR3.5",
@@ -709,10 +709,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/reliability-requirements.md#tabla de objetivos"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u2-telemetry-operations:NFR3.6",
@@ -724,10 +724,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/reliability-requirements.md#tabla de objetivos"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR4.4",
@@ -739,10 +739,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/reliability-requirements.md#tabla de objetivos"
     ],
-    "owner": "deployment-execution",
-    "verdict": "Not Met",
-    "actual": "F3: TTL GSI no autorizado.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR3.7",
@@ -754,10 +754,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/reliability-requirements.md#tabla de objetivos"
     ],
-    "owner": "performance-validation",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR9.7",
@@ -769,25 +769,25 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/scalability-requirements.md#tabla de objetivos"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR9.8",
     "unit": "u2-telemetry-operations",
     "requirement": "NFR9.8",
     "expected": [
-      "Métricas, alarmas y recuperación no dependen de una lectura ilimitada del Outbox; barrido y reintento manual tienen límite por ejecución."
+      "Métricas, alarmas y recuperación no dependen de una lectura ilimitada del Outbox; barrido y reintento manual tienen límite por ejecución y presupuesto global de tiempo. Antes de reclamar otra salida se verifica tiempo restante con reserva para devolver evidencia; al agotarse se informa resultado parcial y cantidad no iniciada."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/scalability-requirements.md#tabla de objetivos"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR9.9",
@@ -799,10 +799,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/scalability-requirements.md#tabla de objetivos"
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "u2-telemetry-operations:NFR5.6",
@@ -814,40 +814,40 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u2-telemetry-operations:NFR5.7",
     "unit": "u2-telemetry-operations",
     "requirement": "NFR5.7",
     "expected": [
-      "La CLI muestra solo IDs, cantidad, límite y correlaciones necesarias; no devuelve secretos ni payload crudo. La confirmación se liga a la vista previa actual."
+      "La CLI muestra IDs, cantidad, límite, emisión, vencimiento y correlaciones necesarias sin secretos ni payload crudo. La confirmación verificable liga alcance, IDs ordenados, límite y vigencia de la vista previa emitida por el servicio; el cliente no puede renovarla ni alterar sus campos."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
     ],
-    "owner": "deployment-execution",
-    "verdict": "Not Met",
-    "actual": "F6: preview sin caducidad ni vínculo de límite.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR5.8",
     "unit": "u2-telemetry-operations",
     "requirement": "NFR5.8",
     "expected": [
-      "Las acciones registran actor, hora, alcance, límite, confirmación, correlación y conteos; logs y métricas excluyen claves API, secretos y cuerpo crudo."
+      "Las acciones registran hora, alcance, límite, confirmación, correlación, identificador de invocación asignado por la plataforma y conteos reconciliables. La identidad efectiva se consulta en la auditoría de esa invocación; nunca se confía en actor del payload. Logs y métricas excluyen claves API, secretos y cuerpo crudo."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
     ],
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
     "owner": "deployment-execution",
-    "verdict": "Not Met",
-    "actual": "F6: auditoría operacional no registra identidad consultable.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u2-telemetry-operations:NFR10.3",
@@ -859,10 +859,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u2-telemetry-operations:NFR9.10",
@@ -874,10 +874,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR9.11",
@@ -889,10 +889,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR9.12",
@@ -904,10 +904,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u2-telemetry-operations:NFR9.13",
@@ -919,10 +919,10 @@
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/tech-stack-decisions.md#tabla de objetivos"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u2-telemetry-operations:testing-contract",
@@ -935,10 +935,10 @@
     "expected": [
       "test-after; una prueba verificable por requisito al nivel efectivo; caso feliz por componente; suite existente verde; integración crítica AWS simulada; sin porcentaje de cobertura impuesto."
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u3-delivery-controls:NFR5.1",
@@ -952,10 +952,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR5 — Cifrado y privilegios de la solución",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u3-delivery-controls:NFR5.2",
@@ -969,10 +969,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR5 — Cifrado y privilegios de la solución",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u3-delivery-controls:NFR5.3",
@@ -986,10 +986,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR5 — Cifrado y privilegios de la solución",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
     ],
-    "owner": "deployment-execution",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "verdict": "Met",
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u3-delivery-controls:NFR9.1",
@@ -1003,10 +1003,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR9 — Infraestructura reproducible",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u3-delivery-controls:NFR9.2",
@@ -1020,10 +1020,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR9 — Infraestructura reproducible",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR5 y NFR9 — Infraestructura y cifrado"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u3-delivery-controls:NFR6.1",
@@ -1031,16 +1031,16 @@
     "requirement": "NFR6.1",
     "expected": [
       "El pipeline debe autenticarse en AWS mediante federación OIDC y roles temporales; el sujeto confiable debe limitarse al repositorio y a las referencias de rama/entorno autorizadas.",
-      "Configurar una relación de confianza OIDC por repositorio y entorno. El rol de validación solo permite leer artefactos necesarios; el rol de *staging* solo permite desplegar el stack de la aplicación a la cuenta/entorno de staging; el rol de producción solo se asume desde el entorno protegido tras aprobación. Rechazar tokens cuyo sujeto no coincida exactamente con repositorio, rama/tag y entorno autorizados."
+      "Configurar confianza OIDC con audiencia y sujeto exactos para el repositorio/entorno. Validación de PR no recibe credenciales AWS ni permisos de token para despliegue. Los roles de staging y producción se separan; el sujeto de entorno se combina con reglas GitHub de ramas/tags y aprobación de producción. Probar rechazo de otro repositorio, PR/fork, rama no autorizada y entorno incorrecto."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR6 — Credenciales temporales de despliegue",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR6 — Identidad de CI/CD y privilegios"
     ],
+    "verdict": "Not Met",
+    "actual": "Federación OIDC real aún no configurada ni verificada.",
     "owner": "ci-pipeline / deployment-pipeline",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; pendiente en ci-pipeline / deployment-pipeline"
   },
   {
     "id": "u3-delivery-controls:NFR6.2",
@@ -1054,10 +1054,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR6 — Credenciales temporales de despliegue",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR6 — Identidad de CI/CD y privilegios"
     ],
-    "owner": "ci-pipeline / deployment-pipeline",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "ci-pipeline / deployment-pipeline",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en ci-pipeline / deployment-pipeline."
   },
   {
     "id": "u3-delivery-controls:NFR6.3",
@@ -1071,10 +1071,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR6 — Credenciales temporales de despliegue",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR6 — Identidad de CI/CD y privilegios"
     ],
-    "owner": "ci-pipeline / deployment-pipeline",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "ci-pipeline / deployment-pipeline",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en ci-pipeline / deployment-pipeline."
   },
   {
     "id": "u3-delivery-controls:NFR8.1",
@@ -1088,10 +1088,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
     ],
+    "verdict": "Not Met",
+    "actual": "Formato/lint/tipos locales pasan; ejecución y bloqueo en CI pendientes.",
     "owner": "ci-pipeline / deployment-pipeline",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; pendiente en ci-pipeline / deployment-pipeline"
   },
   {
     "id": "u3-delivery-controls:NFR8.2",
@@ -1105,27 +1105,27 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
     ],
+    "verdict": "Not Met",
+    "actual": "Pruebas locales pasan; ejecución y bloqueo en CI pendientes.",
     "owner": "ci-pipeline / deployment-pipeline",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; pendiente en ci-pipeline / deployment-pipeline"
   },
   {
     "id": "u3-delivery-controls:NFR8.3",
     "unit": "u3-delivery-controls",
     "requirement": "NFR8.3",
     "expected": [
-      "CI analiza dependencias y secretos; un hallazgo que supere los umbrales configurados o una credencial persistente bloquea la integración.",
-      "Ejecutar `npm run audit:deps` y análisis de secretos sobre el cambio y el historial incluido en el pull request. Una credencial detectada o vulnerabilidad por encima del umbral acordado bloquea integración; las excepciones requieren registro y responsable antes de reanudar."
+      "CI analiza dependencias y secretos; exige cero hallazgos high/critical en la auditoría npm configurada y ninguna credencial persistente detectada por el escáner versionado. Un exit distinto de cero, un escáner ausente o una ejecución incompleta bloquea la integración; un chequeo heurístico local no sustituye ese control.",
+      "Ejecutar auditoría npm configurada con cero high/critical y escáner de secretos versionado sobre fuente/historial acordados. F1 exige actualización acotada de CDK/lockfile, npm ci reproducible, diff de síntesis revisado y auditorías verdes. Una credencial, hallazgo, herramienta ausente, ejecución incompleta o exit no exitoso bloquea integración. No se reduce el umbral ni se presenta una excepción como pase."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
     ],
-    "owner": "ci-pipeline / deployment-pipeline",
     "verdict": "Not Met",
-    "actual": "F1: vulnerabilidad high, exit 1.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "actual": "Auditorías npm y Gitleaks locales pasan; ejecución y bloqueo en CI pendientes.",
+    "owner": "ci-pipeline / deployment-pipeline",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; pendiente en ci-pipeline / deployment-pipeline"
   },
   {
     "id": "u3-delivery-controls:NFR8.4",
@@ -1139,10 +1139,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR8 — Puertas de calidad"
     ],
+    "verdict": "Not Met",
+    "actual": "Protección de main, revisión y squash no están configurados ni verificados.",
     "owner": "ci-pipeline / deployment-pipeline",
-    "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; pendiente en ci-pipeline / deployment-pipeline"
   },
   {
     "id": "u3-delivery-controls:NFR10.1",
@@ -1156,10 +1156,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR10 — Auditoría CloudTrail protegida",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR10 — Auditoría protegida"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u3-delivery-controls:NFR10.2",
@@ -1173,10 +1173,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR10 — Auditoría CloudTrail protegida",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR10 — Auditoría protegida"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u3-delivery-controls:NFR10.3",
@@ -1190,10 +1190,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR10 — Auditoría CloudTrail protegida",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR10 — Auditoría protegida"
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u3-delivery-controls:NFR10.4",
@@ -1207,10 +1207,10 @@
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR10 — Auditoría CloudTrail protegida",
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md#NFR10 — Auditoría protegida"
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "u3-delivery-controls:testing-contract",
@@ -1223,10 +1223,10 @@
     "expected": [
       "test-after; una prueba verificable por requisito al nivel efectivo; caso feliz por componente; suite existente verde; integración crítica AWS simulada; sin porcentaje de cobertura impuesto."
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "NFR1",
@@ -1236,10 +1236,10 @@
     "expected": [
       "Latencia de ingestión. La API SHALL mantener una latencia p95 menor o igual a 500 ms en `staging` bajo una carga sostenida de 100 solicitudes válidas por segundo. **Verification:** una prueba de carga representativa calcula p95 ≤ 500 ms. **Source:** [Q7]."
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "NFR2",
@@ -1249,10 +1249,10 @@
     "expected": [
       "Tiempo de procesamiento. El 100 % de las respuestas `202` SHALL corresponder a eventos ya persistidos y, cuando aplique, a una salida Outbox `PENDING` creada atómicamente. Al menos el 99 % de los eventos válidos SHALL alcanzar ese estado en menos de 30 segundos desde la recepción HTTP. **Verification:** una prueba integral correlaciona recepción, confirmación transaccional y respuesta; ninguna respuesta `202` antecede a la persistencia, y el percentil de cumplimiento alcanza ≥ 99 %. **Source:** [Q7], [Q11], [memory:M1]."
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "NFR3",
@@ -1262,10 +1262,10 @@
     "expected": [
       "Disponibilidad. El endpoint de ingestión en `staging` SHALL alcanzar 99,9 % de disponibilidad por mes calendario, calculada como minutos en los que acepta solicitudes válidas dentro de cuota divididos entre todos los minutos del mes, sin excluir ventanas de mantenimiento. **Verification:** la métrica mensual calculada con ese denominador alcanza ≥ 99,9 %. **Source:** [Q7]."
     ],
-    "owner": "performance-validation",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/performance-validation/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "performance-validation",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en performance-validation."
   },
   {
     "id": "NFR4",
@@ -1275,10 +1275,10 @@
     "expected": [
       "Retención. Cada registro de telemetría SHALL conservar el instante de aceptación HTTP asociado a la respuesta `202 Accepted`; `expiresAt` SHALL calcularse exactamente 90 días después de ese instante y el registro SHALL quedar entonces elegible para eliminación mediante TTL de DynamoDB. La eliminación física posterior SHALL ser eventual, supervisada y sin un plazo máximo propio. **Verification:** una prueba correlaciona la respuesta `202` con el registro persistido, comprueba que `expiresAt` equivale al instante de aceptación más 90 días, confirma TTL habilitado y verifica una métrica/alarma para acumulación anómala de registros elegibles aún no eliminados. **Source:** [Q7], [Q12], [Q13]."
     ],
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
     "owner": "deployment-execution",
-    "verdict": "Not Met",
-    "actual": "F2/F3: configuración no puede emitir/alertar TTL como se exige.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "NFR5",
@@ -1288,10 +1288,10 @@
     "expected": [
       "Cifrado y privilegios. La SQS de alertas y DynamoDB SHALL cifrarse con KMS, las comunicaciones SHALL usar TLS y el rol de la única Lambda SHALL limitarse a las tablas, la cola de alertas y las acciones requeridas. **Verification:** las plantillas IaC y comprobaciones de seguridad no contienen recursos sin cifrado, permisos de consumo de una cola de ingreso inexistente ni comodines innecesarios. **Source:** [memory:M1]."
     ],
-    "owner": "build-and-test",
     "verdict": "Met",
-    "actual": "Mecanismo/configuración y assertions locales comprobados; sin afirmar un resultado AWS desplegado.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando)"
+    "actual": "Implementación y prueba local vigentes; no representa un resultado de AWS/GitHub desplegado.",
+    "owner": "build-and-test",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; tests/integration/telemetry-flow.test.ts"
   },
   {
     "id": "NFR6",
@@ -1301,10 +1301,10 @@
     "expected": [
       "Credenciales de despliegue. CI/CD SHALL acceder a AWS mediante roles temporales OIDC y SHALL no almacenar claves AWS persistentes. **Verification:** la configuración del pipeline usa federación OIDC y el escaneo de secretos no encuentra claves persistentes. **Source:** [memory:M1]."
     ],
-    "owner": "ci-pipeline / deployment-pipeline",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en construction/ci-pipeline/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "ci-pipeline / deployment-pipeline",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en ci-pipeline / deployment-pipeline."
   },
   {
     "id": "NFR7",
@@ -1314,10 +1314,10 @@
     "expected": [
       "Observabilidad. El servicio SHALL emitir logs estructurados y métricas para solicitudes aceptadas/rechazadas, errores de la única Lambda, edad y cantidad de salidas `PENDING`, invocaciones y fallos de la regla periódica, profundidad de SQS de alertas, errores DynamoDB y fallos de publicación; SHALL configurar alarmas para condiciones operativas críticas. **Verification:** una comprobación desplegada provoca cada señal y confirma su presencia en logs, métricas o alarmas, sin métricas ni alarmas de una SQS de entrada o DLQ de ingreso. **Source:** [memory:M1], [Q11], [Q12]."
     ],
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
     "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F2/F4/F5: series, frontera y señales incompletas.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "NFR8",
@@ -1327,10 +1327,10 @@
     "expected": [
       "Calidad de entrega. Todo cambio SHALL superar en CI Prettier, ESLint, comprobación de tipos, pruebas unitarias, prueba de integración crítica y análisis de dependencias y secretos antes de integrarse. **Verification:** una comprobación fallida bloquea el pull request y el recorrido verde permite continuar. **Source:** [memory:M1]."
     ],
-    "owner": "ci-pipeline / deployment-pipeline",
     "verdict": "Not Met",
-    "actual": "F1: auditoría high falla; CI obligatorio ausente.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "actual": "La calidad local pasa; aún no hay workflow de GitHub Actions ni checks obligatorios sobre pull requests.",
+    "owner": "ci-pipeline / deployment-pipeline",
+    "evidence": "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/scanner-final.json; pendiente en ci-pipeline / deployment-pipeline"
   },
   {
     "id": "NFR9",
@@ -1340,10 +1340,10 @@
     "expected": [
       "Infraestructura reproducible. Todos los recursos AWS de la solución SHALL definirse con TypeScript y AWS CDK, sin configuración manual necesaria para reproducir `staging`. **Verification:** desplegar la pila desde una cuenta preparada crea API Gateway REST, una sola Lambda de telemetría, las tablas DynamoDB de eventos y Outbox, la regla periódica EventBridge, una SQS de alertas, KMS, roles, logs, alarmas y auditoría requeridos; no crea SQS ni DLQ de ingreso. **Source:** [memory:M1]."
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "NFR10",
@@ -1353,10 +1353,10 @@
     "expected": [
       "Auditoría CloudTrail. CloudTrail SHALL registrar eventos de administración de API Gateway, Lambda, SQS, DynamoDB, KMS, IAM y CloudFormation/CDK de la solución; los logs SHALL cifrarse con KMS, protegerse contra eliminación por roles de aplicación y conservarse al menos 90 días. **Verification:** pruebas de creación, cambio de configuración y eliminación autorizada en cada servicio producen eventos consultables con identidad, acción, recurso y fecha, y las políticas impiden que los roles de aplicación borren el trail o sus logs. **Source:** [memory:M1]."
     ],
-    "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "owner": "deployment-execution",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u1:reliability-design:restore",
@@ -1368,8 +1368,8 @@
     ],
     "owner": "deployment-execution",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-execution/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-execution."
   },
   {
     "id": "u3:security-design:immutable-artifact",
@@ -1381,8 +1381,8 @@
     ],
     "owner": "deployment-pipeline",
     "verdict": "Unverified",
-    "actual": "No hay evidencia completa del objetivo. Resultados locales parciales no sustituyen carga/mes, enforcement CI, IAM real o assertions faltantes.",
-    "evidence": "evidence/check-results.json; evidence/check-01.log a check-19.log (salida/exit por comando); evidencia pendiente en operation/deployment-pipeline/"
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en deployment-pipeline."
   },
   {
     "id": "u2:observability-design:dashboard",
@@ -1393,9 +1393,9 @@
       "Dashboard de p95, durable <30s, disponibilidad mensual completa, backlog, TTL y fallos, con fórmulas y denominadores visibles."
     ],
     "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F5: no existe AWS::CloudWatch::Dashboard.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   },
   {
     "id": "u2:security-design:actor",
@@ -1406,8 +1406,8 @@
       "Evidencia de actor efectivo, operación, confirmación, correlación y resumen; denegación IAM comprobada."
     ],
     "owner": "observability-setup",
-    "verdict": "Not Met",
-    "actual": "F6: falta enlace requestId/Invoke consultable.",
-    "evidence": "findings.json; infra/telemetry-stack.ts; src/telemetry/handlers.ts; src/telemetry/manual-recovery.ts; evidence/check-18.log"
+    "verdict": "Unverified",
+    "actual": "Falta la comprobación en el entorno o la evidencia efectiva completa; las pruebas locales son parciales.",
+    "evidence": "Evidencia local: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/evidence/final-check-results.json; aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/evidence/commands.json. Medición/enforcement pendiente en observability-setup."
   }
 ]

@@ -1,0 +1,16 @@
+title = "Vehicle telemetry secret scanning"
+
+[extend]
+useDefault = true
+
+# CDK emits public, content-addressed Lambda ZIP object keys. Limit this
+# exception to the exact generated JSON paths and the matched key/value pair.
+[[rules]]
+id = "generic-api-key"
+
+  [[rules.allowlists]]
+  description = "CDK content-addressed Lambda ZIP keys only"
+  condition = "AND"
+  regexTarget = "match"
+  paths = ['''(?:^|[\\/])cdk\.out[\\/](?:Telemetry-(?:staging|production)\.(?:assets|template)\.json|tree\.json)$''']
+  regexes = ['''(?i)(?:S3Key|objectKey)["']?\s*[:=]\s*["'][a-f0-9]{64}\.zip["']''']

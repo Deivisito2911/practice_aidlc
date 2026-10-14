@@ -20,21 +20,86 @@
     "NFR10.4"
   ],
   "coverage": [
-    { "id": "NFR5.1", "status": "OK", "target": "infrastructure-specification.md: isolated, resource-scoped IAM roles; monitoring-design.md: detect unauthorized deployment." },
-    { "id": "NFR5.2", "status": "OK", "target": "infrastructure-specification.md: KMS/TLS and the existing API Gateway, Lambda, DynamoDB, EventBridge, and alert SQS topology." },
-    { "id": "NFR5.3", "status": "OK", "target": "cicd-pipeline.md: CDK synthesis and review of IAM, encryption, OIDC, CloudTrail, and resource changes." },
-    { "id": "NFR6.1", "status": "OK", "target": "infrastructure-specification.md: provider-confirmed OIDC roles and exact repository/environment trust; cicd-pipeline.md: no AWS role for PR checks." },
-    { "id": "NFR6.2", "status": "OK", "target": "cicd-pipeline.md: short STS sessions, masked tokens, and no persistent AWS credentials or credential caches." },
-    { "id": "NFR6.3", "status": "OK", "target": "cicd-pipeline.md: separate validation, staging, production, and audit identities; human production approval." },
-    { "id": "NFR8.1", "status": "OK", "target": "cicd-pipeline.md: lockfile, format, ESLint, and typecheck stages block integration on failure." },
-    { "id": "NFR8.2", "status": "OK", "target": "cicd-pipeline.md: unit and critical AWS-simulated integration tests block integration on failure." },
-    { "id": "NFR8.3", "status": "OK", "target": "cicd-pipeline.md: dependency audit and secret scanning are required checks." },
-    { "id": "NFR8.4", "status": "OK", "target": "cicd-pipeline.md: protected main, approved review, green checks, squash, and protected production promotion." },
-    { "id": "NFR9.1", "status": "OK", "target": "infrastructure-specification.md: versioned TypeScript/CDK and repeatable synthesis; cicd-pipeline.md: same validated artifact digest." },
-    { "id": "NFR9.2", "status": "OK", "target": "infrastructure-specification.md: same service artifact and contract topology; no additional telemetry Lambda or ingress queue." },
-    { "id": "NFR10.1", "status": "OK", "target": "infrastructure-specification.md: CloudTrail management events; monitoring-design.md: verify real events and detect sensitive changes." },
-    { "id": "NFR10.2", "status": "OK", "target": "infrastructure-specification.md: KMS-encrypted audit bucket and protected 90-day retention." },
-    { "id": "NFR10.3", "status": "OK", "target": "infrastructure-specification.md: separate audit owner and access boundary; monitoring-design.md: alert on trail/archive policy changes." },
-    { "id": "NFR10.4", "status": "OK", "target": "monitoring-design.md and cicd-pipeline.md: separate static CDK evidence from real-account CloudTrail checks." }
-  ]
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "infrastructure-specification.md: roles separados y recursos acotados; monitoring-design.md: intentos no autorizados."
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md: KMS/TLS y topología compartida sin recursos de ingreso nuevos."
+    },
+    {
+      "id": "NFR5.3",
+      "status": "OK",
+      "target": "cicd-pipeline.md: síntesis y revisión de IAM, cifrado, OIDC, auditoría y recursos."
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": "cicd-pipeline.md: GitHub Actions confirmado, sujeto/audiencia exactos y protección de ramas/entornos; PR sin AWS."
+    },
+    {
+      "id": "NFR6.2",
+      "status": "OK",
+      "target": "cicd-pipeline.md: STS temporal y ninguna credencial persistente o caché de tokens."
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "cicd-pipeline.md: staging/producción/auditoría separados y aprobación humana de producción."
+    },
+    {
+      "id": "NFR8.1",
+      "status": "OK",
+      "target": "cicd-pipeline.md: lockfile, formato, lint y tipos obligatorios."
+    },
+    {
+      "id": "NFR8.2",
+      "status": "OK",
+      "target": "cicd-pipeline.md: pruebas unitarias e integración crítica simulada obligatorias."
+    },
+    {
+      "id": "NFR8.3",
+      "status": "OK",
+      "target": "cicd-pipeline.md: auditorías sin high/critical y escáner real; F1 corregido sin excepciones."
+    },
+    {
+      "id": "NFR8.4",
+      "status": "OK",
+      "target": "cicd-pipeline.md: main protegido, revisión, checks y squash; promoción aprobada."
+    },
+    {
+      "id": "NFR9.1",
+      "status": "OK",
+      "target": "infrastructure-specification.md: CDK versionado; cicd-pipeline.md: síntesis reproducible y digest validado."
+    },
+    {
+      "id": "NFR9.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md: topología y artefacto del mismo servicio conservados."
+    },
+    {
+      "id": "NFR10.1",
+      "status": "OK",
+      "target": "infrastructure-specification.md: trail administrativo; monitoring-design.md: comprobación real y cambios sensibles."
+    },
+    {
+      "id": "NFR10.2",
+      "status": "OK",
+      "target": "infrastructure-specification.md: archivo KMS con protección mínima de 90 días."
+    },
+    {
+      "id": "NFR10.3",
+      "status": "OK",
+      "target": "infrastructure-specification.md: auditoría separada y revisión de privilegios indirectos CloudFormation/PassRole."
+    },
+    {
+      "id": "NFR10.4",
+      "status": "OK",
+      "target": "monitoring-design.md y cicd-pipeline.md: evidencia estática separada de controles y eventos reales."
+    }
+  ],
+  "scope_note": "OK indica diseño de infraestructura definido, no configuración externa activada ni cuenta AWS verificada."
 }

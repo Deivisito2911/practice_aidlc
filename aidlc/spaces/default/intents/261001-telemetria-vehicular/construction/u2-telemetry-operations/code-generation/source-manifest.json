@@ -4,10 +4,52 @@
   "version": 1,
   "writes": [
     {
-      "path": "README.md"
+      "path": "src/telemetry/adapters.ts"
     },
     {
-      "path": "bin/telemetry.ts"
+      "path": "src/telemetry/adapters.test.ts"
+    },
+    {
+      "path": "src/telemetry/service.ts"
+    },
+    {
+      "path": "src/telemetry/service.test.ts"
+    },
+    {
+      "path": "src/telemetry/handlers.ts"
+    },
+    {
+      "path": "src/telemetry/handlers.test.ts"
+    },
+    {
+      "path": "src/telemetry/handlers-operations.test.ts"
+    },
+    {
+      "path": "src/telemetry/manual-recovery.ts"
+    },
+    {
+      "path": "src/telemetry/manual-recovery.test.ts"
+    },
+    {
+      "path": "src/telemetry/recovery-preview.ts"
+    },
+    {
+      "path": "src/telemetry/recovery-preview.test.ts"
+    },
+    {
+      "path": "src/telemetry/observability.ts"
+    },
+    {
+      "path": "src/telemetry/observability.test.ts"
+    },
+    {
+      "path": "src/telemetry/availability.ts"
+    },
+    {
+      "path": "src/telemetry/availability.test.ts"
+    },
+    {
+      "path": "src/telemetry/operations-cli.test.ts"
     },
     {
       "path": "bin/telemetry-operations.ts"
@@ -19,31 +61,19 @@
       "path": "infra/telemetry-stack-operations.test.ts"
     },
     {
+      "path": "tests/integration/telemetry-flow.test.ts"
+    },
+    {
+      "path": "tests/integration/telemetry-operations.test.ts"
+    },
+    {
       "path": "package.json"
     },
     {
       "path": "package-lock.json"
     },
     {
-      "path": "src/telemetry/model.ts"
-    },
-    {
-      "path": "src/telemetry/adapters.ts"
-    },
-    {
-      "path": "src/telemetry/handlers.ts"
-    },
-    {
-      "path": "src/telemetry/manual-recovery.ts"
-    },
-    {
-      "path": "src/telemetry/manual-recovery.test.ts"
-    },
-    {
-      "path": "src/telemetry/handlers-operations.test.ts"
-    },
-    {
-      "path": "tests/integration/telemetry-operations.test.ts"
+      "path": "README.md"
     }
   ]
 }

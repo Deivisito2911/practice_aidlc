@@ -2,7 +2,7 @@
 
 ## Verificaciones locales
 
-Ejecutar npm run audit:deps (umbral high, producción según script aprobado), lint, tipos y todas las pruebas CDK del inventario. Ejecutar Gitleaks v8.30.1 obtenido de su release oficial y verificar SHA256 contra checksums.txt antes de ejecutarlo: gitleaks detect --source . --redact (historial) y gitleaks dir . --redact (árbol actual). Capturar solo salida redactada, nunca tokens. Los informes pueden contener rutas sensibles y se conservan restringidos a esta revisión.
+Ejecutar `npm run audit:deps` (producción), `npm audit --audit-level=high` (árbol completo), lint, tipos y las pruebas CDK del inventario. Usar Gitleaks v8.30.1 oficial con SHA256 comprobado contra checksums.txt y la configuración versionada `.gitleaks.toml`: `gitleaks dir --config .gitleaks.toml --redact=100 --exit-code 1 <proyección-aplicación>` y `gitleaks git --config .gitleaks.toml --redact=100 --exit-code 1 --log-opts=--all .`. La proyección manifestada incluye fuente, pruebas, documentación, dist y cdk.out generados; excluye dependencias de terceros y metadatos internos. `construction/u3-delivery-controls/code-generation/evidence/scanner-final.json` conserva los escaneos completos y controles positivos/negativos tras el último cambio. Capturar solo salida redactada, nunca tokens.
 
 ## Fronteras externas
 

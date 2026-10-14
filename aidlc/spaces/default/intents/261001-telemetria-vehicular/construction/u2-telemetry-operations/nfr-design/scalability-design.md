@@ -9,7 +9,7 @@ La entrada permanece stateless entre invocaciones y escala dentro de los límite
 ## Outbox y recuperación
 
 - Mantener consulta selectiva de PENDING vencidos mediante índice definido en Infrastructure Design; evitar Scan de tabla.
-- Limitar lote por cantidad y tiempo restante. Paginación mantiene el cursor de trabajo efímero y cualquier elemento no reclamado queda elegible para otra invocación.
+- Limitar lote por cantidad y presupuesto global suministrado por Context, tanto para EventBridge como para operación manual. Antes de otra reclamación se comprueba tiempo restante y reserva de salida; al agotarse se detiene el lote y devuelve resultado parcial con candidatos no iniciados. La paginación mantiene el cursor efímero y cualquier elemento no reclamado queda elegible para otra invocación.
 - Reclamación condicional y arrendamiento previenen propietarios concurrentes; retraso/lease, frecuencia, particionamiento de índice y concurrencia se concretan con la topología física.
 - La CLI solicita el límite máximo permitido antes de preview y nunca puede aumentar el tamaño mediante la confirmación. La consulta se trunca exactamente al límite visible y comunica que existen más candidatos cuando corresponda.
 - No agregar cola de ingreso, Lambda adicional ni acceso a datos desde una herramienta fuera del propietario TelemetryService.

@@ -19,11 +19,11 @@ U2 amplía el único TelemetryService y las entidades TelemetryEvent/OutboxEntry
 
 1. P3 invoca la CLI con una identidad operativa autorizada y especifica el alcance y límite del lote. La clave de API de productor no concede acceso operativo.
 2. TelemetryService determina candidatos elegibles `PENDING` dentro del alcance autorizado, sin superar el límite explícito. Si el alcance está vacío, la CLI informa cero candidatos y no ofrece una ejecución con efectos.
-3. La vista previa presenta alcance, IDs de salida, cantidad, límite y una referencia que liga la confirmación a esa población. No muestra secretos ni payload crudo.
-4. P3 confirma explícitamente la vista previa vigente. Si la identidad ya no está autorizada, la vista previa venció/cambió o no hay confirmación, la operación se rechaza sin cambios.
+3. La vista previa presenta alcance, IDs ordenados, cantidad, límite, emisión y vencimiento fijados por el servicio, junto con una referencia verificable que liga todos esos campos. El cliente no puede ampliar el límite, renovar la vigencia ni reemplazar candidatos sin obtener otra vista previa. No muestra secretos ni payload crudo.
+4. P3 confirma explícitamente la vista previa vigente. El servicio vuelve a comprobar su referencia, todos sus campos y el vencimiento, además de la autorización efectiva de la nueva invocación. Una vista previa alterada, vencida, vacía o sin confirmación se rechaza antes de cambiar salidas. El actor del payload nunca concede autorización; el identificador de invocación de la plataforma enlaza la operación con su identidad auditada.
 5. Por cada candidato confirmado, TelemetryService usa las mismas condiciones de reclamación y envío durable que la recuperación programada. Una carrera perdida se omite; el envío reutiliza `alertId` y no crea evento ni Outbox nuevos.
 6. Tras confirmación de publicación, la salida pasa condicionalmente de `PENDING` a `PUBLISHED`. Ante fallo o resultado incierto, permanece `PENDING` para recuperación posterior, automática o manual.
-7. La CLI informa IDs/correlaciones de ejecución, cantidades confirmadas, fallidas y aún pendientes y referencia de evidencia. Una detención parcial registra el resultado ya observado; nunca afirma como confirmado un envío incierto.
+7. Antes de cada nueva reclamación se comprueba el presupuesto global de la invocación, reservando tiempo para registrar y devolver el resultado. Al agotarlo no se inician más envíos y se devuelve una respuesta parcial. La CLI muestra correlaciones, identificador de invocación y cantidades confirmadas, fallidas, omitidas y no iniciadas que reconcilian la población de la vista previa; el conteo PENDING es una observación separada. Nunca afirma como confirmado un envío incierto. Una confirmación repetida vuelve a comprobar las condiciones y omite salidas ya publicadas; no crea eventos ni salidas adicionales.
 
 ```mermaid
 stateDiagram-v2
@@ -83,3 +83,7 @@ BR6 completa la validación y limitación previa a efectos; BR7 restringe la rec
 ## Fuentes
 
 `inception/units-generation/unit-of-work.md`, `inception/units-generation/unit-of-work-story-map.md`, `inception/requirements-analysis/requirements.md`, `inception/domain-design/components.md`, `inception/contract-design/contract-summary.md` y `inception/user-stories/stories.md`.
+
+## Revisión del intento
+
+El hallazgo F6 de `construction/build-and-test/findings.json` concreta la vigencia, el límite, la identidad auditada y el presupuesto global que el flujo anterior ya exigía. Infrastructure Design fijará los valores y el mecanismo verificable sin añadir otra Lambda ni cola de ingreso. Code Generation debe probar confirmación alterada, vencida, repetida o no autorizada y detención parcial, conservando la recuperación posterior. F5 exige señales clasificadas y tiempos recepción/commit; la fórmula mensual conserva el denominador completo y los resultados reales pendientes.

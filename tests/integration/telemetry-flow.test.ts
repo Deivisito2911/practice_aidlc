@@ -151,3 +151,134 @@ describe('flujo crítico API Gateway → DynamoDB → SQS y EventBridge', () => 
     expect(outboxes.get('LOW_BATTERY:event-1')?.status).toBe('PUBLISHED');
   });
 });
+
+import { DynamoEventStore } from '../../src/telemetry/adapters.js';
+import {
+  TransactWriteCommand,
+  GetCommand,
+  type TransactWriteCommandInput,
+} from '@aws-sdk/lib-dynamodb';
+describe('causalidad y atomicidad del adaptador integrado', () => {
+  const instant = new Date('2026-10-08T12:00:00Z');
+  const request = {
+    httpMethod: 'POST',
+    path: '/telemetry-events',
+    headers: {},
+    body: JSON.stringify({
+      eventId: 'atomic',
+      vehicleId: 'v',
+      eventType: 'battery',
+      timestamp: instant.toISOString(),
+      value: 10,
+    }),
+    isBase64Encoded: false,
+  };
+  it.each(['before', 'during', 'after'])(
+    'fallo %s del commit nunca deja estado parcial ni 202 falso',
+    async (mode) => {
+      const rows = new Map<string, Record<string, unknown>>();
+      const send = vi.fn(async (command: unknown) => {
+        if (command instanceof TransactWriteCommand) {
+          const items = (command.input as TransactWriteCommandInput).TransactItems!;
+          if (mode === 'before' || mode === 'during') throw new Error('transaction failed');
+          for (const item of items) rows.set(item.Put!.TableName!, item.Put!.Item!);
+          throw new Error('response lost after commit');
+        }
+        if (command instanceof GetCommand) {
+          expect(command.input.ConsistentRead).toBe(true);
+          return { Item: rows.get('events') };
+        }
+        throw new Error('unexpected effect');
+      });
+      const observations: string[] = [];
+      const handler = createTelemetryHandler(
+        new DynamoEventStore({ send } as never, 'events', 'outbox'),
+        { send: vi.fn() },
+        { clock: () => instant, observe: (event) => observations.push(event.name) },
+      );
+      const result = await handler(request);
+      expect(rows.size).toBe(mode === 'after' ? 2 : 0);
+      expect(result.statusCode).toBe(mode === 'after' ? 202 : 503);
+      if (mode === 'after') expect(observations).toContain('CommitUncertain');
+    },
+  );
+  it('barrera de commit impide respuesta 202 antes de escritura conjunta', async () => {
+    let release: () => void = () => undefined;
+    let responded = false;
+    const rows = new Map<string, unknown>();
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const store = {
+      save: async (record: EventRecord, outbox: AlertOutbox) => {
+        await gate;
+        rows.set('event', record);
+        rows.set('outbox', outbox);
+        return { outcome: 'created' as const, record };
+      },
+      due: async () => [],
+      claim: async () => undefined,
+      published: async () => false,
+      defer: async () => false,
+    } as EventStore;
+    const pending = createTelemetryHandler(
+      store,
+      { send: vi.fn() },
+      { clock: () => instant },
+    )(request).then((result) => {
+      responded = true;
+      return result;
+    });
+    await Promise.resolve();
+    expect(responded).toBe(false);
+    expect(rows.size).toBe(0);
+    release();
+    expect(await pending).toMatchObject({ statusCode: 202 });
+    expect(rows.size).toBe(2);
+  });
+});
+
+it('solicitudes HTTP concurrentes idénticas dejan un evento y una sola salida', async () => {
+  const now = new Date('2026-10-08T12:00:00Z');
+  const rows = new Map<string, Record<string, unknown>>();
+  let commits = 0;
+  const send = vi.fn(async (command: unknown) => {
+    if (command instanceof TransactWriteCommand) {
+      if (rows.size)
+        throw Object.assign(new Error('collision'), {
+          name: 'TransactionCanceledException',
+          CancellationReasons: [{ Code: 'ConditionalCheckFailed' }],
+        });
+      for (const item of command.input.TransactItems!)
+        rows.set(item.Put!.TableName!, item.Put!.Item!);
+      commits++;
+      return {};
+    }
+    if (command instanceof GetCommand) return { Item: rows.get('events') };
+    throw Object.assign(new Error('claim lost'), { name: 'ConditionalCheckFailedException' });
+  });
+  const queue = { send: vi.fn() };
+  const handler = createTelemetryHandler(
+    new DynamoEventStore({ send } as never, 'events', 'outbox'),
+    queue,
+    { clock: () => now },
+  );
+  const request = {
+    httpMethod: 'POST',
+    path: '/telemetry-events',
+    headers: {},
+    body: JSON.stringify({
+      eventId: 'concurrent',
+      vehicleId: 'v',
+      eventType: 'battery',
+      timestamp: now.toISOString(),
+      value: 10,
+    }),
+  };
+  const replies = await Promise.all([handler(request), handler(request)]);
+  expect(replies.map((row) => row.statusCode)).toEqual([202, 202]);
+  expect(commits).toBe(1);
+  expect(rows.size).toBe(2);
+  expect(rows.get('outbox')?.alertId).toBe('LOW_BATTERY:concurrent');
+  expect(queue.send).not.toHaveBeenCalled();
+});

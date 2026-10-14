@@ -16,6 +16,8 @@ El cambio compatible se despliega primero con la GSI nueva y el handler preparad
 
 Región/cuenta vienen del ambiente CDK. `OperatorRoleArn`, `AlarmTopicArn`, límites por entorno y configuración TTL se inyectan como parámetros validados, no como secretos en el repositorio. El rol P3 se asume con identidad corporativa y credenciales temporales; no se guarda el secreto de productor en CLI ni CI.
 
+La clave MAC de preview permanece en KMS; su ARN es configuración pública de servicio y no se exporta el material. El despliegue coordina CLI y handler para el sobre de confirmación versionado; al reemplazar la clave se conserva la anterior solo mientras existan previews vigentes. CloudTrail registra Invoke mediante selector de eventos de datos limitado a la función. Staging prueba enlace de IDs/auditoría, denegación IAM y MAC inválido antes de habilitar operación real.
+
 ## Controles por etapa
 
 | Etapa | Gate |

@@ -1,0 +1,15 @@
+{
+  "stage_slug": "deployment-pipeline",
+  "space": "default",
+  "intent": "261001-telemetria-vehicular",
+  "selections": [
+    {
+      "candidate_id": "c1",
+      "type": "learning",
+      "scope": "project",
+      "heading": "Corrections",
+      "text": "Cuando CDK genere stacks distintos por entorno, empaquetar sus ensamblados pre-sintetizados en un único artefacto validado por commit y digest; desplegar cada entorno desde su ensamblado sin reconstruir al promover.",
+      "source": "orchestrator"
+    }
+  ]
+}

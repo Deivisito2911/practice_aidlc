@@ -1,21 +1,24 @@
-# Code Generation Questions — U3 Delivery Controls
+# Preguntas de generación de código — U3 Controles de entrega
 
-## Known dependency and ambiguity
+## Decisiones y dependencias vigentes
 
-The repository/CI provider, OIDC issuer and subject format, protected branch/environment names, and staging/production AWS account mapping are not specified. The plan therefore defines provider-neutral release controls and avoids provider-specific workflow or trust-policy configuration. A deployable pipeline cannot be activated until the repository owner confirms those inputs and selects a provider capable of credential-free PR validation, OIDC role assumption, required checks, immutable artifacts, and protected environment approval.
+Se conserva GitHub Actions como proveedor elegido. Este intento corrige F1 mediante actualización dirigida a aws-cdk-lib 2.273.0, verificación reproducible y evidencia local de Gitleaks v8.30.1. F7 exige separar pruebas locales y controles externos pendientes. El plan anterior está archivado; su aprobación no cubre este nuevo intento.
 
-The plan selects pinned Gitleaks as a provider-independent secret scanner (`gitleaks detect --source .`). The runner must install that pinned CLI; provider-specific installation syntax waits for the CI platform choice.
+La identidad del repositorio, cuentas AWS, sujetos OIDC y reglas efectivas de ramas/entornos se concretarán antes de activar CI/despliegues. Su ausencia mantiene controles Deferred/Unverified.
 
 ## Plan Approval
 
-Review `code-generation-plan.md`, its embedded Testing Contract, and `unit-test-instructions.md`.
+¿Apruebas el plan de U3, su Testing Contract y las instrucciones de pruebas para corregir F1 y verificar los controles locales de entrega?
 
-[Approval Fingerprint]: sha256:v3:e5d85a24726d44a74617d44400a8e469a8a1b56d0091a9f7f5a1d8fcf9cb4a1c
-[Planned Source]: cc438173d2cc39a9c9cc56eda1919add9023a3e83b286e1a4e50cb01432f5ccc
+- Approve Plan — ejecutar los ocho pasos.
+- Request Changes — revisar el plan antes de generar código.
+
+[Approval Fingerprint]: sha256:v3:680fee863549f070e2ca314614daf2abd73f4220626abeeb27d6e3abe4cd1449
+[Planned Source]: 96aab4a03f364add36ec4afe164795bc976395c14fe106f4f833c8b7c94d0afb
 [Answer]: Approve Plan
 
 ## CI platform for the following pipeline stage
 
-The user selected GitHub Actions after approving the provider-neutral Code Generation plan. Repository owner/name, AWS account mapping, OIDC trust subjects, and protected environment configuration remain to be supplied for activation in the CI pipeline stage.
+Decisión humana conservada del intento anterior: GitHub Actions. El cambio de plan no modifica esa elección.
 
 [Answer]: GitHub Actions

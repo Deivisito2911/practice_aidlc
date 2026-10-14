@@ -1,7 +1,7 @@
 # Instrucciones de pruebas de U1
 
 ## Runner y configuración
-Vitest ya figura en `package.json` y `vitest.config.ts`. En Step 1 se comprobará que dependencias y configuración están instaladas y que los comandos siguientes resuelven los archivos; cualquier cambio mínimo del runner se realiza antes de escribir la primera prueba. Metodología test-after: implementar modelo, repositorio, servicio, handler e IaC, escribiendo y ejecutando las pruebas de cada capa inmediatamente después.
+Vitest ya figura en `package.json` y `vitest.config.ts`. En Step 1 se comprobará que dependencias y configuración están instaladas y que los comandos siguientes resuelven los archivos. Este intento conserva la implementación U1: inspecciona cada capa existente y después ejecuta sus pruebas, conforme a test-after. No modifica el runner, las pruebas ni la aplicación; cualquier defecto adicional del núcleo requiere revisar el plan. Los defectos F1–F7 ya registrados se corrigen mediante los planes U2/U3.
 
 ## Comandos exactos de U1
 - Modelo: `npm exec -- vitest run src/telemetry/model.test.ts`

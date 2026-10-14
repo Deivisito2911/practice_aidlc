@@ -49,7 +49,7 @@ rules:
     category: authorization
     applies_to: RecoveryRun
     trigger: solicitud CLI de vista previa o ejecución
-    logic: "IF el actor no tiene autorización operativa THEN rechazar antes de leer candidatos para ejecución o mutar OutboxEntry."
+    logic: "IF la invocación no tiene autorización operativa efectiva THEN rechazar antes de leer candidatos o mutar; la identidad se demuestra mediante auditoría y el identificador de invocación generado por la plataforma, nunca mediante el actor declarado en el cuerpo."
     violation_behaviour: "Denegar sin cambios; no se acepta la clave de API de productor como autorización operativa."
     source: [FR6.3, NFR7]
   - id: BR7.2
@@ -65,8 +65,8 @@ rules:
     category: authorization
     applies_to: RecoveryRun
     trigger: confirmación CLI
-    logic: "IF el actor sigue autorizado y confirma explícitamente la vista previa aún vigente THEN intentar procesar como máximo los candidatos mostrados; en otro caso no ejecutar."
-    violation_behaviour: "Sin confirmación, con vista previa obsoleta o con alcance vacío, no cambiar entradas Outbox."
+    logic: "IF la invocación sigue autorizada y confirma una referencia verificable de alcance, IDs ordenados, límite, emisión y vencimiento no alcanzado THEN intentar solo los candidatos mostrados; en otro caso no ejecutar. Cada repetición vuelve a comprobar vigencia, elegibilidad y reclamación."
+    violation_behaviour: "Sin confirmación o con campos alterados, referencia vencida o alcance vacío, no cambiar entradas. Una repetición no crea otra salida ni vuelve a enviar deliberadamente una ya publicada."
     source: [FR6.1, FR6.2, NFR7]
   - id: BR7.4
     statement: La recuperación manual reutiliza el procesamiento duradero de Outbox y no crea eventos ni salidas nuevas.
@@ -81,7 +81,7 @@ rules:
     category: calculation
     applies_to: RecoveryResult
     trigger: finalización o detención de una ejecución
-    logic: "IF comenzó la ejecución THEN informar correlationId de ejecución, correlaciones disponibles por salida y cantidades confirmadas, fallidas y aún PENDING para la población previa."
+    logic: "IF comenzó la ejecución THEN informar correlación e identificador de invocación, cantidades confirmadas, fallidas, omitidas y no iniciadas cuya suma reconcilia la población previa; reportar PENDING como observación separada y enlazar la auditoría del actor efectivo."
     violation_behaviour: "No declarar éxito para envíos fallidos o inciertos; registrar evidencia sin exponer secretos ni payload crudo."
     source: [FR6.3, NFR7]
   - id: BR7.6
@@ -89,7 +89,7 @@ rules:
     category: policy
     applies_to: OutboxEntry
     trigger: error, interrupción o detención de recuperación
-    logic: "IF una salida no recibe confirmación de publicación THEN conservarla PENDING para una recuperación posterior, incluida la programada."
+    logic: "IF una salida no recibe confirmación de publicación THEN conservarla PENDING. Antes de iniciar cada candidata comprobar el presupuesto global restante; al agotarlo detener nuevas reclamaciones y devolver resultado parcial con las salidas no iniciadas."
     violation_behaviour: "No borrar, descartar ni marcar PUBLISHED una salida fallida o incierta."
     source: [FR5.4, FR6.2]
   - id: BR8.1

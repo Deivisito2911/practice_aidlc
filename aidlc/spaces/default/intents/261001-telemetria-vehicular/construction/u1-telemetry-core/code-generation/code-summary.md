@@ -1,28 +1,29 @@
-# Resumen de generación de código — U1 núcleo de telemetría
+# Resumen de revalidación de código — U1
 
-## Archivos de aplicación
+## Alcance y decisiones
 
-Se modificaron los archivos reclamados en `source-manifest.json`: README, infraestructura CDK, modelo, adaptadores, servicio, handler HTTP/EventBridge y pruebas unitarias/de integración. `src/telemetry/model.test.ts` ya cubría el modelo y permaneció sin cambios. Se eliminaron del flujo activo los recursos de ingreso anteriores; la pila resultante tiene una sola Lambda y una sola SQS de alertas.
+Este intento conserva la implementación del núcleo U1 y las extensiones existentes de U2/U3. Se ejecutaron los siete pasos aprobados en orden: runner, inspección y prueba de cada capa implementada, integración y comprobaciones locales. Metodología test-after; contrato sha256:79373e9495d6b18f14b166d7e4b09eac05c1bdf8b660a2879d9a91bdd9abef75. No se modificaron fuentes, pruebas, configuración ni dependencias de aplicación.
 
-## Decisiones implementadas
+Se mantiene API Gateway REST y EventBridge sobre una única Lambda, dos tablas DynamoDB y SQS solo de alertas. La inspección confirma validación previa a efectos, aceptación después de save transaccional, duplicados/conflictos, umbral estricto <20, identidad LOW_BATTERY:eventId y recuperación Outbox. La existencia de esos mecanismos no equivale a evidencia completa de todos los escenarios exigidos.
 
-- Una transacción condicional guarda TelemetryEvent y, cuando corresponde, Outbox. La Lambda devuelve 202 después de confirmar la persistencia.
-- Los duplicados exactos conservan acceptedAt y correlationId originales; los conflictos responden 409.
-- Las alertas usan `LOW_BATTERY:{eventId}`; el envío inicial tiene presupuesto de 150 ms y los reintentos mantienen PENDING, token de reclamación y arrendamiento.
-- HTTP y recuperación EventBridge comparten el handler; la recuperación consulta el GSI por 16 shards y procesa lotes acotados.
-- CDK configura API REST con API key y cuota, DynamoDB cifrado con KMS/PITR, SQS con TLS/KMS, EventBridge, CloudTrail y permisos mínimos de Lambda.
+## Archivos creados o modificados
 
-## Verificación
+En este directorio se marcaron los pasos completos de code-generation-plan.md y se actualizaron code-summary.md, traceability.json y source-manifest.json. evidence/ conserva replay de comandos, salida/código, alcance y diff de salida generada. approved-brief.txt y dispatch-rules.json fueron entregados por el responsable de la coordinación; este trabajador solo los leyó.
 
-- Pruebas unitarias: 34 pruebas en 5 archivos, correctas.
-- Integración crítica `tests/integration/telemetry-flow.test.ts`: 1 prueba, correcta.
-- `typecheck`, `lint`, `format:check`, `build` y `cdk:synth`: correctos.
-- La prueba de CDK está incluida en la suite de 34 pruebas.
+Los comandos build y cdk:synth regeneraron dist/ y cdk.out/. dist/ está ignorado; cdk.out/performance-counters.json está rastreado y cambió contadores de tiempos locales, no recursos desplegados. El manifiesto reclama cdk.out/ como escritura del generador; no hay edición manual de fuentes de aplicación. No hubo deployment, merge ni commit.
 
-## Desvíos del plan
+## Resultado de pruebas y checks
 
-No hubo cambios de alcance. La prueba de modelo existente se conservó sin edición porque ya cubría los límites relevantes. La síntesis de CDK actualizó archivos bajo `cdk.out/`; no se incluyen en el manifiesto de código fuente.
+Todas las ejecuciones cerraron exit 0: modelo 11, adapters 6, service 8, handlers 5 e IaC 4 (34 unitarias U1). Integración: 2 archivos y 2 pruebas. El comando exacto aprobado añade el argumento al directorio tests/integration y ejecuta también la prueba operativa existente. typecheck, lint, format:check, build y cdk:synth pasaron. Vitest 5.0.3 / Node 26.7.0. Se conservó el warning Vite de configuración ESM/CommonJS y aviso CDK de 83 feature flags sin configurar. No se repitieron suites verdes ni se rebajaron umbrales.
 
-## Límites y trabajo posterior
+La salida completa y códigos están en evidence/revalidation-results.json; el modelo además en evidence/step-02-model.log. evidence/revalidation-evidence.md explica la inspección y los límites. evidence/generated-output.diff conserva el cambio generado de contadores.
 
-Las pruebas locales no demuestran el p95 ≤ 500 ms a 100 solicitudes válidas/s ni el 99,9 % de disponibilidad mensual: ambos objetivos requieren medición en staging. U2 debe completar métricas de negocio, alertas para acumulación PENDING/TTL, paneles SLI y controles de acceso humano. U3 debe incorporar OIDC, controles de CI y análisis de dependencias/secretos. La cobertura detallada pendiente figura como `N/A` en `traceability.json`; esos objetivos siguen vigentes.
+## Cobertura, hallazgos pendientes y desviaciones
+
+La revalidación local está verde, pero no certifica cumplimiento integral ni preparación para desplegar. F1–F7 del Build-and-Test Loop-Back Log siguen pendientes U2/U3. No se ejecutó audit:deps en este plan; no se solucionaron vulnerabilidades, dimensiones EMF, permiso TTL, comparador de alarma, instrumentación/dashboard, contrato manual o enforcement CI. No se detectó un nuevo defecto de implementación reproducido en las pruebas ejecutadas.
+
+F7 también comprende assertions ausentes en las pruebas U1 conservadas: timeout SQS/202/PENDING, carreras y lease vencido, barrera antes/después de commit, commit incierto/atomicidad interrumpida, fallo de marcado posterior a SQS confirmado, publicación tras borrar el evento, alerta de seis campos, varios límites y eventos fuera de orden. traceability.json conserva cada AC/BR/NFR detallado y agrega FR/NFR directos: OK enlaza implementación/assertions locales existentes; GAP identifica evidencia faltante; Deferred retiene obligación futura con justificación. Unverified figura solo como estado de evidencia. No se fabricaron pruebas ni excepciones para cerrar esos huecos.
+
+p95 ≤500 ms a 100 solicitudes válidas/s, ≥99 % persistido antes de 30 s y ≥99,9 % disponibilidad por mes calendario permanecen Unverified. Inspección AWS real, IAM negativo, CloudTrail, roles humanos, dos cuentas, métricas y controles CI también siguen pendientes. No se cambiaron objetivos aprobados.
+
+El plan se cumplió como revalidación y registro, sin desviaciones de ejecución; las limitaciones de cobertura son resultados conservados, no un permiso para ampliar el plan. El siguiente responsable debe resolver F7 y los demás hallazgos bajo los planes autorizados U2/U3 o pedir un ajuste explícito si requiere nuevas pruebas U1. No debe presentar este resultado como cierre del contrato completo.

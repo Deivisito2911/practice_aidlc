@@ -29,7 +29,7 @@
 |---|---|
 | NFR8.1 | Antes de integrar un pull request, CI ejecuta formato, ESLint y comprobación TypeScript con los scripts versionados del proyecto. |
 | NFR8.2 | CI ejecuta las pruebas unitarias y la prueba crítica de integración con AWS simulado. Cualquier fallo bloquea la integración. |
-| NFR8.3 | CI analiza dependencias y secretos; un hallazgo que supere los umbrales configurados o una credencial persistente bloquea la integración. |
+| NFR8.3 | CI analiza dependencias y secretos; exige cero hallazgos high/critical en la auditoría npm configurada y ninguna credencial persistente detectada por el escáner versionado. Un exit distinto de cero, un escáner ausente o una ejecución incompleta bloquea la integración; un chequeo heurístico local no sustituye ese control. |
 | NFR8.4 | La rama `main` exige todas las comprobaciones obligatorias y revisión aprobada; la integración usa squash. Un resultado fallido no puede promoverse a staging. |
 
 ## NFR10 — Auditoría CloudTrail protegida
@@ -43,7 +43,13 @@
 
 ## Supuestos y límites
 
-La plataforma de repositorio/CI y el proveedor OIDC no están identificados en los artefactos de Inception. Los requisitos anteriores son independientes del proveedor; la configuración concreta debe usar la plataforma que el equipo confirme y nunca sustituir OIDC por claves persistentes.
+GitHub Actions fue seleccionado por el usuario en `construction/u3-delivery-controls/code-generation/code-generation-questions.md`. Se conserva esa decisión. El propietario/nombre del repositorio, las cuentas AWS, los sujetos OIDC exactos y la protección de entornos siguen pendientes de concreción en CI Pipeline y Environment Provisioning; su ausencia impide activar el acceso AWS, pero no cambia los requisitos de credenciales temporales, mínimo privilegio ni aprobación de producción.
+
+## Revalidación del intento y evidencia exigida
+
+F1 de `construction/build-and-test/findings.json` mantiene fallidas las auditorías de dependencias por brace-expansion bajo aws-cdk-lib. U3 debe corregir dependencia y lockfile de forma acotada, verificar instalación reproducible y compatibilidad de la plantilla, y obtener auditorías verdes antes de integrar. No se acepta bajar el umbral ni ejecutar una excepción silenciosa.
+
+La evidencia de U2 confirma mecanismos locales y conserva las comprobaciones AWS reales como Unverified. U3 debe mantener esa separación: plantilla y pruebas de SDK no acreditan OIDC operativo, protección de ramas/entornos, retención efectiva ni eventos CloudTrail consultables. Los estados OK de este documento y su trazabilidad indican requisitos derivados definidos, no controles desplegados ni checks ejecutados.
 
 ## Sources
 
@@ -53,3 +59,6 @@ La plataforma de repositorio/CI y el proveedor OIDC no están identificados en l
 - `inception/delivery-planning/external-dependency-map.md`
 - `construction/u1-telemetry-core/functional-design/functional-spec.md` (comportamiento integrado que U3 debe conservar)
 - `construction/u1-telemetry-core/functional-design/rules.md` (invariantes compartidos)
+- `construction/u3-delivery-controls/code-generation/code-generation-questions.md` (selección humana de GitHub Actions)
+- `construction/build-and-test/findings.json` (F1 y F7)
+- `construction/u2-telemetry-operations/code-generation/code-summary.md` (mecanismos locales y límites de evidencia actuales)

@@ -1,3 +1,6 @@
+import { createHmac } from 'node:crypto';
+import type { Context } from 'aws-lambda';
+import type { MacPort } from '../../src/telemetry/recovery-preview.js';
 import { describe, expect, it, vi } from 'vitest';
 import type { EventStore, Queue } from '../../src/telemetry/adapters.js';
 import type { AlertOutbox } from '../../src/telemetry/model.js';
@@ -23,6 +26,10 @@ describe('integración de operaciones de telemetría', () => {
     const state = new Map(rows.map((row) => [row.alertId, 'PENDING']));
     const store: EventStore = {
       save: vi.fn(),
+      readOutbox: vi.fn(async (id) => {
+        const row = rows.find((item) => item.alertId === id);
+        return row ? { ...row, status: state.get(id) as 'PENDING' | 'PUBLISHED' } : undefined;
+      }),
       due: vi.fn(async () => rows.filter((row) => state.get(row.alertId) === 'PENDING')),
       claim: vi.fn(async (row) => ({
         ...row,
@@ -43,25 +50,40 @@ describe('integración de operaciones de telemetría', () => {
         if (JSON.parse(body).eventId === 'e2') throw new Error('temporary SQS failure');
       }),
     };
+    const mac: MacPort = {
+      generate: async (value) =>
+        createHmac('sha256', 'synthetic-key').update(value).digest('base64'),
+      verify: async (value, key, signature) => signature === (await mac.generate(value, key)),
+    };
+    const context = {
+      awsRequestId: 'lambda-request',
+      getRemainingTimeInMillis: () => 20000,
+    } as Context;
     const handler = createTelemetryHandler(store, queue, {
       clock: () => new Date('2026-01-01T00:01:00Z'),
       random: () => 0,
+      preview: { mac, keyId: 'test', allowedKeyIds: ['test'] },
     });
-    const preview = (await handler({
-      operation: 'manual-recovery',
-      action: 'preview',
-      limit: 25,
-      correlationId: 'run-42',
-    })) as Record<string, unknown>;
+    const preview = (await handler(
+      {
+        operation: 'manual-recovery',
+        action: 'preview',
+        limit: 25,
+        correlationId: 'run-42',
+      },
+      context,
+    )) as Record<string, unknown>;
     expect(preview).toMatchObject({ count: 2, limit: 25 });
-    const execute = (await handler({
-      operation: 'manual-recovery',
-      action: 'execute',
-      limit: 25,
-      fingerprint: preview.fingerprint,
-      confirmation: preview.fingerprint,
-      correlationId: 'run-42',
-    })) as Record<string, unknown>;
+    const execute = (await handler(
+      {
+        operation: 'manual-recovery',
+        action: 'execute',
+        preview: preview.envelope,
+        confirmation: preview.fingerprint,
+        correlationId: 'run-42',
+      },
+      context,
+    )) as Record<string, unknown>;
     expect(execute).toMatchObject({ confirmed: 1, failed: 1, pending: 1 });
     expect(state.get('LOW_BATTERY:e1')).toBe('PUBLISHED');
     expect(state.get('LOW_BATTERY:e2')).toBe('PENDING');

@@ -1,0 +1,20 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "7b629ce81c655409c6ddeff9b8f22c3136dab4ef026d008836d10caf3a0088a9": {
+      "displayName": "TelemetryAudit Template",
+      "source": {
+        "path": "TelemetryAudit.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-fcb4fd08": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "7b629ce81c655409c6ddeff9b8f22c3136dab4ef026d008836d10caf3a0088a9.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

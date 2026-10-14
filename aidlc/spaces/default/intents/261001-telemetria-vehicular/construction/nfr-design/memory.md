@@ -2,6 +2,7 @@
 > This file is kept up to date automatically while the stage runs. Add observations at the review step, not by editing here directly.
 
 ## Interpretations
+- 2026-10-13T21:34:52Z — GitHub Actions confirmado: verificar sujeto OIDC real, combinar entorno con protección de ramas y mantener negativa de PR/forks; diseño estático no acredita activación. F1 se corrige sin excepciones de auditoría; U2 sigue siendo baseline local.
 <!-- example: 2026-05-29T10:14:32Z — chose REST over GraphQL; the consuming team only needs CRUD, revisit if subscriptions land -->
 
 ## Deviations

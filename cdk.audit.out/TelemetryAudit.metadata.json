@@ -1,0 +1,116 @@
+{
+  "/TelemetryAudit": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:8:2)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/TelemetryAudit/AuditKey/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuditKeyB2DBB069"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Key2 in aws-cdk-lib...",
+        "new TelemetryAuditStack (D:\\guide_aidlc\\infra\\telemetry-audit-stack.ts:14:22)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:8:2)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/TelemetryAudit/AuditBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuditBucketB01E0AE8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new TelemetryAuditStack (D:\\guide_aidlc\\infra\\telemetry-audit-stack.ts:19:25)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:8:2)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/TelemetryAudit/AuditTrail/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuditTrailFF0F2BB5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Trail2 in aws-cdk-lib...",
+        "new TelemetryAuditStack (D:\\guide_aidlc\\infra\\telemetry-audit-stack.ts:55:19)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:8:2)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/TelemetryAudit/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TelemetryAudit/CDKMetadata/Condition": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadataAvailable"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TelemetryAudit/AuditKey/Alias/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuditKeyAlias03A4B3A2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Key2 in aws-cdk-lib...",
+        "new TelemetryAuditStack (D:\\guide_aidlc\\infra\\telemetry-audit-stack.ts:14:22)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:8:2)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/TelemetryAudit/AuditBucket/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AuditBucketPolicy9F807F4B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new TelemetryAuditStack (D:\\guide_aidlc\\infra\\telemetry-audit-stack.ts:19:25)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry-audit.ts:6:1)"
+      ]
+    }
+  ]
+}

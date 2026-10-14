@@ -1,67 +1,54 @@
-# Vehicle telemetry delivery controls
+# Controles de entrega de telemetría
 
-## Status and scope
+## Estado y alcance
 
-This document defines the provider-neutral release contract for the existing single-Lambda telemetry service. GitHub Actions has now been selected for the later CI pipeline stage. The infrastructure stack currently defines the service resources and CloudTrail archive. It does not configure GitHub workflows, OIDC trust roles for CI, branch protection, an automated staging deployment, or a production approval environment. Those controls are **NOT implemented or verified**; concrete enforcement is deferred to the CI stage and depends on repository and AWS environment inputs below.
+GitHub Actions está seleccionado y los workflows están versionados, sin ejecución remota verificada. Cada stack de aplicación contiene una Lambda, dos tablas DynamoDB, API Gateway REST, EventBridge y SQS únicamente de alertas. `TelemetryAudit` define un solo CloudTrail multirregión y su archivo KMS protegido para la cuenta compartida de staging y producción. Proveedor y roles OIDC, protección de `main`, staging automático y aprobación de producción siguen **pendientes de aprovisionamiento o verificación externa**.
 
-Selected repository/CI provider: GitHub Actions. This selection does not itself enable or verify the required controls.
+La validación de pull requests, incluidos forks, no recibe credenciales AWS. No se almacenan claves persistentes en repositorio, variables, cachés, logs ni artefactos. Los roles distintos para staging, producción y auditoría siguen siendo requisito; una sesión SSO administradora local no demuestra esa separación para el pipeline.
 
-No pull-request validation job may receive AWS credentials. A future deployment job must exchange a short-lived OIDC token for an STS session. Never store long-lived AWS access keys in repository settings, secrets, build caches, logs, or artifacts. Validation, staging deployment, production deployment, application execution, and audit administration must use distinct identities. Production must require a separate human approval and promote the exact immutable artifact digest already deployed to staging.
+## Comprobaciones obligatorias
 
-The telemetry topology remains API Gateway REST → one `TelemetryService` Lambda → the existing DynamoDB event and Outbox tables, with EventBridge invoking that same Lambda for recovery and SQS used only for outgoing alerts. No ingress queue, ingress DLQ, extra telemetry Lambda, or independent rebuild for production promotion is permitted.
+Antes de integrar, deben pasar instalación reproducible, formato, lint, tipos, unitarias, integración AWS simulada, auditorías de producción y árbol completo, secretos, build y síntesis:
 
-## Required validation sequence
+```text
+npm ci
+npm run format:check
+npm run lint
+npm run typecheck
+npm run test:unit
+npm run test:integration -- tests/integration/telemetry-flow.test.ts
+npx vitest run infra/telemetry-stack-delivery-controls.test.ts infra/telemetry-stack.test.ts infra/telemetry-stack-operations.test.ts
+npm run audit:deps
+npm audit --audit-level=high
+npm run build
+npm run cdk:synth
+npm run cdk:synth:audit
+gitleaks dir --config .gitleaks.toml --redact=100 --exit-code 1 <proyección-aplicación-con-dist-y-cdk.out>
+gitleaks git --config .gitleaks.toml --redact=100 --exit-code 1 --log-opts=--all .
+```
 
-The provider adapter must install dependencies from `package-lock.json`, execute these gates in order, and block merge or promotion on any failure:
+Gitleaks v8.30.1 se obtiene de la distribución oficial, con SHA256 y versión comprobados. `.gitleaks.toml` extiende las reglas incorporadas (`useDefault = true`), sin baseline ni reglas deshabilitadas. Su única excepción combina la ruta de los JSON generados por CDK con el *match* `S3Key`/`objectKey` cuyo valor es un SHA256 hexadecimal seguido de `.zip`; no excluye archivos, líneas completas ni otros campos. La proyección enumera cada archivo y hash, incluye fuentes/configuración/documentación y artefactos recién generados; excluye dependencias de terceros y metadatos AI-DLC. El historial cubre todos los commits disponibles y declara si el clon es superficial. Un fixture limpio exige exit 0; los fixtures sintéticos AWS y genéricos deben ser detectados (exit 1) también dentro de esos JSON. Un hallazgo, error, herramienta ausente o escaneo incompleto bloquea.
 
-1. `npm ci`
-2. `npm run format:check`
-3. `npm run lint`
-4. `npm run typecheck`
-5. `npm run test:unit`
-6. `npm run test:integration -- tests/integration/telemetry-flow.test.ts`
-7. `npm run audit:deps`
-8. Install the pinned Gitleaks CLI **v8.30.1** from the official [Gitleaks v8.30.1 release](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1), then scan the checkout and Git history with `gitleaks detect --source . --redact`. Do not print unredacted findings into job logs.
-9. `npm run cdk:synth`; retain the synthesized template and review IAM, CloudTrail, KMS, retention, and resource changes before deployment.
+`npm run test:unit` no descubre `infra/`; por ello las pruebas CDK se ejecutan de forma explícita. La verificación local de estos comandos no acredita que GitHub Actions ya los ejecute ni que los checks sean obligatorios en `main`.
 
-Gitleaks is run as a pinned standalone CLI so its use does not select a CI provider. The `detect` alias remains available in v8.30.1; Gitleaks documents it as deprecated in favor of the newer `git` and `dir` commands. The required release gate preserves the approved command for compatibility. Keep `--redact` enabled for console output and configure any report artifact so findings cannot expose a secret. See the [official Gitleaks usage documentation](https://github.com/gitleaks/gitleaks#usage).
+## OIDC y promoción
 
-## Merge and promotion contract
+Antes de activar acceso AWS se verifican identificador del repositorio, formato real del subject, audiencia, issuer, cuentas AWS, regiones y entornos protegidos. El subject puede usar IDs inmutables; no inventar valores. Con un entorno GitHub, el subject identifica el entorno; las ramas/tags autorizadas se restringen mediante reglas de despliegue del entorno, sin suponer que el mismo subject contiene la rama.
 
-The future provider configuration must enforce all of the following:
+main exige revisión y todos los checks verdes; únicamente squash mediante pull request. Fallos u omisiones bloquean integración. Staging recibe el commit y artefacto inmutable validados. Producción requiere aprobación humana independiente y el mismo digest de staging, sin reconstrucción. Se prueban negativas de otro repositorio, fork, PR, referencia o entorno no autorizado.
 
-- Pull requests, including fork-originated changes, run validation without AWS credentials.
-- `main` accepts only reviewed changes with every required check green and squash-only merge enabled. A failed or missing check blocks merge.
-- Merge to protected `main` may deploy the validated commit to staging using only the staging OIDC role and account.
-- Preserve the immutable digest from validation through staging and production. Production must not rebuild or re-synthesize a different artifact.
-- Production promotion runs separately, requires explicit human approval, and uses a distinct production OIDC role and AWS account.
-- OIDC trust restricts token audience, repository identity, ref, and protected environment to exact approved values. Forks, unprotected refs, validation jobs, and unrelated repositories cannot assume deployment roles.
-- Audit administration is separate from application execution and app deployment. Application and deployment roles cannot stop or alter CloudTrail or delete/shorten retained audit evidence.
+Los roles temporales OIDC aplican audiencia/subject exactos y duración STS mínima compatible. La validación no obtiene rol AWS. El rol de despliegue de aplicación tampoco puede alterar/borrar auditoría de forma directa ni indirecta mediante CloudFormation, PassRole o una plantilla modificada. Bootstrap y cambios de auditoría pertenecen al responsable de auditoría; provisioning debe demostrar esa separación efectiva.
 
-These are release requirements, not claims that the provider currently enforces them.
+## Auditoría y límites de evidencia
 
-## Inputs required before provider implementation
+Las assertions CDK comprueban que los stacks de aplicación no contienen CloudTrail ni bucket de auditoría, y que `TelemetryAudit` enlaza trail/bucket/KMS, TLS, versionado y Object Lock COMPLIANCE de al menos 90 días. La política KMS habilita GenerateDataKey* al principal CloudTrail con SourceArn exacto y contexto de cifrado; DescribeKey usa SourceArn y omite contexto. Un ARN calculado evita dependencias circulares. El nombre determinista `telemetry-audit` requiere comprobar colisiones y continuidad antes de desplegar.
 
-The repository owner must provide and approve:
+Síntesis y pruebas no acreditan logs recibidos, retención real, bloqueo GitHub, OIDC activo ni promociones reales. En la cuenta se verifican estado/entrega CloudTrail, identidad, acción, recurso y fecha de eventos administrativos reales, cifrado y permisos negativos de aplicación/despliegue, incluidos caminos CloudFormation/PassRole. Registrar solo IDs y metadatos necesarios, sin secretos o payloads ajenos.
 
-- GitHub repository identifier (owner/name) and confirmation of repository visibility/settings;
-- protected refs and environments, including exact staging and production environment names;
-- OIDC issuer, subject claim format/values, and audience;
-- staging and production AWS account IDs and target regions;
-- the role boundaries and permitted deployment actions/resources for each environment;
-- provider support for credential-free pull-request validation, protected required checks, immutable artifact promotion, and human-gated production deployment.
+Carga p95, persistencia temporal y disponibilidad de un mes calendario permanecen Unverified hasta mediciones desplegadas U1/U2. Costes dependen de región, volumen, retención y runner reales; no hay total aprobado. No hubo despliegue, merge ni commit en la validación local.
 
-If a proposed provider cannot enforce each boundary, do not enable automated AWS deployment until an alternative is selected. Scanner findings and allowlist exceptions require security review and a recorded owner; never suppress a finding solely to make a gate pass.
+## Fuentes
 
-## Evidence boundaries
-
-`npm run cdk:synth` and the CDK assertions are static evidence about the template produced from the source commit. They do not prove that CloudTrail is enabled in an account, that an event was emitted or delivered, that the real OIDC principal can or cannot assume a role, or that provider-side branch/environment protections are active.
-
-Before a real deployment is considered verified, record the commit and synthesized artifact digest, target account/region, deployment identity, and result. In the AWS account, verify the trail is logging and query management events for the deployed API Gateway, Lambda, SQS, DynamoDB, KMS, IAM, and CloudFormation resources. Confirm a returned event includes event time, event name, user identity, event source, and affected resources. Separately verify the audit bucket's KMS encryption, Object Lock default retention, and access boundary. Record only event IDs and the minimum metadata needed for evidence; do not copy unrelated event payloads into build logs.
-
-## References
-
-- U3 security design: `aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md`.
-- U3 infrastructure: `aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/infrastructure-design/infrastructure-specification.md` and `cicd-pipeline.md`.
-- U3 NFRs: `aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md`.
-- [Gitleaks v8.30.1 release](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1) and [official usage](https://github.com/gitleaks/gitleaks#usage).
+- Diseño U3: aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-design/security-design.md.
+- [Gitleaks v8.30.1](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1) y [uso fijado](https://github.com/gitleaks/gitleaks/blob/v8.30.1/README.md).
+- [AWS política KMS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/create-kms-key-policy-for-cloudtrail.html).

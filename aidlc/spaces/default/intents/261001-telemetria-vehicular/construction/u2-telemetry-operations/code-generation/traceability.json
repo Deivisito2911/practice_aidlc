@@ -66,333 +66,851 @@
     "BR9.1",
     "BR9.2",
     "BR9.3",
-    "BR9.4"
+    "BR9.4",
+    "AC1.1.3",
+    "AC2.1.2",
+    "AC2.1.4",
+    "AC3.1.1",
+    "AC3.1.3",
+    "AC3.1.4",
+    "AC3.1.6",
+    "AC3.2.4",
+    "AC4.1.1",
+    "AC4.1.3",
+    "AC4.1.4",
+    "NFR1.2",
+    "NFR2.1",
+    "NFR3.2",
+    "NFR3.4",
+    "NFR4.3",
+    "FR1.1",
+    "FR1.2",
+    "FR1.3",
+    "FR1.4",
+    "FR1.5",
+    "FR1.6",
+    "FR2.1",
+    "FR2.2",
+    "FR3.1",
+    "FR3.2",
+    "FR4.1",
+    "FR4.2",
+    "FR4.3",
+    "FR4.4",
+    "FR5.1",
+    "FR5.2",
+    "FR5.3",
+    "FR5.4",
+    "FR6.1",
+    "FR6.2",
+    "FR6.3",
+    "NFR1",
+    "NFR2",
+    "NFR3",
+    "NFR4",
+    "NFR5",
+    "NFR6",
+    "NFR7",
+    "NFR8",
+    "NFR9",
+    "NFR10"
   ],
   "coverage": [
     {
       "id": "AC1.2.1",
       "status": "OK",
-      "target": "src/telemetry/handlers-operations.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC1.2.2",
       "status": "OK",
-      "target": "src/telemetry/handlers-operations.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC1.2.3",
       "status": "OK",
-      "target": "src/telemetry/handlers-operations.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC1.2.4",
-      "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "RechazoAPI key antes de invocarLambda requiere cuentaAWS."
     },
     {
       "id": "AC1.2.5",
-      "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Tasa/rafaga/cuota reales por clave requieren API Gateway desplegado."
     },
     {
       "id": "AC1.2.6",
       "status": "OK",
-      "target": "tests/integration/telemetry-operations.test.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC4.2.1",
       "status": "OK",
-      "target": "src/telemetry/manual-recovery.test.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC4.2.2",
-      "status": "OK",
-      "target": "src/telemetry/manual-recovery.test.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Alcancevacio probado; denegacionIAM real y actor efectivo pendientes."
     },
     {
       "id": "AC4.2.3",
-      "status": "OK",
-      "target": "src/telemetry/manual-recovery.test.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Conteos/IDs distintos probados; enlaceCloudTrail a identidad real pendiente."
     },
     {
       "id": "AC4.2.4",
       "status": "OK",
-      "target": "tests/integration/telemetry-operations.test.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC4.2.5",
       "status": "OK",
-      "target": "tests/integration/telemetry-operations.test.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC5.1.1",
-      "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "P95<=500ms a100solicitudes validas/s requiere stagingreal."
     },
     {
       "id": "AC5.1.2",
-      "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Commit/202 local probado; >=99%antes30s requiere cohorte real."
     },
     {
       "id": "AC5.1.3",
       "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "target": "src/telemetry/availability.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC5.1.4",
       "status": "OK",
-      "target": "src/telemetry/model.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC5.1.5",
-      "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/availability.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Formula sintetica probada; disponibilidad>=99.9% requiere mes real completo."
     },
     {
       "id": "AC5.2.1",
       "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "target": "src/telemetry/observability.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC5.2.2",
-      "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "status": "Deferred",
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Series/configuracion comprobadas; activacionAWS real pendiente."
     },
     {
       "id": "AC5.2.3",
       "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "AC5.2.4",
-      "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "status": "Deferred",
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Correlaciones locales; investigacion/roles/logs desplegados pendientes."
     },
     {
       "id": "NFR1.4",
-      "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Carga y percentiles reales pendientes."
     },
     {
       "id": "NFR1.5",
-      "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Usage plan local; limite exacto real por clave no acreditado."
     },
     {
       "id": "NFR1.6",
-      "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Lambda clasifica su poblacion; cuota/4xx preLambda requieren datosGateway."
     },
     {
       "id": "NFR2.4",
-      "status": "OK",
-      "target": "tests/integration/telemetry-operations.test.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Causalidad local probada; cohorte>=99%antes30s pendiente."
     },
     {
       "id": "NFR3.5",
-      "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/availability.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Mes calendario sintetico validaformula, no mes observado."
     },
     {
       "id": "NFR3.6",
       "status": "OK",
-      "target": "src/telemetry/manual-recovery.ts"
+      "target": "tests/integration/telemetry-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR3.7",
       "status": "OK",
-      "target": "src/telemetry/manual-recovery.test.ts"
+      "target": "tests/integration/telemetry-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR4.4",
       "status": "OK",
-      "target": "src/telemetry/adapters.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR5.6",
-      "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "PoliticaP3 acotada y AccessDenied simulado; IAMreal pendiente."
     },
     {
       "id": "NFR5.7",
       "status": "OK",
-      "target": "bin/telemetry-operations.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR5.8",
-      "status": "OK",
-      "target": "src/telemetry/handlers-operations.test.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Identificadores plataforma probados; identidad efectivaCloudTrail pendiente."
     },
     {
       "id": "NFR7.6",
       "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "target": "src/telemetry/observability.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR7.7",
       "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "target": "src/telemetry/observability.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR7.8",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR7.9",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR7.10",
-      "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "status": "Deferred",
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Busqueda/acceso restringido real pendiente."
     },
     {
       "id": "NFR7.11",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR9.7",
       "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR9.8",
       "status": "OK",
-      "target": "src/telemetry/adapters.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR9.9",
-      "status": "OK",
-      "target": "infra/telemetry-stack-operations.test.ts"
+      "status": "Deferred",
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Capacidad mixta100RPS y ausencia de interferencia requiere staging."
     },
     {
       "id": "NFR9.10",
       "status": "OK",
-      "target": "package.json"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR9.11",
       "status": "OK",
-      "target": "bin/telemetry-operations.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR9.12",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR9.13",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "NFR10.3",
-      "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "SelectorInvoke local; eventos/identidad/retencion reales pendientes."
     },
     {
       "id": "BR6.1",
       "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR6.2",
       "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR6.3",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR6.4",
-      "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "ControlAPI key/cuota real antesLambda pendiente."
     },
     {
       "id": "BR6.5",
       "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR7.1",
-      "status": "OK",
-      "target": "src/telemetry/manual-recovery.ts"
+      "status": "Deferred",
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "AutorizacionIAM real pendiente; actorpayload nunca autoriza."
     },
     {
       "id": "BR7.2",
       "status": "OK",
-      "target": "src/telemetry/manual-recovery.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR7.3",
       "status": "OK",
-      "target": "bin/telemetry-operations.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR7.4",
       "status": "OK",
-      "target": "src/telemetry/manual-recovery.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR7.5",
       "status": "OK",
-      "target": "src/telemetry/manual-recovery.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR7.6",
       "status": "OK",
-      "target": "src/telemetry/manual-recovery.ts"
+      "target": "src/telemetry/manual-recovery.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR8.1",
-      "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "P95real a100RPS pendiente."
     },
     {
       "id": "BR8.2",
-      "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "status": "Deferred",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "100%causalidad local probado; indicador>=99%real pendiente."
     },
     {
       "id": "BR8.3",
       "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "target": "src/telemetry/availability.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR8.4",
       "status": "OK",
-      "target": "src/telemetry/model.ts"
+      "target": "src/telemetry/adapters.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR8.5",
       "status": "OK",
-      "target": "src/telemetry/handlers.ts"
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR9.1",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "src/telemetry/observability.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR9.2",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR9.3",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
     },
     {
       "id": "BR9.4",
       "status": "OK",
-      "target": "infra/telemetry-stack.ts"
+      "target": "infra/telemetry-stack-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "Mecanismo/assertions locales: consultar evidence/criterion-evidence.md y los casos del archivo destino."
+    },
+    {
+      "id": "AC1.1.3",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts",
+      "case": "acepta limite inclusivo (battery0/100,temperature-50/150,speed0/300 y UTC+5min)",
+      "assertion_evidence": "Se aceptan todos los limites sin ampliar rangos.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC2.1.2",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "case": "solicitudes HTTP concurrentes identicas dejan un evento y una sola salida",
+      "assertion_evidence": "Dos respuestas202; una transaccion comprometida y dos filas conjuntas.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC2.1.4",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "case": "fallo before/during/after del commit nunca deja estado parcial ni202 falso",
+      "assertion_evidence": "Antes/durante:0 filas/503; despues:2 filas/202 tras lectura coherente.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC3.1.1",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "case": "bateria0 y19.99 crea salida durable determinista",
+      "assertion_evidence": "Registro y salida LOW_BATTERY:e1 con batteryValue exacto.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC3.1.3",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "case": "temperature/speed no crea salida ni publicacion",
+      "assertion_evidence": "Un evento, cero Outbox y cero llamadasSQS.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC3.1.4",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "case": "SQS confirmado seguido de fallo al marcar conserva identidad y recuperacion",
+      "assertion_evidence": "Assertion de los seis campos completos e instante UTC del mensaje.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC3.1.6",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "case": "eventos fuera de orden producen alertas independientes sin estado acumulativo",
+      "assertion_evidence": "Dos eventos/salidas/envios; no se cancela el evento anterior.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC3.2.4",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "case": "SQS confirmado seguido de fallo al marcar conserva identidad y recuperacion",
+      "assertion_evidence": "PENDING recuperable, segundo envio con mismoalertId y publicacion confirmada.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC4.1.1",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "case": "recuperacion posterior no republica la salida PUBLISHED",
+      "assertion_evidence": "Barrido devuelve0 y no agrega otro envio; adapters prueba condicion de elegibilidad temporal.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC4.1.3",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts",
+      "case": "logs de validacion,persistencia y publicacion conservan correlacion sin cuerpo ni credenciales",
+      "assertion_evidence": "VALIDATION_ERROR/CommitFailed/SqsUncertain y correlacion; exclusiones de claves,cuerpo yvehicleId privado.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "AC4.1.4",
+      "status": "OK",
+      "target": "src/telemetry/adapters.test.ts",
+      "case": "propietario vencido no confirma y dos reclamantes no obtienen posesion simultanea",
+      "assertion_evidence": "Promise.all produce un ganador; token/lease condicionan confirmacion.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "NFR1.2",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "case": "timeout de publicacion conserva aceptacion durable y PENDING sin marcar",
+      "assertion_evidence": "AbortSignal efectivo,202logico,estadoPENDING y ninguna confirmacion indebida.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "NFR2.1",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "case": "barrera de commit impide respuesta202 antes de escritura conjunta",
+      "assertion_evidence": "Antes de release:0filas/sin respuesta; despues:2filas/202.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "NFR3.2",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "case": "fallo before/during/after del commit nunca deja estado parcial ni202 falso",
+      "assertion_evidence": "Resultado incierto despues del commit se confirma coherentemente; no exitos nuevos sin persistencia.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "NFR3.4",
+      "status": "OK",
+      "target": "src/telemetry/adapters.test.ts",
+      "case": "lease vencido vuelve a ser reclamable y el propietario anterior no confirma",
+      "assertion_evidence": "Un arrendamiento vivo impide otra posesion; vencido permite nuevo token; antiguo falla y vigente confirma.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "NFR4.3",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "case": "SQS confirmado seguido de fallo al marcar conserva identidad y recuperacion",
+      "assertion_evidence": "Se elimina mapa de eventos y se publica nuevamente desde Outbox con identidad/datos completos.",
+      "evidence_status": "Local only"
+    },
+    {
+      "id": "FR1.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR1.2",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR1.3",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR1.4",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR1.5",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR1.6",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR2.1",
+      "status": "Deferred",
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Configuracion/flujo/assertions locales; controlGateway real pendiente."
+    },
+    {
+      "id": "FR2.2",
+      "status": "Deferred",
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Unverified",
+      "assertion_evidence": "Configuracion/flujo/assertions locales; controlGateway real pendiente."
+    },
+    {
+      "id": "FR3.1",
+      "status": "OK",
+      "target": "infra/telemetry-stack.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR3.2",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR4.1",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR4.2",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR4.3",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR4.4",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR5.1",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR5.2",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR5.3",
+      "status": "OK",
+      "target": "tests/integration/telemetry-flow.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR5.4",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR6.1",
+      "status": "OK",
+      "target": "tests/integration/telemetry-operations.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR6.2",
+      "status": "OK",
+      "target": "src/telemetry/service.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "FR6.3",
+      "status": "OK",
+      "target": "src/telemetry/handlers.test.ts",
+      "evidence_status": "Local only",
+      "assertion_evidence": "CasosBVA,causalidad/atomicidad,identidad,recuperacion y mensajes/logs concretos; evidencia local, noAWSreal."
+    },
+    {
+      "id": "NFR1",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR2",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR3",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR4",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR5",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR6",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR7",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR8",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR9",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
+    },
+    {
+      "id": "NFR10",
+      "status": "Deferred",
+      "target": "Verificacion integralAWS/CI/SLO pendiente; consultar NFR detallados y evidence/criterion-evidence.md.",
+      "evidence_status": "Unverified"
     }
+  ],
+  "evidence": "evidence/check-results.json",
+  "u1_gap_follow_up": "evidence/u1-gap-follow-up.json",
+  "known_pending_findings": [
+    "F1 (U3)",
+    "F7: controlesCI y comprobaciones externas pendientes"
   ]
 }

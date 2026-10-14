@@ -43,14 +43,19 @@ add('u2:observability-design:dashboard', `${record}/construction/u2-telemetry-op
 add('u2:security-design:actor', `${record}/construction/u2-telemetry-operations/nfr-design/security-design.md#Autorización de recuperación`, 'Evidencia de actor efectivo, operación, confirmación, correlación y resumen; denegación IAM comprobada.', 'observability-setup');
 
 const commandSources = new Map();
-const codeDirs = fs.readdirSync(`${record}/construction`).filter(name => fs.existsSync(`${record}/construction/${name}/code-generation/unit-test-instructions.md`));
+const codeDirs = units.filter(name => fs.existsSync(`${record}/construction/${name}/code-generation/unit-test-instructions.md`));
 for (const unit of codeDirs) {
   const source = `${record}/construction/${unit}/code-generation/unit-test-instructions.md`;
-  for (const match of read(source).matchAll(/`((?:npm |npx )[^`\n]+)`/g)) {
-    if (!/vitest run|npm run test:/.test(match[1])) continue;
-    const sources = commandSources.get(match[1]) ?? [];
+  const body = read(source);
+  const commands = [
+    ...[...body.matchAll(/`((?:npm |npx )[^`\n]+)`/g)].map(match => match[1]),
+    ...[...body.matchAll(/^(?:npm|npx) (?:run|exec|vitest) [^\r\n]+$/gm)].map(match => match[0]),
+  ];
+  for (const command of commands) {
+    if (!/vitest run|npm run test:/.test(command)) continue;
+    const sources = commandSources.get(command) ?? [];
     sources.push(source);
-    commandSources.set(match[1], sources);
+    commandSources.set(command, [...new Set(sources)]);
   }
 }
 for (const command of ['npm run build', 'npm run typecheck', 'npm run lint', 'npm run format:check', 'npm run test:unit', 'npm run test:integration', 'npm run audit:deps', 'npm run cdk:synth']) {

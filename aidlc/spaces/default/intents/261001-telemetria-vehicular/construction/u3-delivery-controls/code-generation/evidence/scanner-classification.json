@@ -1,0 +1,142 @@
+{
+  "rows": [
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/Telemetry-staging.assets.json",
+      "StartLine": 13,
+      "EndLine": 13,
+      "Commit": "6cb57256aad08a81a5ba59b305bca9757e718fc5",
+      "Fingerprint": "6cb57256aad08a81a5ba59b305bca9757e718fc5:cdk.out/Telemetry-staging.assets.json:generic-api-key:13",
+      "field": "objectKey",
+      "value_shape": "SHA256 hexadecimal 64 caracteres + .zip",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/Telemetry-staging.template.json",
+      "StartLine": 424,
+      "EndLine": 424,
+      "Commit": "6cb57256aad08a81a5ba59b305bca9757e718fc5",
+      "Fingerprint": "6cb57256aad08a81a5ba59b305bca9757e718fc5:cdk.out/Telemetry-staging.template.json:generic-api-key:424",
+      "field": "S3Key",
+      "value_shape": "SHA256 hexadecimal 64 caracteres + .zip",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/tree.json",
+      "StartLine": 1,
+      "EndLine": 1,
+      "Commit": "6cb57256aad08a81a5ba59b305bca9757e718fc5",
+      "Fingerprint": "6cb57256aad08a81a5ba59b305bca9757e718fc5:cdk.out/tree.json:generic-api-key:1",
+      "field": "árbol CDK minificado; propiedades de artefactos anidadadas",
+      "value_shape": "contiene nombres de artefacto SHA256 ZIP y UUID de API Gateway; requiere clasificación contextual",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/Telemetry-staging.assets.json",
+      "StartLine": 13,
+      "EndLine": 13,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/Telemetry-staging.assets.json:generic-api-key:13",
+      "field": "objectKey",
+      "value_shape": "SHA256 hexadecimal 64 caracteres + .zip",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/Telemetry-staging.assets.json",
+      "StartLine": 27,
+      "EndLine": 27,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/Telemetry-staging.assets.json:generic-api-key:27",
+      "field": "objectKey",
+      "value_shape": "SHA256 hexadecimal 64 caracteres + .zip",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/tree.json",
+      "StartLine": 1,
+      "EndLine": 1,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/tree.json:generic-api-key:1",
+      "field": "árbol CDK minificado; propiedades de artefactos anidadadas",
+      "value_shape": "contiene nombres de artefacto SHA256 ZIP y UUID de API Gateway; requiere clasificación contextual",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/tree.json",
+      "StartLine": 1,
+      "EndLine": 1,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/tree.json:generic-api-key:1",
+      "field": "árbol CDK minificado; propiedades de artefactos anidadadas",
+      "value_shape": "contiene nombres de artefacto SHA256 ZIP y UUID de API Gateway; requiere clasificación contextual",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/tree.json",
+      "StartLine": 1,
+      "EndLine": 1,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/tree.json:generic-api-key:1",
+      "field": "árbol CDK minificado; propiedades de artefactos anidadadas",
+      "value_shape": "contiene nombres de artefacto SHA256 ZIP y UUID de API Gateway; requiere clasificación contextual",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/Telemetry-staging.template.json",
+      "StartLine": 315,
+      "EndLine": 315,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/Telemetry-staging.template.json:generic-api-key:315",
+      "field": "S3Key",
+      "value_shape": "SHA256 hexadecimal 64 caracteres + .zip",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/Telemetry-staging.template.json",
+      "StartLine": 452,
+      "EndLine": 452,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/Telemetry-staging.template.json:generic-api-key:452",
+      "field": "S3Key",
+      "value_shape": "SHA256 hexadecimal 64 caracteres + .zip",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/Telemetry-staging.template.json",
+      "StartLine": 696,
+      "EndLine": 696,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/Telemetry-staging.template.json:generic-api-key:696",
+      "field": "S3Key",
+      "value_shape": "SHA256 hexadecimal 64 caracteres + .zip",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    },
+    {
+      "RuleID": "generic-api-key",
+      "File": "cdk.out/Telemetry-staging.template.json",
+      "StartLine": 986,
+      "EndLine": 986,
+      "Commit": "174d9ecadc219e8b5bde1a2467797002595e9196",
+      "Fingerprint": "174d9ecadc219e8b5bde1a2467797002595e9196:cdk.out/Telemetry-staging.template.json:generic-api-key:986",
+      "field": "S3Key",
+      "value_shape": "SHA256 hexadecimal 64 caracteres + .zip",
+      "classification": "Identificador generado CDK; no se acredita credencial real por el detector. Scanner conserva exit 1."
+    }
+  ],
+  "counts": {
+    "projection": 3,
+    "history": 12
+  },
+  "security_gate": "Blocked: sin supresión ni baseline",
+  "candidate": "Revisión futura de regla limitada a campos CDK SHA256 ZIP confirmados, manteniendo detector AWS y fixture sintético; no aplicada. No reescribir historial."
+}

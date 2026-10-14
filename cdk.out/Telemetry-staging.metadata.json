@@ -25,6 +25,21 @@
       }
     }
   ],
+  "/Telemetry-staging/OperationsAlarmTopicArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OperationsAlarmTopicArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:275:9)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
   "/Telemetry-staging/ApiUrl": [
     {
       "type": "aws:cdk:logicalId",
@@ -33,7 +48,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:259:5)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:414:5)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -48,7 +63,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:260:5)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:415:5)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -97,6 +112,22 @@
       ]
     }
   ],
+  "/Telemetry-staging/RecoveryMacKey/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RecoveryMacKeyA629A8C2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Key2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:33:20)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
   "/Telemetry-staging/AlertQueue/Resource": [
     {
       "type": "aws:cdk:logicalId",
@@ -106,7 +137,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Queue2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:33:20)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:38:20)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -122,7 +153,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Table2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:41:25)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:46:25)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -138,7 +169,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Table2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:58:25)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:62:25)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -154,7 +185,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new LogGroup2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:74:29)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:78:29)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -170,7 +201,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:79:23)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:83:23)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -186,7 +217,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new RestApi2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:131:17)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:151:17)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -202,7 +233,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new RestApi2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:131:17)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:151:17)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -218,7 +249,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new RestApi2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:131:17)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:151:17)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -234,7 +265,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Rule2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:148:5)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:168:5)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -250,7 +281,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Rule2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:148:5)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:168:5)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)"
       ]
     }
@@ -264,7 +295,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:154:25)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:174:25)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -280,7 +311,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Trail2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:164:5)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:210:19)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -296,7 +327,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:187:32)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:239:32)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -312,8 +343,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:223:21)",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:232:5)",
+        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:289:21)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:302:5)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -329,8 +360,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:223:21)",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:233:5)",
+        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:289:21)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:303:5)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -346,8 +377,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:223:21)",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:234:5)",
+        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:289:21)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:304:5)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -363,7 +394,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:235:32)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:305:32)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -379,8 +410,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:223:21)",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:242:5)",
+        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:289:21)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:314:5)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -396,8 +427,24 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:223:21)",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:258:5)",
+        "addAlarm (D:\\guide_aidlc\\infra\\telemetry-stack.ts:289:21)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:330:5)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
+        "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
+        "...node internals, tsx..."
+      ]
+    }
+  ],
+  "/Telemetry-staging/OperationsDashboard/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OperationsDashboard06307C07"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Dashboard2 in aws-cdk-lib...",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:340:23)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -455,7 +502,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Queue2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:33:20)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:38:20)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals..."
@@ -471,7 +518,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:79:23)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:83:23)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -487,7 +534,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new RestApi2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:131:17)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:151:17)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals..."
@@ -503,7 +550,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new RestApi2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:131:17)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:151:17)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals..."
@@ -519,7 +566,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new RestApi2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:131:17)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:151:17)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals..."
@@ -535,7 +582,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...PropertyInjectable.addUsagePlan in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:141:22)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:161:22)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -551,7 +598,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...PropertyInjectable.addApiKey in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:147:10)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:167:10)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -567,7 +614,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...PropertyInjectable.addApiKey in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:147:24)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:167:24)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -583,7 +630,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:154:25)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:174:25)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)"
       ]
     }
@@ -597,7 +644,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...PropertyInjectable.grant in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:100:17)"
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:108:17)"
       ]
     }
   ],
@@ -610,7 +657,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...RootResource.addResource in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:139:8)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:159:8)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."
@@ -626,7 +673,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...PropertyInjectable.addMethod in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:140:8)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:160:8)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals..."
@@ -642,7 +689,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...PropertyInjectable.addMethod in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:140:8)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:160:8)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals..."
@@ -658,7 +705,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...PropertyInjectable.addMethod in aws-cdk-lib...",
-        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:140:8)",
+        "new TelemetryStack (D:\\guide_aidlc\\infra\\telemetry-stack.ts:160:8)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:6:1)",
         "<anonymous> (D:\\guide_aidlc\\bin\\telemetry.ts:11:2)",
         "...node internals, tsx..."

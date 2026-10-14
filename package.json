@@ -11,10 +11,12 @@
     "format:check": "prettier --check src infra bin tests README.md package.json tsconfig.json vitest.config.ts",
     "lint": "eslint src infra bin tests",
     "cdk:synth": "cdk synth",
+    "cdk:synth:audit": "cdk synth --app \"npx tsx bin/telemetry-audit.ts\" --output cdk.audit.out",
     "audit:deps": "npm audit --omit=dev --audit-level=high"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.900.0",
+    "@aws-sdk/client-kms": "^3.1150.0",
     "@aws-sdk/client-lambda": "^3.1150.0",
     "@aws-sdk/client-sqs": "^3.900.0",
     "@aws-sdk/lib-dynamodb": "^3.900.0"
@@ -23,7 +25,7 @@
     "@types/aws-lambda": "^8.10.150",
     "@types/node": "^22.15.0",
     "aws-cdk": "^2.1030.0",
-    "aws-cdk-lib": "^2.220.0",
+    "aws-cdk-lib": "2.273.0",
     "constructs": "^10.4.0",
     "esbuild": "^0.28.2",
     "eslint": "^9.37.0",

@@ -32,6 +32,12 @@
 
 Conservar logs de ejecución de CI según la retención del proveedor y evitar que incluyan tokens, claves API o secretos. Guardar para cada promoción commit, digest, resultado de síntesis, identidad OIDC no sensible, aprobador y entorno. CloudTrail se entrega al bucket cifrado con KMS y retención protegida. El dashboard de release muestra estado de checks, despliegues por ambiente, digest promovido, errores de entrega de auditoría y cambios sensibles detectados. El monitoreo de métricas y alertas runtime de la Lambda sigue siendo responsabilidad de U2.
 
+## Evidencia y límites del cierre
+
+F1 se cierra con ejecución real de auditorías locales verdes, sin bajar umbrales. Los logs y reportes del escáner de secretos, checks, síntesis y pruebas se ligan al commit/artefacto. Ausencia de herramienta o reporte deja el control pendiente. GitHub Actions está seleccionado; un archivo workflow por sí solo no prueba ejecución, bloqueo de merge ni aprobación del entorno.
+
+Un periodo sin eventos no demuestra por sí solo fallo de CloudTrail: se concilia con actividad esperada y estado de entrega. La ventana operativa y el canal de guardia se fijan en la cuenta antes de activar esa señal. Los controles IAM/OIDC, retención protegida y cambios sensibles requieren comprobaciones reales; las assertions de plantilla se etiquetan como evidencia estática. Los objetivos runtime de U2 siguen Unverified hasta medición desplegada.
+
 ## Fuentes
 
 - `construction/u3-delivery-controls/nfr-design/security-design.md` (NFR6, NFR8, NFR10)

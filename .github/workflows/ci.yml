@@ -1,0 +1,163 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  merge_group:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gates:
+    name: quality-gates
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check types
+        run: npm run typecheck
+
+      - name: Audit production dependencies
+        run: npm run audit:deps
+
+      - name: Audit all dependencies
+        run: npm audit --audit-level=high
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Run infrastructure tests
+        run: npx vitest run infra
+
+      - name: Run critical integration tests
+        run: npm run test:integration -- tests/integration/telemetry-flow.test.ts
+
+      - name: Build
+        run: npm run build
+
+      - name: Synthesize CDK assembly
+        run: npm run cdk:synth
+
+      - name: Synthesize account-level audit assembly
+        run: npm run cdk:synth:audit
+
+      - name: Package environment-specific CDK assemblies
+        run: |
+          npx cdk synth -c stage=staging --output cdk.staging.out
+          npx cdk synth -c stage=production --output cdk.production.out
+
+      - name: Install verified Gitleaks
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=8.30.1
+          base="https://github.com/gitleaks/gitleaks/releases/download/v${version}"
+          curl --fail --location --retry 3 --silent --show-error \
+            "${base}/gitleaks_${version}_linux_x64.tar.gz" \
+            --output "${RUNNER_TEMP}/gitleaks_${version}_linux_x64.tar.gz"
+          curl --fail --location --retry 3 --silent --show-error \
+            "${base}/gitleaks_${version}_checksums.txt" \
+            --output "${RUNNER_TEMP}/gitleaks_${version}_checksums.txt"
+          cd "${RUNNER_TEMP}"
+          sha256sum --ignore-missing --check "gitleaks_${version}_checksums.txt"
+          tar -xzf "gitleaks_${version}_linux_x64.tar.gz" gitleaks
+          chmod 0755 gitleaks
+          "${RUNNER_TEMP}/gitleaks" version
+
+      - name: Confirm secret scanner detects a synthetic key
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "${RUNNER_TEMP}/gitleaks-positive" "${RUNNER_TEMP}/gitleaks-negative"
+          printf 'aws_access_key_id = "AKIA%s"\n' 'XUX5JIQN54C5C4BG' > "${RUNNER_TEMP}/gitleaks-positive/probe.txt"
+          printf 'ordinary test data\n' > "${RUNNER_TEMP}/gitleaks-negative/probe.txt"
+          set +e
+          "${RUNNER_TEMP}/gitleaks" dir --config .gitleaks.toml --redact=100 --exit-code 1 \
+            "${RUNNER_TEMP}/gitleaks-positive" >/dev/null 2>&1
+          positive_status=$?
+          set -e
+          if [ "$positive_status" -ne 1 ]; then
+            echo '::error::Gitleaks positive control did not detect the synthetic key'
+            exit 1
+          fi
+          "${RUNNER_TEMP}/gitleaks" dir --config .gitleaks.toml --redact=100 --exit-code 1 \
+            "${RUNNER_TEMP}/gitleaks-negative"
+
+      - name: Scan application and generated assembly
+        shell: bash
+        run: |
+          set -euo pipefail
+          projection="${RUNNER_TEMP}/telemetry-secret-scan"
+          mkdir -p "$projection"
+          cp -R src infra bin tests docs dist cdk.out cdk.audit.out cdk.staging.out cdk.production.out "$projection/"
+          cp .gitleaks.toml package.json package-lock.json README.md tsconfig.json \
+            vitest.config.ts cdk.json "$projection/"
+          "${RUNNER_TEMP}/gitleaks" dir --config .gitleaks.toml --redact=100 --exit-code 1 "$projection"
+
+      - name: Scan Git history
+        run: |
+          "${RUNNER_TEMP}/gitleaks" git --config .gitleaks.toml --redact=100 --exit-code 1 --log-opts=--all .
+
+      - name: Record exact build inputs and outputs
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          set -euo pipefail
+          find cdk.audit.out cdk.staging.out cdk.production.out dist -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum > artifact-files.sha256
+          printf '%s\n' "$GITHUB_SHA" > source-commit.txt
+          sha256sum artifact-files.sha256 source-commit.txt > artifact-manifest.sha256
+          sha256sum --check artifact-manifest.sha256
+          sha256sum --check artifact-files.sha256
+
+      - name: Store validated assembly
+        if: github.event_name == 'push'
+        id: assembly
+        uses: actions/upload-artifact@v6
+        with:
+          name: telemetry-${{ github.sha }}
+          path: |
+            cdk.staging.out/
+            cdk.production.out/
+            cdk.audit.out/
+            dist/
+            artifact-files.sha256
+            artifact-manifest.sha256
+            source-commit.txt
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
+
+      - name: Record artifact identity
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          printf 'Commit: `%s`\nArtifact: `%s`\nSHA-256: `%s`\n' \
+            "$GITHUB_SHA" 'telemetry-${{ github.sha }}' '${{ steps.assembly.outputs.artifact-digest }}' \
+            >> "$GITHUB_STEP_SUMMARY"

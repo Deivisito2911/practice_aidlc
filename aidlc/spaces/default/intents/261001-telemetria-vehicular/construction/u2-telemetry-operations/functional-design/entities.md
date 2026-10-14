@@ -41,18 +41,22 @@ entities:
     identifier: recoveryRunId
     attributes:
       - { name: recoveryRunId, type: Identifier, required: true, unique: true }
-      - { name: requestedBy, type: OperatorIdentity, required: true, constraints: "Authorized P3 platform operator" }
+      - { name: requestedBy, type: OperatorAuditReference, required: true, constraints: "Identidad autorizada comprobable en la auditoría de la invocación; nunca inferida del actor enviado por el cliente" }
+      - { name: invocationRequestId, type: Identifier, required: true, constraints: "Asignado por la plataforma; enlaza la operación con la identidad efectiva auditada" }
       - { name: requestedAt, type: UTC-instant, required: true }
       - { name: scope, type: RecoveryScope, required: true, constraints: "Visible, explicit, and limited to eligible PENDING entries" }
       - { name: processingLimit, type: positive-integer, required: true, constraints: "Explicit upper bound; maximum is configured by operations policy" }
       - { name: previewIds, type: list<Identifier>, required: true, constraints: "Only identifiers; no secret or raw payload" }
       - { name: previewCount, type: nonnegative-integer, required: true }
-      - { name: previewFingerprint, type: OpaqueIdentifier, required: true, constraints: "Binds confirmation to the displayed candidate set" }
+      - { name: previewFingerprint, type: OpaqueIdentifier, required: true, constraints: "Referencia verificable de alcance, IDs ordenados, límite, instante de emisión y vencimiento; se comprueba de nuevo al ejecutar" }
+      - { name: previewIssuedAt, type: UTC-instant, required: true, constraints: "Instante de emisión fijado por el servicio" }
+      - { name: previewExpiresAt, type: UTC-instant, required: true, constraints: "Vencimiento calculado desde la emisión con vigencia configurada; no renovable por el cliente" }
       - { name: confirmedAt, type: UTC-instant, required: false }
       - { name: correlationId, type: Identifier, required: true }
     constraints:
-      - "Execution requires an authorized actor and explicit confirmation of the still-current bounded preview."
-      - "An empty candidate set, stale preview, or missing confirmation has no effect on OutboxEntry."
+      - "Ejecutar requiere autorización efectiva y confirmación explícita de todos los campos de la vista previa vigente."
+      - "Una vista previa vacía, vencida, alterada o sin confirmación no cambia ninguna salida."
+      - "Repetir una confirmación no crea eventos ni salidas: se vuelve a verificar elegibilidad y reclamación; una salida publicada se omite."
     relationships:
       - { to: RecoveryResult, direction: "RecoveryRun -> RecoveryResult", cardinality: "1 -> 0..1", constraint: "A result exists after execution begins" }
   - name: RecoveryResult
@@ -63,10 +67,15 @@ entities:
       - { name: confirmedCount, type: nonnegative-integer, required: true }
       - { name: failedCount, type: nonnegative-integer, required: true }
       - { name: stillPendingCount, type: nonnegative-integer, required: true }
+      - { name: skippedCount, type: nonnegative-integer, required: true, constraints: "Candidatos ya publicados, no elegibles o cuya reclamación se perdió" }
+      - { name: unprocessedCount, type: nonnegative-integer, required: true, constraints: "Candidatos no iniciados por agotamiento del presupuesto global" }
+      - { name: partial, type: boolean, required: true, constraints: "Verdadero cuando queda trabajo confirmado sin iniciar" }
+      - { name: invocationRequestId, type: Identifier, required: true, constraints: "Enlace a auditoría de identidad efectiva; no proviene del payload" }
       - { name: correlationIds, type: list<Identifier>, required: true }
       - { name: evidenceReference, type: EvidenceReference, required: true, constraints: "Auditable summary without raw payload or credentials" }
     constraints:
-      - "Counts reconcile to the confirmed preview population; unconfirmed or failed entries remain PENDING."
+      - "confirmedCount + failedCount + skippedCount + unprocessedCount reconcilia la población confirmada; los resultados inciertos cuentan entre los no confirmados."
+      - "stillPendingCount es una observación separada, no un sumando adicional; las salidas fallidas o no iniciadas permanecen recuperables."
     relationships: []
   - name: ServiceMeasurement
     description: Time-bounded observation used to calculate ingestion performance, durable processing, availability, and retention indicators.

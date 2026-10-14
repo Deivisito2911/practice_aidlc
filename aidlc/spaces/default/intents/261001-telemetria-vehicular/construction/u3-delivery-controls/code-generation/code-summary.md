@@ -1,47 +1,25 @@
-# Resumen de generación de código — U3
+# Resumen de generación de código — U3 Controles de entrega
 
-## Resultado del plan aprobado
+## Resultado
 
-Se ejecutaron los doce pasos del plan de esta unidad de empaquetado. Se añadieron pruebas CDK y documentación de controles de entrega sobre el servicio existente. El plan y sus instrucciones de prueba conservaron el contenido aprobado. GitHub Actions fue elegido por el usuario durante esta etapa para configurar el pipeline posteriormente.
+Se completaron los ocho pasos del plan U3 bajo el contrato `test-after` y la estrategia mínima. La corrección local de F1 fijó `aws-cdk-lib@2.273.0`; `npm ci`, la auditoría de producción y la auditoría del árbol completo pasaron con cero vulnerabilidades. No se cambió la lógica de negocio U1/U2.
 
-## Archivos de la entrega
+El stack ahora concede al servicio CloudTrail `kms:GenerateDataKey*` con SourceArn del trail y contexto de cifrado, además de `kms:DescribeKey` con SourceArn sin contexto. Un nombre determinista permite calcular el ARN sin dependencia circular. Fijar el nombre puede reemplazar un trail previo al desplegar; se debe revisar la continuidad de auditoría antes de cualquier despliegue. Las pruebas CDK comprueban enlaces trail/bucket/KMS, retención Object Lock COMPLIANCE de 90 días, TLS, permisos efectivos del rol Lambda y topología de una Lambda, dos tablas y una SQS de alertas.
 
-| Archivo | Cambio |
-|---|---|
-| `infra/telemetry-stack-delivery-controls.test.ts` | Cuatro pruebas de topología/activadores, CloudTrail y archivo protegido, permisos efectivos de Lambda y dependencias de identidad/CI. |
-| `docs/telemetry-delivery-controls.md` | Contrato de calidad, federación OIDC, promoción por digest y aprobación de producción; Gitleaks v8.30.1 con salida redactada; configuración pendiente identificada explícitamente. |
-| `docs/telemetry-verification.md` | Diferencia entre evidencia estática CDK y comprobación de eventos y permisos en una cuenta real. |
-| `source-manifest.json` | Enumera toda ruta de aplicación escrita por U3, incluidas correcciones de formato y generación `cdk.out/`. |
+La distribución oficial Gitleaks v8.30.1 se verificó por SHA256 fuera del repositorio. Los primeros escaneos de aplicación e historial dieron exit 1 por identificadores de artefactos CDK, conservados en `evidence/scanner-classification.json`. `.gitleaks.toml` conserva reglas incorporadas y exceptúa solo matches `generic-api-key` de `S3Key`/`objectKey` con SHA256 hexadecimal y `.zip` en los JSON CDK exactos. No hay baseline, reglas deshabilitadas ni exclusiones de archivos completos. Los escaneos finales de la proyección manifestada de 78 archivos y del historial completo disponible (12 commits, clon no superficial) dieron exit 0. Fixtures de los tres namespaces confirmaron que credenciales AWS y genéricas, otro campo y valores sin `.zip` siguen detectándose; los hashes legítimos no se reportan.
 
-La configuración de auditoría del stack ya tenía KMS, Object Lock en modo COMPLIANCE por 90 días, versionado y bloqueo público; no se introdujeron cambios funcionales al stack. Las pruebas comprueban logging activo, eventos administrativos, vínculo al bucket, cifrado, retención y denegación de transporte inseguro. La comprobación IAM inspecciona los documentos de política vinculados al rol real de Lambda, exige permisos operativos presentes y rechaza privilegios administrativos, NotAction y comodines amplios.
+## Verificación local
 
-## Verificación
+- Pruebas CDK U3 y dos archivos compartidos: 13 aprobadas, exit 0; U3 aislada tras el cambio documental: 5 aprobadas, exit 0.
+- Integración crítica: 2 archivos y 7 pruebas aprobadas, exit 0. El script `test:integration` descubre ambos archivos.
+- Regresión explícita de 15 archivos en `src/telemetry`, `infra` y `tests/integration`: 159 pruebas aprobadas, exit 0.
+- `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run build` y `npm run cdk:synth`: exit 0.
+- Auditorías npm de producción y árbol completo: exit 0, cero vulnerabilidades. Escaneos Gitleaks de aplicación e historial: exit 0, cero hallazgos finales.
 
-| Comando | Resultado |
-|---|---|
-| `npx vitest run infra/telemetry-stack-delivery-controls.test.ts` | 4 pruebas aprobadas. |
-| `npm run test:unit` | 6 archivos / 37 pruebas existentes aprobadas. |
-| `npm run test:integration -- tests/integration/telemetry-flow.test.ts` | 2 archivos / 2 pruebas aprobadas: el script base incluye todo `tests/integration`, por lo que el argumento adicional también conserva la integración operativa existente. |
-| `npm run lint` | Exit 0. |
-| `npm run typecheck` | Exit 0. |
-| `npm run format:check` | Exit 0 tras corregir el formato de los archivos existentes señalados por Prettier. |
-| `npm run cdk:synth` | Exit 0; evidencia de configuración estática. |
+`evidence/commands.json` guarda los comandos y salidas de construcción; `evidence/scanner-final.json` guarda los fixtures, la proyección con hashes, historial, versión y exits. Un reintento de Vitest tras editar la comprobación documental falló al arrancar por `spawn EPERM` del sandbox; la misma prueba pasó fuera de ese límite con exit 0.
 
-Las pruebas se escribieron después de comprobar la configuración CDK existente, según `test-after`. Se corrigió una extracción vacía de políticas IAM detectada en la revisión de las pruebas y se volvió a ejecutar la comprobación antes de registrar el resultado.
+## Límites y pendientes
 
-Los sensores de secciones, lint y tipos pasaron. El sensor advisory de trazabilidad identifica 15 requisitos/criterios pendientes de CI o evidencia en cuenta real; no detecta IDs faltantes, huérfanos ni destinos inválidos. Se conservaron los GAP y no se cambiaron por resultados locales sin evidencia.
+Estos resultados acreditan instalación, pruebas, escaneo y síntesis **locales**. GitHub Actions fue seleccionado por el usuario, pero su workflow y checks obligatorios aún no existen en esta entrega. Confianza OIDC real, protección de `main`/entornos, segregación efectiva de roles de despliegue, promoción del mismo digest y aprobación de producción pertenecen a CI Pipeline/Environment Provisioning. La recepción, cifrado y retención de logs CloudTrail reales y la consulta de eventos administrativos requieren una cuenta AWS. Permanecen `GAP`/Unverified en `traceability.json`; F7 conserva estos límites. No hubo despliegue ni promoción.
 
-## Desviaciones y pendientes
-
-La corrección de formato incluyó once archivos existentes de U1/U2: `README.md`, `bin/telemetry.ts`, `bin/telemetry-operations.ts`, `infra/telemetry-stack.ts`, `infra/telemetry-stack-operations.test.ts`, `src/telemetry/adapters.ts`, `src/telemetry/handlers.ts`, `src/telemetry/handlers-operations.test.ts`, `src/telemetry/manual-recovery.ts`, `src/telemetry/manual-recovery.test.ts` y `tests/integration/telemetry-operations.test.ts`. Se preservó su comportamiento y se incluyeron en el manifiesto de fuentes.
-
-Los controles de GitHub Actions, confianza OIDC, protecciones de rama y despliegue no están implementados en esta entrega local; se mantienen como GAP en `traceability.json` para la etapa CI Pipeline. La consulta de eventos CloudTrail reales necesita acceso a la cuenta AWS. Gitleaks no se ejecutó localmente porque su binario no está instalado; su ejecución es un control pendiente del pipeline. Aprobar el alcance local no verifica esos controles externos.
-
-## Sources
-
-- `code-generation-plan.md` y `unit-test-instructions.md` (contenido aprobado).
-- `code-generation-questions.md` (Approve Plan y selección posterior de GitHub Actions).
-- `../nfr-requirements/security-requirements.md`.
-- `../nfr-design/security-design.md`.
-- `../infrastructure-design/infrastructure-specification.md`.
-- `inception/contract-design/contract-summary.md` y `inception/user-stories/stories.md`.
+El manifiesto enumera solo rutas de aplicación U3 y archivos generados concretos de CDK; evita declarar `cdk.out/` como directorio fuente. `dist/` fue regenerado por build y no se reclama como escritura versionada.

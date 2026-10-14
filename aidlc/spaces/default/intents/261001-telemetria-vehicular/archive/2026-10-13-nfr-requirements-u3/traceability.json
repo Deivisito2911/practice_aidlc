@@ -1,0 +1,68 @@
+{
+  "stage": "nfr-requirements",
+  "unit": "u3-delivery-controls",
+  "upstream_ids": [
+    "NFR1",
+    "NFR2",
+    "NFR3",
+    "NFR4",
+    "NFR5",
+    "NFR6",
+    "NFR8",
+    "NFR7",
+    "NFR9",
+    "NFR10"
+  ],
+  "coverage": [
+    {
+      "id": "NFR1",
+      "status": "N/A",
+      "target": "U3 only packages and validates delivery controls; it does not change the request-serving path or latency budget, owned by U1/U2."
+    },
+    {
+      "id": "NFR2",
+      "status": "N/A",
+      "target": "Durable event and Outbox processing are implemented by U1/U2; U3 preserves the agreed service contract and topology."
+    },
+    {
+      "id": "NFR3",
+      "status": "N/A",
+      "target": "The availability SLO is measured in staging for the running service; U3 defines delivery controls and cannot establish runtime availability."
+    },
+    {
+      "id": "NFR4",
+      "status": "N/A",
+      "target": "Telemetry TTL and retention indexing/backfill are owned by U2; U3 preserves the deployed schema and infrastructure contract."
+    },
+    {
+      "id": "NFR5",
+      "status": "OK",
+      "target": "NFR5.1, NFR5.2, NFR5.3"
+    },
+    {
+      "id": "NFR6",
+      "status": "OK",
+      "target": "NFR6.1, NFR6.2, NFR6.3"
+    },
+    {
+      "id": "NFR8",
+      "status": "OK",
+      "target": "NFR8.1, NFR8.2, NFR8.3, NFR8.4"
+    },
+    {
+      "id": "NFR7",
+      "status": "N/A",
+      "target": "Runtime metrics, logs, dashboards, and alarms are owned by U2; U3 preserves their infrastructure and does not define service runtime telemetry."
+    },
+    {
+      "id": "NFR9",
+      "status": "OK",
+      "target": "NFR9.1, NFR9.2"
+    },
+    {
+      "id": "NFR10",
+      "status": "OK",
+      "target": "NFR10.1, NFR10.2, NFR10.3, NFR10.4"
+    }
+  ]
+}

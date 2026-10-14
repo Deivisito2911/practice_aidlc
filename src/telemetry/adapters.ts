@@ -12,20 +12,44 @@ import { SQSClient, SendMessageCommand } from '@aws-sdk/client-sqs';
 import { ttlShardFor, type AlertOutbox, type EventRecord } from './model.js';
 
 export interface Queue {
-  send(body: string, correlationId: string): Promise<void>;
+  send(body: string, correlationId: string, signal?: AbortSignal): Promise<void>;
 }
-export type SaveResult = { outcome: 'created' | 'duplicate' | 'conflict'; record?: EventRecord };
+export interface TtlObservation {
+  count: number;
+  complete: boolean;
+  lowerBound: boolean;
+}
+export type SaveResult = {
+  outcome: 'created' | 'duplicate' | 'conflict';
+  record?: EventRecord;
+  readAfterFailure?: boolean;
+};
 export interface EventStore {
   save(record: EventRecord, outbox?: AlertOutbox): Promise<SaveResult>;
-  due(now: string, limit: number): Promise<AlertOutbox[]>;
-  ttlEligible?(nowEpoch: number, limit: number): Promise<number>;
+  due(now: string, limit: number, signal?: AbortSignal): Promise<AlertOutbox[]>;
+  ttlEligible?(nowEpoch: number, limit: number, signal?: AbortSignal): Promise<TtlObservation>;
   backfillTtl?(
     cursor?: Record<string, unknown>,
+    signal?: AbortSignal,
   ): Promise<{ scanned: number; updated: number; cursor?: Record<string, unknown> }>;
-  pendingSnapshot?(now: string): Promise<{ count: number; oldestAgeSeconds: number }>;
-  claim(item: AlertOutbox, now: string, leaseSeconds: number): Promise<AlertOutbox | undefined>;
-  published(item: AlertOutbox, token: string, now: string): Promise<boolean>;
-  defer(item: AlertOutbox, token: string, nextAttemptAt: string): Promise<boolean>;
+  readOutbox?(alertId: string, signal?: AbortSignal): Promise<AlertOutbox | undefined>;
+  pendingSnapshot?(
+    now: string,
+    signal?: AbortSignal,
+  ): Promise<{ count: number; oldestAgeSeconds: number; complete?: boolean; lowerBound?: boolean }>;
+  claim(
+    item: AlertOutbox,
+    now: string,
+    leaseSeconds: number,
+    signal?: AbortSignal,
+  ): Promise<AlertOutbox | undefined>;
+  published(item: AlertOutbox, token: string, now: string, signal?: AbortSignal): Promise<boolean>;
+  defer(
+    item: AlertOutbox,
+    token: string,
+    nextAttemptAt: string,
+    signal?: AbortSignal,
+  ): Promise<boolean>;
 }
 
 export class SqsQueue implements Queue {
@@ -33,15 +57,17 @@ export class SqsQueue implements Queue {
     private readonly client: SQSClient,
     private readonly url: string,
   ) {}
-  async send(body: string, correlationId: string): Promise<void> {
+  async send(body: string, correlationId: string, signal?: AbortSignal): Promise<void> {
     const response = await this.client.send(
       new SendMessageCommand({
         QueueUrl: this.url,
         MessageBody: body,
         MessageAttributes: { correlationId: { DataType: 'String', StringValue: correlationId } },
       }),
+      { abortSignal: signal },
     );
-    if (!response.MessageId) throw new Error('SQS no confirmó MessageId');
+    if (!response.MessageId)
+      throw Object.assign(new Error('SQS no confirmed MessageId'), { name: 'UnconfirmedSqsSend' });
   }
 }
 
@@ -76,11 +102,16 @@ export class DynamoEventStore implements EventStore {
       return { outcome: 'created', record };
     } catch (error) {
       // A failed conditional write and an uncertain network response both require a coherent read.
+      const details = error as { name?: string; CancellationReasons?: Array<{ Code?: string }> };
+      const conditional =
+        details.name === 'ConditionalCheckFailedException' ||
+        (details.name === 'TransactionCanceledException' &&
+          details.CancellationReasons?.some((reason) => reason.Code === 'ConditionalCheckFailed'));
       const existing = await this.readEvent(record.eventId);
       if (!existing) throw error;
       return existing.canonicalHash === record.canonicalHash
-        ? { outcome: 'duplicate', record: existing }
-        : { outcome: 'conflict', record: existing };
+        ? { outcome: 'duplicate', record: existing, readAfterFailure: !conditional }
+        : { outcome: 'conflict', record: existing, readAfterFailure: !conditional };
     }
   }
 
@@ -91,7 +122,15 @@ export class DynamoEventStore implements EventStore {
     return response.Item as EventRecord | undefined;
   }
 
-  async due(now: string, limit: number): Promise<AlertOutbox[]> {
+  async readOutbox(alertId: string, signal?: AbortSignal): Promise<AlertOutbox | undefined> {
+    const response = await this.client.send(
+      new GetCommand({ TableName: this.outboxTable, Key: { alertId }, ConsistentRead: true }),
+      { abortSignal: signal },
+    );
+    return response.Item as AlertOutbox | undefined;
+  }
+
+  async due(now: string, limit: number, signal?: AbortSignal): Promise<AlertOutbox[]> {
     if (!Number.isInteger(limit) || limit < 1) return [];
     limit = Math.min(25, limit);
     const due: AlertOutbox[] = [];
@@ -102,6 +141,7 @@ export class DynamoEventStore implements EventStore {
       let shardCount = 0;
       let cursor: Record<string, unknown> | undefined;
       do {
+        signal?.throwIfAborted();
         const pageLimit = Math.min(perShardLimit - shardCount, limit - due.length);
         const response = await this.client.send(
           new QueryCommand({
@@ -112,6 +152,7 @@ export class DynamoEventStore implements EventStore {
             ExclusiveStartKey: cursor,
             Limit: pageLimit,
           }),
+          { abortSignal: signal },
         );
         due.push(...((response.Items ?? []) as AlertOutbox[]));
         shardCount += response.Items?.length ?? 0;
@@ -121,32 +162,43 @@ export class DynamoEventStore implements EventStore {
     return due.slice(0, limit);
   }
 
-  async ttlEligible(nowEpoch: number, limit: number): Promise<number> {
+  async ttlEligible(
+    nowEpoch: number,
+    limit: number,
+    signal?: AbortSignal,
+  ): Promise<TtlObservation> {
+    if (!Number.isFinite(nowEpoch) || !Number.isInteger(limit) || limit < 1)
+      throw new Error('INVALID_TTL_QUERY');
     const cutoff = nowEpoch - 24 * 60 * 60;
     const capped = Math.max(1, Math.min(1001, limit));
     let count = 0;
     for (let shard = 0; shard < 16 && count < capped; shard++) {
       let cursor: Record<string, unknown> | undefined;
       do {
+        if (signal?.aborted) return { count, complete: false, lowerBound: true };
         const response = await this.client.send(
           new QueryCommand({
             TableName: this.eventsTable,
             IndexName: 'TtlByShard',
-            KeyConditionExpression: 'ttlShard = :shard AND expiresAt <= :cutoff',
+            KeyConditionExpression: 'ttlShard = :shard AND expiresAt < :cutoff',
             ExpressionAttributeValues: { ':shard': `TTL#${shard}`, ':cutoff': cutoff },
             ProjectionExpression: 'eventId',
             ExclusiveStartKey: cursor,
             Limit: Math.min(100, capped - count),
           }),
+          { abortSignal: signal },
         );
         count += response.Items?.length ?? 0;
         cursor = response.LastEvaluatedKey;
       } while (cursor && count < capped);
     }
-    return count;
+    return { count, complete: count < capped, lowerBound: count >= capped };
   }
 
-  async pendingSnapshot(now: string): Promise<{ count: number; oldestAgeSeconds: number }> {
+  async pendingSnapshot(
+    now: string,
+    signal?: AbortSignal,
+  ): Promise<{ count: number; oldestAgeSeconds: number; complete: boolean; lowerBound: boolean }> {
     const cap = 101;
     const pending: AlertOutbox[] = [];
     const firstShard = Math.floor(Date.parse(now) / 60_000) % 16;
@@ -154,6 +206,7 @@ export class DynamoEventStore implements EventStore {
       const shard = (firstShard + offset) % 16;
       let cursor: Record<string, unknown> | undefined;
       do {
+        signal?.throwIfAborted();
         const response = await this.client.send(
           new QueryCommand({
             TableName: this.outboxTable,
@@ -167,6 +220,7 @@ export class DynamoEventStore implements EventStore {
             Limit: Math.min(101, cap - pending.length),
             ScanIndexForward: true,
           }),
+          { abortSignal: signal },
         );
         pending.push(...((response.Items ?? []) as AlertOutbox[]));
         cursor = response.LastEvaluatedKey as Record<string, unknown> | undefined;
@@ -178,6 +232,8 @@ export class DynamoEventStore implements EventStore {
       .sort((a, b) => a - b)[0];
     return {
       count: pending.length,
+      complete: pending.length < cap,
+      lowerBound: pending.length >= cap,
       oldestAgeSeconds:
         oldestCreated === undefined
           ? 0
@@ -187,7 +243,9 @@ export class DynamoEventStore implements EventStore {
 
   async backfillTtl(
     cursor?: Record<string, unknown>,
+    signal?: AbortSignal,
   ): Promise<{ scanned: number; updated: number; cursor?: Record<string, unknown> }> {
+    signal?.throwIfAborted();
     const response = await this.client.send(
       new ScanCommand({
         TableName: this.eventsTable,
@@ -196,10 +254,12 @@ export class DynamoEventStore implements EventStore {
         ExclusiveStartKey: cursor,
         Limit: 25,
       }),
+      { abortSignal: signal },
     );
     const items = (response.Items ?? []) as Array<{ eventId: string; expiresAt: number }>;
     let updated = 0;
     for (const item of items) {
+      signal?.throwIfAborted();
       try {
         await this.client.send(
           new UpdateCommand({
@@ -213,6 +273,7 @@ export class DynamoEventStore implements EventStore {
               ':expires': item.expiresAt,
             },
           }),
+          { abortSignal: signal },
         );
         updated++;
       } catch (error) {
@@ -231,6 +292,7 @@ export class DynamoEventStore implements EventStore {
     item: AlertOutbox,
     now: string,
     leaseSeconds: number,
+    signal?: AbortSignal,
   ): Promise<AlertOutbox | undefined> {
     const token = this.uuid();
     const leaseUntil = new Date(Date.parse(now) + leaseSeconds * 1000).toISOString();
@@ -253,6 +315,7 @@ export class DynamoEventStore implements EventStore {
           },
           ReturnValues: 'ALL_NEW',
         }),
+        { abortSignal: signal },
       );
       const updated = response.Attributes as AlertOutbox | undefined;
       if (!updated) throw new Error('DynamoDB no devolvió el Outbox reclamado');
@@ -267,7 +330,12 @@ export class DynamoEventStore implements EventStore {
     }
   }
 
-  async published(item: AlertOutbox, token: string, now: string): Promise<boolean> {
+  async published(
+    item: AlertOutbox,
+    token: string,
+    now: string,
+    signal?: AbortSignal,
+  ): Promise<boolean> {
     try {
       await this.client.send(
         new UpdateCommand({
@@ -284,6 +352,7 @@ export class DynamoEventStore implements EventStore {
             ':now': now,
           },
         }),
+        { abortSignal: signal },
       );
       return true;
     } catch (error) {
@@ -292,7 +361,12 @@ export class DynamoEventStore implements EventStore {
     }
   }
 
-  async defer(item: AlertOutbox, token: string, nextAttemptAt: string): Promise<boolean> {
+  async defer(
+    item: AlertOutbox,
+    token: string,
+    nextAttemptAt: string,
+    signal?: AbortSignal,
+  ): Promise<boolean> {
     try {
       await this.client.send(
         new UpdateCommand({
@@ -307,6 +381,7 @@ export class DynamoEventStore implements EventStore {
             ':token': token,
           },
         }),
+        { abortSignal: signal },
       );
       return true;
     } catch (error) {

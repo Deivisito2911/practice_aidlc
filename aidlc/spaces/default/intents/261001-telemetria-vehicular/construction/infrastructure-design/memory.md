@@ -2,6 +2,7 @@
 > This file is kept up to date automatically while the stage runs. Add observations at the review step, not by editing here directly.
 
 ## Interpretations
+- 2026-10-13T21:40:49Z — U3 concreta GitHub Actions ya confirmado y conserva controles externos pendientes; F1 necesita instalación/auditoría real y diff CDK revisado. Auditoría separada también contempla CloudFormation/PassRole; coste por entorno queda condicionado a cuentas, región y volumen.
 <!-- example: 2026-05-29T10:14:32Z — chose REST over GraphQL; the consuming team only needs CRUD, revisit if subscriptions land -->
 
 ## Deviations

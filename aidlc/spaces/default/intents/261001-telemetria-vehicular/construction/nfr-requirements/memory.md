@@ -2,6 +2,7 @@
 > This file is kept up to date automatically while the stage runs. Add observations at the review step, not by editing here directly.
 
 ## Interpretations
+- 2026-10-13T21:29:34Z — U3 conserva GitHub Actions ya elegido por el usuario; los datos de repositorio, cuentas y sujetos OIDC pendientes impiden activar CI/AWS, pero no requieren volver a elegir proveedor. NFR8.3 mantiene barreras de dependencias y secretos; F1 no se convierte en excepción.
 <!-- example: 2026-05-29T10:14:32Z — chose REST over GraphQL; the consuming team only needs CRUD, revisit if subscriptions land -->
 
 ## Deviations

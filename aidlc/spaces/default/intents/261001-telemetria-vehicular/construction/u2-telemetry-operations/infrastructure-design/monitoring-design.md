@@ -2,6 +2,8 @@
 
 ## Metrics & KPIs
 
+Todas las métricas propias usan VehicleTelemetry y `Service=TelemetryService` en EMF, métricas CDK, alarmas y widgets. Edades/duraciones usan Seconds y cantidades Count; IDs individuales nunca son dimensiones. Las métricas nativas de API Gateway, EventBridge y SQS conservan sus dimensiones propias.
+
 | Metric | Source | Threshold | Why it matters |
 |---|---|---|---|
 | IngestLatencyP95 | API Gateway/Lambda, 1 min | SLI target p95 ≤500 ms during 100 valid RPS; alert after 5 min above target with sufficient sample | Detecta regresión de latencia sin mezclar trabajos manuales. |
@@ -15,6 +17,8 @@
 | ManualRecoverySummary | Logs/métricas Lambda | Conteos por estado por ejecución; error si falla autorización/preview | Hace visible la operación autorizada sin alta cardinalidad. |
 
 ## Alerts
+
+El comparador de errores es GREATER_THAN_OR_EQUAL_TO_THRESHOLD con umbral 1 %, condicionado a al menos 100 solicitudes elegibles. La prueba de frontera usa 100/1, 100/0, menos de 100, y 4xx/cuotas clasificados aparte. Cada assertion de alarma verifica dimensión, unidad, estadística, periodo, evaluaciones, umbral y destino, además de su existencia.
 
 | Alert | Condition | Severity | Routes to |
 |---|---|---|---|
@@ -39,6 +43,8 @@
 Mantener el log group existente con retención 90 días y cifrado de cuenta/clave existente. Loguear JSON con correlationId, actor P3, operation, runId, limit, preview fingerprint, counts, duración y causa. Excluir API key, payload crudo y secretos. Los IDs individuales se quedan en logs de acceso restringido y no como dimensión de métricas. CloudTrail conserva actor/acción/fecha/recurso; el dashboard enlaza por runId/correlationId hacia logs y métricas, sin mostrar payload.
 
 **Dashboards:** uno de staging para latencia, carga válida, tasa de error/quota separada, durable <30s, Outbox count/edad/resultado, SQS visible, evento TTL elegible, invocaciones EventBridge y resultado manual. Producción conserva las mismas vistas con alarmas y destino de producción. Los informes mensuales guardan fórmula y denominadores; los valores sintéticos se etiquetan como prueba de fórmula.
+
+F5 incorpora contadores por HTTP 202/400/409/5xx, commit confirmado/fallido/incierto, envío SQS confirmado/fallido/incierto y marcado PUBLISHED; tiempo recepción-a-commit con reloj coherente, sin contar resultados no confirmados como durables. Un cálculo mensual puro valida población y denominador completo, incluidos mantenimiento y minutos no observados como no demostrados. El widget de mes real no muestra como cumplimiento el resultado sintético. F6 agrega requestId de plataforma, resultados omitidos/no iniciados y marca parcial a los logs manuales sin actor autoritativo del payload.
 
 ## Fuentes
 

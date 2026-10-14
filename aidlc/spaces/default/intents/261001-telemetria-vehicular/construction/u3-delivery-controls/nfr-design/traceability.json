@@ -20,21 +20,86 @@
     "NFR10.4"
   ],
   "coverage": [
-    { "id": "NFR5.1", "status": "OK", "target": "Security design: separate pipeline, deployment, application, and audit roles with resource-scoped IAM." },
-    { "id": "NFR5.2", "status": "OK", "target": "Security design: preserve KMS/TLS and the contract topology without inbound SQS or ingress DLQ." },
-    { "id": "NFR5.3", "status": "OK", "target": "Security design: review IAM, encryption, OIDC trust, and resource boundaries in each CDK change." },
-    { "id": "NFR6.1", "status": "OK", "target": "Security design: OIDC trust restricted to audience, repository, authorized reference, and environment." },
-    { "id": "NFR6.2", "status": "OK", "target": "Security design: temporary STS sessions only; no persistent AWS credentials in logs, caches, or artifacts." },
-    { "id": "NFR6.3", "status": "OK", "target": "Security design: separate validation, staging, and production roles; production promotion requires human approval." },
-    { "id": "NFR8.1", "status": "OK", "target": "Security design NFR8.1: lockfile install, format, ESLint, and TypeScript check block integration on failure." },
-    { "id": "NFR8.2", "status": "OK", "target": "Security design NFR8.2: unit suite and critical AWS-simulated integration suite block integration on failure." },
-    { "id": "NFR8.3", "status": "OK", "target": "Security design NFR8.3: dependency and secret scans block on configured findings; exceptions are recorded." },
-    { "id": "NFR8.4", "status": "OK", "target": "Security design NFR8.4: protected main, review, green checks, squash merge, and gated production promotion." },
-    { "id": "NFR9.1", "status": "OK", "target": "Security design NFR9.1: versioned TypeScript/CDK, repeatable synthesis, and artifact digest tracking." },
-    { "id": "NFR9.2", "status": "OK", "target": "Security design NFR9.2: preserve the service artifact and topology established by the contract." },
-    { "id": "NFR10.1", "status": "OK", "target": "Security design NFR10.1: CloudTrail administrative events and real-account verification checklist." },
-    { "id": "NFR10.2", "status": "OK", "target": "Security design NFR10.2: KMS-protected log storage with at least 90-day retention." },
-    { "id": "NFR10.3", "status": "OK", "target": "Security design NFR10.3: audit role separated; application and application-deployment roles cannot alter trail evidence." },
-    { "id": "NFR10.4", "status": "OK", "target": "Security design NFR10.4: static CDK policy check separated from verification of real CloudTrail events." }
-  ]
+    {
+      "id": "NFR5.1",
+      "status": "OK",
+      "target": "Roles de pipeline, despliegue, aplicación y auditoría separados, con IAM acotado."
+    },
+    {
+      "id": "NFR5.2",
+      "status": "OK",
+      "target": "KMS/TLS y topología contractual; ninguna cola o DLQ de ingreso."
+    },
+    {
+      "id": "NFR5.3",
+      "status": "OK",
+      "target": "Revisión de IAM, cifrado y límites de recursos en cada cambio CDK."
+    },
+    {
+      "id": "NFR6.1",
+      "status": "OK",
+      "target": "Audiencia/sujeto OIDC exactos; entorno combinado con protección GitHub de ramas/tags y pruebas negativas."
+    },
+    {
+      "id": "NFR6.2",
+      "status": "OK",
+      "target": "Sesiones STS temporales; sin claves persistentes en fuente, logs, cachés o artefactos."
+    },
+    {
+      "id": "NFR6.3",
+      "status": "OK",
+      "target": "Validación de PR sin AWS; staging y producción separados; aprobación de producción."
+    },
+    {
+      "id": "NFR8.1",
+      "status": "OK",
+      "target": "Instalación desde lockfile y controles obligatorios de formato, lint y tipos."
+    },
+    {
+      "id": "NFR8.2",
+      "status": "OK",
+      "target": "Pruebas unitarias e integración crítica simulada; cualquier fallo bloquea integración."
+    },
+    {
+      "id": "NFR8.3",
+      "status": "OK",
+      "target": "Auditoría sin high/critical y escáner de secretos real; F1 corregido sin reducir barreras."
+    },
+    {
+      "id": "NFR8.4",
+      "status": "OK",
+      "target": "Main protegido con revisión y checks; squash y promoción de producción aprobada."
+    },
+    {
+      "id": "NFR9.1",
+      "status": "OK",
+      "target": "CDK/TypeScript versionados, síntesis reproducible y digests de artefactos."
+    },
+    {
+      "id": "NFR9.2",
+      "status": "OK",
+      "target": "Preservación del artefacto y topología del contrato."
+    },
+    {
+      "id": "NFR10.1",
+      "status": "OK",
+      "target": "CloudTrail administrativo y comprobación de eventos reales posterior."
+    },
+    {
+      "id": "NFR10.2",
+      "status": "OK",
+      "target": "Almacenamiento de auditoría KMS y protección mínima de 90 días."
+    },
+    {
+      "id": "NFR10.3",
+      "status": "OK",
+      "target": "Separación de auditoría; control directo e indirecto de privilegios sobre trail/evidencia."
+    },
+    {
+      "id": "NFR10.4",
+      "status": "OK",
+      "target": "Checks estáticos separados de eventos, OIDC y controles externos reales."
+    }
+  ],
+  "scope_note": "OK indica diseño definido, no control desplegado o prueba externa completada."
 }

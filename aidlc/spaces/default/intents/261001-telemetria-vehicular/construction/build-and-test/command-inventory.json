@@ -1,134 +1,176 @@
 [
   {
     "id": "check-01",
-    "command": "npm run test:unit -- src/telemetry",
-    "sources": [
-      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/telemetry-backend/code-generation/unit-test-instructions.md"
-    ]
-  },
-  {
-    "id": "check-02",
-    "command": "npm run test:integration -- tests/integration/telemetry-flow.test.ts",
-    "sources": [
-      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/telemetry-backend/code-generation/unit-test-instructions.md",
-      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md",
-      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/unit-test-instructions.md"
-    ]
-  },
-  {
-    "id": "check-03",
     "command": "npm exec -- vitest run src/telemetry/model.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
     ]
   },
   {
-    "id": "check-04",
+    "id": "check-02",
     "command": "npm exec -- vitest run src/telemetry/adapters.test.ts",
     "sources": [
-      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
     ]
   },
   {
-    "id": "check-05",
+    "id": "check-03",
     "command": "npm exec -- vitest run src/telemetry/service.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
     ]
   },
   {
-    "id": "check-06",
+    "id": "check-04",
     "command": "npm exec -- vitest run src/telemetry/handlers.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
     ]
   },
   {
-    "id": "check-07",
+    "id": "check-05",
     "command": "npm exec -- vitest run infra/telemetry-stack.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
     ]
   },
   {
-    "id": "check-08",
+    "id": "check-06",
     "command": "npm exec -- vitest run src/telemetry/model.test.ts src/telemetry/adapters.test.ts src/telemetry/service.test.ts src/telemetry/handlers.test.ts infra/telemetry-stack.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md"
     ]
   },
   {
+    "id": "check-07",
+    "command": "npm run test:integration -- tests/integration/telemetry-flow.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u1-telemetry-core/code-generation/unit-test-instructions.md",
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/unit-test-instructions.md"
+    ]
+  },
+  {
+    "id": "check-08",
+    "command": "npm exec -- vitest run src/telemetry/recovery-preview.test.ts src/telemetry/manual-recovery.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ]
+  },
+  {
     "id": "check-09",
-    "command": "npx vitest run src/telemetry/manual-recovery.test.ts src/telemetry/handlers-operations.test.ts infra/telemetry-stack-operations.test.ts",
+    "command": "npm exec -- vitest run src/telemetry/service.test.ts src/telemetry/manual-recovery.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
     ]
   },
   {
     "id": "check-10",
-    "command": "npx vitest run tests/integration/telemetry-operations.test.ts",
+    "command": "npm exec -- vitest run src/telemetry/handlers.test.ts src/telemetry/handlers-operations.test.ts src/telemetry/observability.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
     ]
   },
   {
     "id": "check-11",
+    "command": "npm exec -- vitest run src/telemetry/operations-cli.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ]
+  },
+  {
+    "id": "check-12",
+    "command": "npm exec -- vitest run src/telemetry/availability.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ]
+  },
+  {
+    "id": "check-13",
+    "command": "npm exec -- vitest run infra/telemetry-stack-operations.test.ts infra/telemetry-stack.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ]
+  },
+  {
+    "id": "check-14",
+    "command": "npm exec -- vitest run tests/integration/telemetry-flow.test.ts tests/integration/telemetry-operations.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ]
+  },
+  {
+    "id": "check-15",
+    "command": "npm exec -- vitest run src/telemetry/model.test.ts src/telemetry/adapters.test.ts src/telemetry/service.test.ts src/telemetry/handlers.test.ts src/telemetry/handlers-operations.test.ts src/telemetry/manual-recovery.test.ts src/telemetry/recovery-preview.test.ts src/telemetry/observability.test.ts src/telemetry/operations-cli.test.ts src/telemetry/availability.test.ts infra/telemetry-stack.test.ts infra/telemetry-stack-operations.test.ts tests/integration/telemetry-flow.test.ts tests/integration/telemetry-operations.test.ts",
+    "sources": [
+      "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/code-generation/unit-test-instructions.md"
+    ]
+  },
+  {
+    "id": "check-16",
     "command": "npx vitest run infra/telemetry-stack-delivery-controls.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/unit-test-instructions.md"
     ]
   },
   {
-    "id": "check-12",
-    "command": "npm run test:unit",
+    "id": "check-17",
+    "command": "npx vitest run infra/telemetry-stack-delivery-controls.test.ts infra/telemetry-stack.test.ts infra/telemetry-stack-operations.test.ts",
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/code-generation/unit-test-instructions.md"
     ]
   },
   {
-    "id": "check-13",
+    "id": "check-18",
     "command": "npm run build",
     "sources": [
       "package.json / contrato de pruebas"
     ]
   },
   {
-    "id": "check-14",
+    "id": "check-19",
     "command": "npm run typecheck",
     "sources": [
       "package.json / contrato de pruebas"
     ]
   },
   {
-    "id": "check-15",
+    "id": "check-20",
     "command": "npm run lint",
     "sources": [
       "package.json / contrato de pruebas"
     ]
   },
   {
-    "id": "check-16",
+    "id": "check-21",
     "command": "npm run format:check",
     "sources": [
       "package.json / contrato de pruebas"
     ]
   },
   {
-    "id": "check-17",
+    "id": "check-22",
+    "command": "npm run test:unit",
+    "sources": [
+      "package.json / contrato de pruebas"
+    ]
+  },
+  {
+    "id": "check-23",
     "command": "npm run test:integration",
     "sources": [
       "package.json / contrato de pruebas"
     ]
   },
   {
-    "id": "check-18",
+    "id": "check-24",
     "command": "npm run audit:deps",
     "sources": [
       "package.json / contrato de pruebas"
     ]
   },
   {
-    "id": "check-19",
+    "id": "check-25",
     "command": "npm run cdk:synth",
     "sources": [
       "package.json / contrato de pruebas"

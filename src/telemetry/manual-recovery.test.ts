@@ -1,133 +1,203 @@
+﻿import { createHmac } from 'node:crypto';
 import { describe, expect, it, vi } from 'vitest';
 import type { EventStore, Queue } from './adapters.js';
 import type { AlertOutbox } from './model.js';
 import { operateManually } from './manual-recovery.js';
-import { canonicalHash, toEventRecord, ttlShardFor } from './model.js';
+import type { MacPort, PreviewEnvelope } from './recovery-preview.js';
 
-const candidate: AlertOutbox = {
-  alertId: 'LOW_BATTERY:e1',
-  eventId: 'e1',
-  vehicleId: 'v1',
-  alertType: 'LOW_BATTERY',
-  batteryValue: 10,
-  occurredAt: '2026-01-01T00:00:00.000Z',
-  correlationId: 'corr-1',
-  status: 'PENDING',
-  createdAt: '2026-01-01T00:00:00.000Z',
-  dueShard: 'PENDING#1',
-  nextAttemptAt: '2026-01-01T00:00:00.000Z',
-  attempts: 0,
-  schemaVersion: 1,
+const now = new Date('2026-01-01T00:01:00Z');
+const mac: MacPort = {
+  generate: async (digest) => createHmac('sha256', 'synthetic-key').update(digest).digest('base64'),
+  verify: async (digest, key, value) => value === (await mac.generate(digest, key)),
 };
-function harness() {
-  let state = 'PENDING';
+const options = {
+  clock: () => now,
+  preview: { mac, keyId: 'test', allowedKeyIds: ['test'], uuid: () => 'preview-1' },
+  random: () => 0,
+};
+function harness(size = 2) {
+  const rows: AlertOutbox[] = Array.from({ length: size }, (_, n) => ({
+    alertId: `LOW_BATTERY:e${n}`,
+    eventId: `e${n}`,
+    vehicleId: 'v',
+    alertType: 'LOW_BATTERY',
+    batteryValue: 10,
+    occurredAt: now.toISOString(),
+    correlationId: `c${n}`,
+    status: 'PENDING',
+    createdAt: now.toISOString(),
+    nextAttemptAt: now.toISOString(),
+    attempts: 0,
+    schemaVersion: 1,
+  }));
   const store: EventStore = {
     save: vi.fn(),
-    due: vi.fn(async () => (state === 'PENDING' ? [candidate] : [])),
-    claim: vi.fn(async (item) => ({ ...item, claimToken: 'claim-1', attempts: 1 })),
-    published: vi.fn(async () => {
-      state = 'PUBLISHED';
+    due: vi.fn(async () => rows.filter((row) => row.status === 'PENDING')),
+    readOutbox: vi.fn(async (id) => rows.find((row) => row.alertId === id)),
+    claim: vi.fn(async (row) => ({ ...row, claimToken: 'token', attempts: 1 })),
+    published: vi.fn(async (row) => {
+      rows.find((item) => item.alertId === row.alertId)!.status = 'PUBLISHED';
       return true;
     }),
     defer: vi.fn(async () => true),
   };
   const queue: Queue = { send: vi.fn(async () => undefined) };
-  return { store, queue };
-}
-
-describe('operación manual Outbox', () => {
-  it('preserva expiración acceptedAt +90 días, shard estable y hash canónico', () => {
-    const event = {
-      eventId: 'e1',
-      vehicleId: 'v1',
-      eventType: 'battery' as const,
-      timestamp: '2026-01-01T00:00:00.000Z',
-      value: 19,
-    };
-    const record = toEventRecord({
-      event,
-      rawPayload: JSON.stringify(event),
-      acceptedAt: '2026-01-01T00:00:00.000Z',
-      correlationId: 'c',
-    });
-    expect(record.expiresAt).toBe(Date.parse('2026-04-01T00:00:00.000Z') / 1000);
-    expect(record.ttlShard).toBe(ttlShardFor('e1'));
-    expect(canonicalHash(event)).toBe(record.canonicalHash);
-  });
-  it('previsualiza IDs, cantidad, límite y huella sin datos de payload', async () => {
-    const { store, queue } = harness();
-    const preview = await operateManually(
-      { operation: 'manual-recovery', action: 'preview', limit: 25, correlationId: 'run-1' },
+  const preview = async () =>
+    (
+      await operateManually(
+        { operation: 'manual-recovery', action: 'preview', limit: 25, correlationId: 'run' },
+        store,
+        queue,
+        options,
+      )
+    ).envelope as PreviewEnvelope;
+  const execute = (envelope: PreviewEnvelope, extra = {}) =>
+    operateManually(
+      {
+        operation: 'manual-recovery',
+        action: 'execute',
+        preview: envelope,
+        confirmation: envelope.digest,
+        correlationId: 'run',
+      },
       store,
       queue,
-      { clock: () => new Date('2026-01-01T00:01:00Z') },
+      { ...options, ...extra },
     );
-    expect(preview).toMatchObject({
-      status: 'preview',
-      ids: ['LOW_BATTERY:e1'],
-      count: 1,
-      limit: 25,
-      scope: 'due-pending',
+  return { rows, store, queue, preview, execute };
+}
+describe('recuperación manual autenticada y acotada', () => {
+  it('previsualiza sin efectos y ejecuta/repite sin crear eventos ni reenviar publicados', async () => {
+    const h = harness();
+    const envelope = await h.preview();
+    expect(envelope.ids).toEqual(['LOW_BATTERY:e0', 'LOW_BATTERY:e1']);
+    expect(h.store.claim).not.toHaveBeenCalled();
+    expect(await h.execute(envelope)).toMatchObject({
+      count: 2,
+      confirmed: 2,
+      failed: 0,
+      skipped: 0,
+      unprocessed: 0,
     });
-    expect(preview).not.toHaveProperty('payload');
-    expect(store.claim).not.toHaveBeenCalled();
+    expect(await h.execute(envelope)).toMatchObject({ confirmed: 0, skipped: 2 });
+    expect(h.queue.send).toHaveBeenCalledTimes(2);
+    expect(h.store.save).not.toHaveBeenCalled();
   });
-
-  it('rechaza confirmación ausente o huella obsoleta sin mutar', async () => {
-    const { store, queue } = harness();
+  it('rechaza confirmación ausente, envelope alterado y conjunto cambiado sin reclamar', async () => {
+    const h = harness();
+    const envelope = await h.preview();
     await expect(
       operateManually(
         {
           operation: 'manual-recovery',
           action: 'execute',
-          limit: 25,
-          fingerprint: 'old',
+          preview: envelope,
           confirmation: '',
           correlationId: 'r',
         },
-        store,
-        queue,
+        h.store,
+        h.queue,
+        options,
       ),
-    ).rejects.toThrow('PREVIEW_CHANGED_OR_CONFIRMATION_INVALID');
-    expect(store.claim).not.toHaveBeenCalled();
+    ).rejects.toThrow('CONFIRMATION');
+    await expect(h.execute({ ...envelope, limit: 24 })).rejects.toThrow();
+    h.rows.push({ ...h.rows[0], alertId: 'LOW_BATTERY:extra' });
+    await expect(h.execute(envelope)).rejects.toThrow('PREVIEW_CHANGED');
+    expect(h.store.claim).not.toHaveBeenCalled();
   });
-
-  it('publica el conjunto confirmado reutilizando la identidad estable alertId', async () => {
-    const { store, queue } = harness();
-    const preview = await operateManually(
-      { operation: 'manual-recovery', action: 'preview', limit: 25, correlationId: 'r' },
-      store,
-      queue,
-      { clock: () => new Date('2026-01-01T00:01:00Z') },
-    );
-    const fingerprint = preview.fingerprint as string;
-    const result = await operateManually(
-      {
-        operation: 'manual-recovery',
-        action: 'execute',
-        limit: 25,
-        fingerprint,
-        confirmation: fingerprint,
-        correlationId: 'r',
-      },
-      store,
-      queue,
-      { clock: () => new Date('2026-01-01T00:01:00Z') },
-    );
-    expect(queue.send).toHaveBeenCalledWith(expect.stringContaining('LOW_BATTERY:e1'), 'corr-1');
-    expect(result).toMatchObject({ status: 'complete', confirmed: 1, failed: 0, pending: 0 });
-    expect(store.published).toHaveBeenCalled();
+  it('rechaza vacío, expiración exacta y fallo KMS antes de efectos', async () => {
+    const h = harness(0);
+    await expect(h.execute(await h.preview())).rejects.toThrow('EMPTY');
+    const active = harness();
+    const envelope = await active.preview();
+    await expect(
+      active.execute(envelope, { clock: () => new Date(now.getTime() + 300000) }),
+    ).rejects.toThrow('EXPIRED');
+    await expect(
+      active.execute(envelope, {
+        preview: {
+          ...options.preview,
+          mac: {
+            ...mac,
+            verify: async () => {
+              throw new Error('KMS unavailable');
+            },
+          },
+        },
+      }),
+    ).rejects.toThrow('KMS');
+    expect(active.store.claim).not.toHaveBeenCalled();
   });
-
-  it('rechaza límites fuera de 1..25 antes de consultar candidatos', async () => {
-    const { store, queue } = harness();
+  it('reconcilia confirmados, fallidos y omitidos sin solapamientos', async () => {
+    const h = harness(3);
+    const envelope = await h.preview();
+    vi.mocked(h.queue.send).mockRejectedValueOnce(new Error('SQS'));
+    vi.mocked(h.store.claim)
+      .mockResolvedValueOnce({ ...h.rows[0], claimToken: 'x', attempts: 1 })
+      .mockResolvedValueOnce(undefined)
+      .mockResolvedValueOnce({ ...h.rows[2], claimToken: 'x', attempts: 1 });
+    const result = await h.execute(envelope);
+    expect(result).toMatchObject({ confirmed: 1, failed: 1, skipped: 1, unprocessed: 0, count: 3 });
+    expect(h.rows[0].status).toBe('PENDING');
+  });
+  it('presupuesto global no se reinicia y detiene toda nueva reclamación', async () => {
+    const h = harness(3);
+    const envelope = await h.preview();
+    let elapsed = 0;
+    vi.mocked(h.queue.send).mockImplementation(async () => {
+      elapsed = 18000;
+    });
+    const result = await h.execute(envelope, { monotonicNow: () => elapsed });
+    expect(result).toMatchObject({ status: 'partial', failed: 1, unprocessed: 2, confirmed: 0 });
+    expect(h.store.claim).toHaveBeenCalledOnce();
+    expect(h.store.published).not.toHaveBeenCalled();
+  });
+  it('aborta envío pendiente al vencer presupuesto y conserva el resto', async () => {
+    const h = harness();
+    const envelope = await h.preview();
+    let signal: AbortSignal | undefined;
+    vi.mocked(h.queue.send).mockImplementation(async (_body, _correlation, abort) => {
+      signal = abort;
+      await new Promise<void>((_resolve, reject) =>
+        abort?.addEventListener('abort', () => reject(new Error('aborted'))),
+      );
+    });
+    expect(await h.execute(envelope, { maxExecutionMs: 10 })).toMatchObject({
+      failed: 1,
+      unprocessed: 1,
+      status: 'partial',
+    });
+    expect(signal?.aborted).toBe(true);
+    expect(h.store.claim).toHaveBeenCalledOnce();
+    expect(h.rows.every((row) => row.status === 'PENDING')).toBe(true);
+  });
+  it('deniega límite inválido, backfill sin confirmación y presupuesto inicialmente vacío', async () => {
+    const h = harness();
     await expect(
       operateManually(
         { operation: 'manual-recovery', action: 'preview', limit: 26, correlationId: 'r' },
-        store,
-        queue,
+        h.store,
+        h.queue,
+        options,
       ),
-    ).rejects.toThrow('INVALID_RECOVERY_LIMIT');
-    expect(store.due).not.toHaveBeenCalled();
+    ).rejects.toThrow('LIMIT');
+    expect(h.store.due).not.toHaveBeenCalled();
+    await expect(
+      operateManually(
+        {
+          operation: 'manual-recovery',
+          action: 'backfill',
+          confirmation: '' as never,
+          correlationId: 'r',
+        },
+        h.store,
+        h.queue,
+        options,
+      ),
+    ).rejects.toThrow('CONFIRMATION');
+    await expect(h.execute(await h.preview(), { remainingTimeMs: () => 1000 })).rejects.toThrow(
+      'BUDGET',
+    );
+    expect(h.store.claim).not.toHaveBeenCalled();
   });
 });

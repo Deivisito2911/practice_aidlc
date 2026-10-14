@@ -1,27 +1,61 @@
-﻿# Unit Test Instructions — U3 Delivery Controls
+# Instrucciones de pruebas — U3 Controles de entrega
 
-## Runner and exact scoped commands
+## Ejecutor y configuración antes de la primera prueba
 
-- Existing test framework/config: Vitest 5 via `vitest.config.ts`; keep the current configuration.
-- CDK assertions: `aws-cdk-lib/assertions`, already used by `infra/telemetry-stack.test.ts` and `infra/telemetry-stack-operations.test.ts`.
-- Unit-scoped command: `npx vitest run infra/telemetry-stack-delivery-controls.test.ts`.
-- Critical integrated behavior: `npm run test:integration -- tests/integration/telemetry-flow.test.ts`.
-- These commands use Vitest directly for the infra test because `npm run test:unit` is scoped to `src/telemetry` and does not discover `infra/` tests.
+Vitest existente mediante vitest.config.ts, con assertions de aws-cdk-lib/assertions y síntesis CDK local. Step 2 confirma descubrimiento/configuración y ejecuta la línea base antes de nuevas pruebas. No requiere credenciales ni cuenta AWS. El contrato test-after exige implementar la capa comprobable y después escribir/ejecutar sus pruebas.
 
-## Planned test file and assertions
+Comando exacto U3:
 
-Create `infra/telemetry-stack-delivery-controls.test.ts` following existing stack-test setup (`cdk.App`, `TelemetryStack`, `Template.fromStack`, Vitest `describe/it/expect`). Add tests for:
+```text
+npx vitest run infra/telemetry-stack-delivery-controls.test.ts
+```
 
-1. **Topology preservation / US6.3 AC6.3.4:** synthesized template contains exactly one Lambda, two DynamoDB tables, and one SQS queue; no ingress queue or DLQ. Assert API Gateway REST method and scheduled EventBridge target still connect to the single telemetry function.
-2. **CloudTrail protected archive / US6.2 AC6.2.2–AC6.2.3:** a CloudTrail trail exists, targets its dedicated S3 bucket, and uses KMS; bucket blocks public access, is versioned, has Object Lock/default retention of at least 90 days, and enforces TLS.
-3. **IAM separation / US6.2 AC6.2.1, AC6.2.3:** inspect synthesized IAM roles and policies to ensure the Lambda execution role does not administer CloudTrail or delete audit evidence; audit administration is distinct from application execution and app deployment. Ensure no broad wildcard resource grants are introduced for delivery actions. Do not assert provider-specific OIDC trust in CDK while inputs are unknown. Assert that the release-control documentation names the required provider, repository, protected-ref/environment, OIDC issuer/subject/audience, and account inputs before trust can be implemented.
-4. **Delivery quality and promotion / US6.2 AC6.2.4, US6.3 AC6.3.1–AC6.3.3:** validate the provider-neutral release-control documentation against a requirements checklist during review; provider-side branch protection, job ordering, immutable digest, and approval enforcement require a concrete provider adapter/account and cannot be proven by local CDK tests.
+## Casos mínimos y alcance de la evidencia
 
-## Test scope and non-applicable layers
+Mantener/actualizar infra/telemetry-stack-delivery-controls.test.ts. Comprobar topología de una Lambda, dos tablas y una SQS; enlaces API Gateway/EventBridge a la misma función; trail y bucket relacionados; referencias efectivas a claves KMS, bloqueo público, TLS, versionado y Object Lock COMPLIANCE >=90 días; rol efectivo Lambda sin administración CloudTrail/borrado de auditoría ni acciones de despliegue. Incluir negativas cuando una omisión o referencia incorrecta podría pasar una assertion superficial.
 
-U3 is packaging-only. There is no new model/database behavior, repository, business logic, API endpoint, or frontend. CDK synthesized-template assertions are the narrowest verifiable level for its IAM, CloudTrail, encryption, retention, and resource-topology requirements. The existing AWS-simulated critical integration test is the narrowest level for the inherited telemetry walking skeleton. Do not duplicate U1 behavior in new tests.
+La comprobación de docs/telemetry-delivery-controls.md solo verifica proveedor elegido y controles externos pendientes. No demuestra OIDC, protección de main, aprobación de producción ni retención real. Para cada AC/NFR que exige AWS/GitHub, conservar Deferred/Unverified y describir el mecanismo local por separado.
 
-## Test-after order
+## Compatibilidad de CDK e integración compartida
 
-Implement/update the applicable CDK controls first, then write and run the CDK assertions. Integrate the provider-neutral release documentation and run the existing critical integration test. Finally run repository quality gates and CDK synthesis. Use local synthesis as static evidence only; verify actual CloudTrail events and provider-enforced OIDC/branch/environment behavior in their real environments when dependencies are resolved.
+Después de actualizar CDK y ejecutar U3:
 
+```text
+npx vitest run infra/telemetry-stack-delivery-controls.test.ts infra/telemetry-stack.test.ts infra/telemetry-stack-operations.test.ts
+npm run test:integration -- tests/integration/telemetry-flow.test.ts
+```
+
+El primer comando acota U3 y dos dependencias CDK explícitas. El segundo verifica el contrato crítico compartido asignado a AC6.3.4. npm run test:unit no descubre infra; no es sustituto. La regresión transversal por actualización de biblioteca se realiza una vez en Step 7 del plan, sin repetirla por unidad.
+
+## Datos, dobles y objetivos
+
+Usar cuentas/ARN ficticios resueltos por CDK; SDK AWS simulado en la integración existente. Conservar datos inválidos sin efectos, transacción fallida sin éxito parcial, 202 después del commit y publicación fallida recuperable. No duplicar el negocio U1/U2 en pruebas de U3.
+
+Workshop/minimal no fija cobertura porcentual; exige pruebas trazables en el nivel más acotado, caso feliz por componente y suite existente verde. No convertir controles externos en pruebas de texto que aparenten cumplimiento. No reducir umbrales o silenciar fallos.
+
+## Evidencia del control de secretos
+
+Step 5 usa Gitleaks v8.30.1 oficial con checksum verificado. Las comprobaciones del detector usan archivos temporales individuales ajenos al repositorio:
+
+```text
+gitleaks dir --redact=100 --exit-code 1 <archivo-limpio-U3>
+gitleaks dir --redact=100 --exit-code 1 <archivo-sintético-U3>
+```
+
+Esperar exit 0 y exit 1 respectivamente; el segundo verifica detección, nunca constituye pase del escaneo de aplicación. No persistir credenciales reales, valores de hallazgos o archivos sintéticos en fuente. Los escaneos de fuente/historial del plan son controles separados; conservar alcance, redacción, exits y límites. Herramienta ausente/ejecución incompleta no equivale a verde.
+
+## Clasificación acotada de identificadores CDK
+
+La configuración .gitleaks.toml conserva reglas incorporadas y excluye únicamente matches de generic-api-key que representan S3Key/s3Key/objectKey con SHA256 hexadecimal de 64 caracteres y .zip, dentro de los JSON CDK de artefactos identificados. Ruta y match deben cumplirse conjuntamente; regexTarget es match, nunca line, para no ocultar otras credenciales en tree.json minificado. No hay baseline, archivos completos excluidos ni reglas deshabilitadas.
+
+Después de implementar la configuración, comprobar con el binario fijado y --config explícito: identificador CDK legítimo exit 0; credencial AWS sintética exit 1; secreto genérico sintético en cada namespace de artefacto exit 1; valor hexadecimal de credencial sin .zip o en otro campo exit 1. Usar archivos temporales individuales bajo cdk.out/Telemetry-staging.assets.json, cdk.out/Telemetry-staging.template.json y cdk.out/tree.json de una carpeta aislada, sin persistir valores sensibles en la aplicación. Conservar el manifest y conteos de cada fixture, sin duplicar resultados ni confundir positivos del detector con controles de aplicación.
+
+Comandos acotados por fixture U3:
+
+```text
+gitleaks dir --config .gitleaks.toml --redact=100 --exit-code 1 <fixture-CDK-hash-U3>
+gitleaks dir --config .gitleaks.toml --redact=100 --exit-code 1 <fixture-AWS-U3>
+gitleaks dir --config .gitleaks.toml --redact=100 --exit-code 1 <fixture-generic-U3>
+```
+
+Los escaneos completos de fuente e historial solo pasan con exit 0 después de conservar el alcance y comprobar los negativos de la clasificación. La evidencia inicial fallida se mantiene.

@@ -1,0 +1,174 @@
+name: Deploy production
+
+on:
+  workflow_dispatch:
+    inputs:
+      ci_run_id:
+        description: Successful CI run on main that published the release artifact
+        required: true
+        type: string
+      staging_run_id:
+        description: Successful Deploy staging run for that artifact
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    environment: production
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      CI_RUN_ID: ${{ inputs.ci_run_id }}
+      STAGING_RUN_ID: ${{ inputs.staging_run_id }}
+    steps:
+      - name: Verify source and staging promotion evidence
+        id: source
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$CI_RUN_ID" =~ ^[1-9][0-9]*$ ]]
+          [[ "$STAGING_RUN_ID" =~ ^[1-9][0-9]*$ ]]
+          ci_json="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${CI_RUN_ID}")"
+          jq -e --arg repo "$GITHUB_REPOSITORY" \
+            '.name == "CI" and .event == "push" and .head_branch == "main" and
+             .head_repository.full_name == $repo and .conclusion == "success"' \
+            <<<"$ci_json" >/dev/null
+          sha="$(jq -er '.head_sha' <<<"$ci_json")"
+          [[ "$sha" =~ ^[0-9a-f]{40}$ ]]
+          staging_json="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${STAGING_RUN_ID}")"
+          jq -e --arg repo "$GITHUB_REPOSITORY" \
+            '.name == "Deploy staging" and .event == "workflow_run" and
+             .head_repository.full_name == $repo and .conclusion == "success"' \
+            <<<"$staging_json" >/dev/null
+          gh run download "$STAGING_RUN_ID" --repo "$GITHUB_REPOSITORY" \
+            --name "staging-evidence-$sha" --dir staging-evidence
+          artifact="telemetry-$sha"
+          artifacts_json="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${CI_RUN_ID}/artifacts?per_page=100")"
+          digest="$(jq -r --arg name "$artifact" \
+            '[.artifacts[] | select(.name == $name and .expired == false)] |
+             if length == 1 then .[0].digest else empty end' <<<"$artifacts_json")"
+          [[ "$digest" =~ ^sha256:[0-9a-f]{64}$ ]] || exit 1
+          jq -e --arg sha "$sha" --arg ci "$CI_RUN_ID" \
+            --arg digest "$digest" \
+            '.source_commit == $sha and .ci_run_id == $ci and
+             .ci_artifact_digest == $digest and
+             (.stack_status == "CREATE_COMPLETE" or .stack_status == "UPDATE_COMPLETE")' \
+            staging-evidence/staging-evidence.json >/dev/null
+          gh run download "$CI_RUN_ID" --repo "$GITHUB_REPOSITORY" \
+            --name "$artifact" --dir release
+          cd release
+          sha256sum --check artifact-manifest.sha256
+          sha256sum --check artifact-files.sha256
+          test "$(cat source-commit.txt)" = "$sha"
+          test -f cdk.staging.out/Telemetry-staging.template.json
+          test -f cdk.production.out/Telemetry-production.template.json
+          test -f cdk.audit.out/TelemetryAudit.template.json
+          cd ..
+          staging_template_sha="$(sha256sum release/cdk.staging.out/Telemetry-staging.template.json | cut -d ' ' -f 1)"
+          test "$staging_template_sha" = "$(jq -r '.staging_template_sha256' staging-evidence/staging-evidence.json)"
+          printf 'sha=%s\n' "$sha" >> "$GITHUB_OUTPUT"
+          printf 'digest=%s\n' "$digest" >> "$GITHUB_OUTPUT"
+
+      - name: Check out validated commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ steps.source.outputs.sha }}
+          clean: false
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install locked CDK CLI
+        run: npm ci
+
+      - name: Validate production identity configuration
+        shell: bash
+        env:
+          ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          TOPIC_ARN: ${{ vars.OPERATIONS_ALARM_TOPIC_ARN }}
+        run: |
+          set -euo pipefail
+          [[ "$ACCOUNT_ID" =~ ^[0-9]{12}$ ]]
+          [[ "$AWS_REGION" =~ ^[a-z]{2}-[a-z]+-[0-9]+$ ]]
+          [[ "$ROLE_ARN" == "arn:aws:iam::${ACCOUNT_ID}:role/"* ]]
+          [[ "$TOPIC_ARN" == "arn:aws:sns:${AWS_REGION}:${ACCOUNT_ID}:"* ]]
+
+      - name: Require audit resources to be separately provisioned
+        run: >-
+          jq -e '[.Resources[] | select(.Type == "AWS::CloudTrail::Trail")] | length == 0'
+          release/cdk.production.out/Telemetry-production.template.json
+
+      - name: Assume production deployment role
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+          allowed-account-ids: ${{ vars.AWS_ACCOUNT_ID }}
+          role-session-name: production-${{ github.run_id }}
+
+      - name: Require active account audit trail
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(aws cloudtrail get-trail-status --name telemetry-audit --query IsLogging --output text)" = True
+
+      - name: Deploy validated production assembly
+        env:
+          OPERATIONS_ALARM_TOPIC_ARN: ${{ vars.OPERATIONS_ALARM_TOPIC_ARN }}
+        run: |
+          npx cdk deploy --app release/cdk.production.out Telemetry-production \
+            --parameters "OperationsAlarmTopicArn=${OPERATIONS_ALARM_TOPIC_ARN}" \
+            --require-approval never --ci --outputs-file production-outputs.json
+
+      - name: Verify stack and Lambda readiness
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+          ARTIFACT_DIGEST: ${{ steps.source.outputs.digest }}
+        run: |
+          set -euo pipefail
+          function_arn="$(jq -er '."Telemetry-production".TelemetryFunctionArn' production-outputs.json)"
+          aws lambda wait function-updated --function-name "$function_arn"
+          function_state="$(aws lambda get-function-configuration --function-name "$function_arn" --query State --output text)"
+          test "$function_state" = Active
+          stack_json="$(aws cloudformation describe-stacks --stack-name Telemetry-production --output json)"
+          status="$(jq -r '.Stacks[0].StackStatus' <<<"$stack_json")"
+          [[ "$status" == CREATE_COMPLETE || "$status" == UPDATE_COMPLETE ]]
+          stack_id="$(jq -r '.Stacks[0].StackId' <<<"$stack_json")"
+          template_sha="$(sha256sum release/cdk.production.out/Telemetry-production.template.json | cut -d ' ' -f 1)"
+          jq -n --arg sha "$SOURCE_SHA" --arg ci_run "$CI_RUN_ID" \
+            --arg staging_run "$STAGING_RUN_ID" --arg digest "$ARTIFACT_DIGEST" \
+            --arg stack "$stack_id" --arg status "$status" \
+            --arg template "$template_sha" --arg account '${{ vars.AWS_ACCOUNT_ID }}' \
+            --arg region '${{ vars.AWS_REGION }}' \
+            '{source_commit:$sha,ci_run_id:$ci_run,staging_run_id:$staging_run,
+              ci_artifact_digest:$digest,stack_id:$stack,stack_status:$status,
+              production_template_sha256:$template,account_id:$account,
+              region:$region}' > production-evidence.json
+          cat production-evidence.json >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Store production evidence
+        uses: actions/upload-artifact@v6
+        with:
+          name: production-evidence-${{ steps.source.outputs.sha }}
+          path: production-evidence.json
+          if-no-files-found: error
+          retention-days: 30

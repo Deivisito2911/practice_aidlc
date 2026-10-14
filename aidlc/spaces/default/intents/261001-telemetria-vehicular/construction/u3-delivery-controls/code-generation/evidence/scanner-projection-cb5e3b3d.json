@@ -1,0 +1,462 @@
+{
+  "version": "8.30.1",
+  "date_utc": "2026-10-13T22:21:26.205164+00:00",
+  "archive_sha256": "d29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e",
+  "official_release": "https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1",
+  "config_override_presence": {
+    "GITLEAKS_CONFIG": false,
+    "GITLEAKS_CONFIG_TOML": false
+  },
+  "config": "Reglas incorporadas; sin baseline/config/ignores añadidos; cwd temporal sin configuración. No .gitleaks detectado en repositorio.",
+  "manifest": [
+    {
+      "path": ".prettierrc.json",
+      "sha256": "bc930520b49ce9db321c97a32840baf96679e4cf76bbe43a89bed1e049643654",
+      "bytes": 38
+    },
+    {
+      "path": "bin/telemetry-operations.ts",
+      "sha256": "a6d2782ef8aabf5b90262f6d59be24bb0c23eb9fd2336a4375399f03828b322a",
+      "bytes": 5232
+    },
+    {
+      "path": "bin/telemetry.ts",
+      "sha256": "305d44090e2b67c16a346ed3101d50477316893a1be2d6f9071286580daba2a9",
+      "bytes": 486
+    },
+    {
+      "path": "cdk.json",
+      "sha256": "649b1eb86010e71dcdc772f2475afc9a47c49a67a5d87774476929cc62b1b547",
+      "bytes": 35
+    },
+    {
+      "path": "cdk.out/asset.2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d/index.js",
+      "sha256": "657245e15f1cad37ae2bb71ae890018748569e945a44d29457d73262c0690fd7",
+      "bytes": 3147
+    },
+    {
+      "path": "cdk.out/asset.3e98c2cb6431e158dc48dec5489b6b063155115fa4d7af4162e0187868a77a57/index.js",
+      "sha256": "8e139fedc347a15e153ba11989cbfad8e45fc1b6d11f5d3dca5aae8344c8d15a",
+      "bytes": 580718
+    },
+    {
+      "path": "cdk.out/asset.4be32d97650778abd1552302937b6eeb13682156577082c20b1619bcf6a97bcd/index.js",
+      "sha256": "b9860a14a1dc5671c2788e1d2d8d363ec6c030839e9cdfd4b3c943d5a1d24506",
+      "bytes": 572708
+    },
+    {
+      "path": "cdk.out/asset.7437fd86270859a299b3878e5a286f6e67189ea6d64c4f457e9bfc2310c560b7/index.js",
+      "sha256": "1b4da951a00466ec2e3e6b1929da0c4614d79bae5579842dc82cb5018dd410b1",
+      "bytes": 652567
+    },
+    {
+      "path": "cdk.out/asset.aec192b0e75e111bf2245912214a0ff9a81d21e1b58ff0f9913ede48f9a198d8/index.js",
+      "sha256": "d97f2b77a19f67d20c9277d8fbed08a1a2ea4833f77c742fc3446b9302b29114",
+      "bytes": 568741
+    },
+    {
+      "path": "cdk.out/asset.d5079708ad62356c52874f5125825fb4e1b5f5358dc9ebf801b3f6ca8f698c9b/index.js",
+      "sha256": "862769ed6b360b8ea301bb57412e1dfe45b9d0444074f13b46e242dc7438114f",
+      "bytes": 652448
+    },
+    {
+      "path": "cdk.out/cdk.out",
+      "sha256": "2801c31b9ddf660f597e3c9d9ba2a9505ac144717ede055f34dc916602a35b25",
+      "bytes": 20
+    },
+    {
+      "path": "cdk.out/manifest.json",
+      "sha256": "1ad0640818fc20c857447ec8b703e1638c1af113d8cab75578dfdf14f5ad6094",
+      "bytes": 27475
+    },
+    {
+      "path": "cdk.out/performance-counters.json",
+      "sha256": "c5accc8f7e30b4183091237df5b3590e59ca60867611c59d0d02fc73c4afe39c",
+      "bytes": 1393
+    },
+    {
+      "path": "cdk.out/Telemetry-staging.assets.json",
+      "sha256": "9feea76e0ae12ba22f4c68785a9f66f914cb2e8d41449531ed961a6bbe302ade",
+      "bytes": 1410
+    },
+    {
+      "path": "cdk.out/Telemetry-staging.metadata.json",
+      "sha256": "7664950af5db1ab67e99a60979d5c952b0efb6d345f70798e9fd4a88c6ebeec3",
+      "bytes": 22762
+    },
+    {
+      "path": "cdk.out/Telemetry-staging.template.json",
+      "sha256": "8755ce0dda8508f040b18b48c2daa88376c9c704eb52f965710048bd44a221c6",
+      "bytes": 41673
+    },
+    {
+      "path": "cdk.out/tree.json",
+      "sha256": "c7a78f44e7cff83e55285561285d30381fc44e3beb9e212326b2a75236dcbe6f",
+      "bytes": 39602
+    },
+    {
+      "path": "cdk.out/validation-report.json",
+      "sha256": "ba990d19514a4d3818b0d9e46e6662257238d206389b9aa4ada378f1d1fb00c6",
+      "bytes": 80
+    },
+    {
+      "path": "dist/bin/telemetry-operations.js",
+      "sha256": "2ca69fda2cb8de2001780b8e83375b4df72530d9a0010535f2d049d2f0de2f7c",
+      "bytes": 4735
+    },
+    {
+      "path": "dist/bin/telemetry.js",
+      "sha256": "46fdd858d54192bfa1c88727af3a921fc8b8c4db99064e7525340a86a55f7229",
+      "bytes": 1965
+    },
+    {
+      "path": "dist/infra/telemetry-stack-delivery-controls.test.js",
+      "sha256": "4bc6fe030369325f96d4ffbd24578b84f1e07598c14c4a987eee02e6e8063ce7",
+      "bytes": 10486
+    },
+    {
+      "path": "dist/infra/telemetry-stack-operations.test.js",
+      "sha256": "cff844e651eb22372a2eb6c3265d8311f3d78057727ac99f8f56fe9f2d22a243",
+      "bytes": 8472
+    },
+    {
+      "path": "dist/infra/telemetry-stack.js",
+      "sha256": "4cea971caa8c50a72cbfc7b9e9ca696ee9541367e9bb335d521984b86242109f",
+      "bytes": 18268
+    },
+    {
+      "path": "dist/infra/telemetry-stack.test.js",
+      "sha256": "b66aba55ba495a19aad1ce574104f766a9c248f5697f4e9f13ded6641497e716",
+      "bytes": 4953
+    },
+    {
+      "path": "dist/src/telemetry/adapters.js",
+      "sha256": "66042ce253b9caaa283e92013cc6b11c5dd001a5fe99a8b0964d4381cdf1d175",
+      "bytes": 13071
+    },
+    {
+      "path": "dist/src/telemetry/adapters.test.js",
+      "sha256": "6e1b2af01ba1de4376c164c446a1e987ff00d8df455ebee55b5c52e74de6e0d2",
+      "bytes": 13686
+    },
+    {
+      "path": "dist/src/telemetry/availability.js",
+      "sha256": "542230922d9b80ad980c397c767171f7ff07e15cfd508883dd324c00b3cd0870",
+      "bytes": 1868
+    },
+    {
+      "path": "dist/src/telemetry/availability.test.js",
+      "sha256": "0f51976dc39f0d4249dae57e1e47487d60752d44cc603b8c0cc9550964a3f76b",
+      "bytes": 3145
+    },
+    {
+      "path": "dist/src/telemetry/handlers-operations.test.js",
+      "sha256": "45b17acc3be2fa168f3906f396424aab285598380091024a97a50c4955303ea2",
+      "bytes": 4160
+    },
+    {
+      "path": "dist/src/telemetry/handlers.js",
+      "sha256": "ff93bb1280393a1f4853fd1cd132f170bf3b4eea50bf6fdfaf8e478c725ef730",
+      "bytes": 11518
+    },
+    {
+      "path": "dist/src/telemetry/handlers.test.js",
+      "sha256": "75a8a4d1573a89ac11475b30b58efdc5defe7e6bff6373ebc7baee159c16849a",
+      "bytes": 9053
+    },
+    {
+      "path": "dist/src/telemetry/manual-recovery.js",
+      "sha256": "60dcf7589adc626191af358d6ea2e5a9f5a802655996613610f8b57d7d64fd92",
+      "bytes": 5172
+    },
+    {
+      "path": "dist/src/telemetry/manual-recovery.test.js",
+      "sha256": "2b60a7560813c7708557eb2b74b533c1fef9c439103c7f592b519e82e0069206",
+      "bytes": 8125
+    },
+    {
+      "path": "dist/src/telemetry/model.js",
+      "sha256": "6dd568efa4fc8afe653f1e4b9fff93c17092dc81f3f30335bcd14f13336cc75a",
+      "bytes": 4790
+    },
+    {
+      "path": "dist/src/telemetry/model.test.js",
+      "sha256": "fa8933f6b2735b160f822c43312d6ae12fe87412231146c1ad31e3b462c00bcf",
+      "bytes": 2690
+    },
+    {
+      "path": "dist/src/telemetry/observability.js",
+      "sha256": "8fe9ab0bba93ed1f692935e6db094ec2bc3e54ce6c4628e46c694102fb13a908",
+      "bytes": 4002
+    },
+    {
+      "path": "dist/src/telemetry/observability.test.js",
+      "sha256": "18e54f2d7a2f19f50591359d67ba74c3d9f19626b901ae2fe2202dc44be72bee",
+      "bytes": 3261
+    },
+    {
+      "path": "dist/src/telemetry/operations-cli.test.js",
+      "sha256": "5728d5eedd85ff965d7843f97d2c78f2f8c2ce39ff901d1c2bbb1e6f35e7c764",
+      "bytes": 3309
+    },
+    {
+      "path": "dist/src/telemetry/recovery-preview.js",
+      "sha256": "c958a34760b66a48785df2bd4ed0a1324449c1af449e62dfdda9f74d4ce42c80",
+      "bytes": 3989
+    },
+    {
+      "path": "dist/src/telemetry/recovery-preview.test.js",
+      "sha256": "381e6e71aa03d40d6fbb1cbf4aabd7aeff71a1e5f7d3c165d1621d2ee979c15d",
+      "bytes": 4786
+    },
+    {
+      "path": "dist/src/telemetry/service.js",
+      "sha256": "a54cab7234b9917629eae6779e5cb94cddeb900c2177ef47c6846c382380b9df",
+      "bytes": 8706
+    },
+    {
+      "path": "dist/src/telemetry/service.test.js",
+      "sha256": "9c0a174740430bb3935477df3e9f2fbaeab3dad97f70e021adc10d6277433594",
+      "bytes": 14462
+    },
+    {
+      "path": "dist/tests/integration/telemetry-flow.test.js",
+      "sha256": "ef6f85a708382dc7c30ea7a8b79516e201a3a8758c0ce7d319a70a6d73b86743",
+      "bytes": 11675
+    },
+    {
+      "path": "dist/tests/integration/telemetry-operations.test.js",
+      "sha256": "1c3f8ab3fcf67e3397e9459e73e98a9145afb59413ae76a24858235b48116401",
+      "bytes": 3906
+    },
+    {
+      "path": "dist/vitest.config.js",
+      "sha256": "a890a1845781f2d566fc3b02eec77119556b57bb7768cc94eb8d657a43578817",
+      "bytes": 272
+    },
+    {
+      "path": "docs/telemetry-delivery-controls.md",
+      "sha256": "57779ea1d2ab298982fd5071a5078477ab7053b382779b0c24f7048950cf4032",
+      "bytes": 6763
+    },
+    {
+      "path": "docs/telemetry-verification.md",
+      "sha256": "7a05a61321543832de2dce4d0fbea4c354a0ac349c2c693dc84cfe66ad652764",
+      "bytes": 2540
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "e5c4b560305d62178f7d5e21cdc4a621deb04739a133a5b62d2c8a5e3e9774d4",
+      "bytes": 152
+    },
+    {
+      "path": "infra/telemetry-stack-delivery-controls.test.ts",
+      "sha256": "a2144765f602c7bd18011a73b8be14b20d7c6eeb628f5c4d6ae6d18ce3c5d1b4",
+      "bytes": 10734
+    },
+    {
+      "path": "infra/telemetry-stack-operations.test.ts",
+      "sha256": "bdf72816a43aa94ffa3b0aa2a62330053e4902e63728d9d253c5a6ee8d05c2b3",
+      "bytes": 6450
+    },
+    {
+      "path": "infra/telemetry-stack.test.ts",
+      "sha256": "fa04fb369c783f7c6f3dee108fef7b787f1f642c36bbe68f700602fe1ed43230",
+      "bytes": 2988
+    },
+    {
+      "path": "infra/telemetry-stack.ts",
+      "sha256": "328bb3987f7ada253dd33cd191118c3e0a99fe8607af06b8e7f3a5c22779cdb5",
+      "bytes": 15444
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "697ae0723477aabfdc17e0db65d3161761e2bc04d890f3088165b397a24e2862",
+      "bytes": 133166
+    },
+    {
+      "path": "package.json",
+      "sha256": "a47b92ae179158bd4c513b2c9a1a5559b6e08f0852ca374cc8819d9a0d39c837",
+      "bytes": 1204
+    },
+    {
+      "path": "README.md",
+      "sha256": "6193ebe9077d08af8f731b10c80105d94e2384a7ed12a41b6198f46be99594e5",
+      "bytes": 9854
+    },
+    {
+      "path": "src/telemetry/adapters.test.ts",
+      "sha256": "ee10ecb4592267db9f89c3c36dc29ca6ebb6c489a77373d9cef2d05752eb2b7e",
+      "bytes": 11858
+    },
+    {
+      "path": "src/telemetry/adapters.ts",
+      "sha256": "2530938b083d75846eef17e0e7ed2b3a63ba230c335ad23a0d89c6dcc399482d",
+      "bytes": 14377
+    },
+    {
+      "path": "src/telemetry/availability.test.ts",
+      "sha256": "241fe3ac261ae68903505a4773276f2131c4003ff3062bcdb9d5859dcaf4779c",
+      "bytes": 2460
+    },
+    {
+      "path": "src/telemetry/availability.ts",
+      "sha256": "8a0aeedf18412e7079e687fc5dee9d8d303444e8db808e52754fede4a337cd54",
+      "bytes": 1796
+    },
+    {
+      "path": "src/telemetry/handlers-operations.test.ts",
+      "sha256": "5888f66eb97d31eaf829625643b97813cb8e8a2c044431432b1608993c969876",
+      "bytes": 3627
+    },
+    {
+      "path": "src/telemetry/handlers.test.ts",
+      "sha256": "bf118f7bfbf6ad587d5f697d1a6408b46c9ba256701ff2fe99393df08d113132",
+      "bytes": 8144
+    },
+    {
+      "path": "src/telemetry/handlers.ts",
+      "sha256": "1aefc62f0d80f5a0aa11df0f6f676ade11d0f881caa66dfab08ff3990a2d7633",
+      "bytes": 10425
+    },
+    {
+      "path": "src/telemetry/manual-recovery.test.ts",
+      "sha256": "ebe6ba6db3ede8f219031fee8943fce37800ce26adaf1b17ebac6e96dbe76303",
+      "bytes": 7384
+    },
+    {
+      "path": "src/telemetry/manual-recovery.ts",
+      "sha256": "6512530b5e66a16fe586a9ca31e30d2b562aa29ce885a48a169daba2b2213dce",
+      "bytes": 5177
+    },
+    {
+      "path": "src/telemetry/model.test.ts",
+      "sha256": "31be8279cda291028e5eb1c30482b0b70d8ae170bb384e3c0b49a9e23e00267a",
+      "bytes": 2241
+    },
+    {
+      "path": "src/telemetry/model.ts",
+      "sha256": "0208dc05ec72d6e227a508612473b113b08021712de1487eb671c67cb485a77e",
+      "bytes": 5672
+    },
+    {
+      "path": "src/telemetry/observability.test.ts",
+      "sha256": "b16c8dd01f50fbca29e98e169095b3648a2cb215529c249e94f1a08f9e0b70b6",
+      "bytes": 2519
+    },
+    {
+      "path": "src/telemetry/observability.ts",
+      "sha256": "8f7c6e5dfbb494a216cee39393bb6f11984201b24678b4d797f542386c57bbbd",
+      "bytes": 3771
+    },
+    {
+      "path": "src/telemetry/operations-cli.test.ts",
+      "sha256": "837d6630b9f7072fdcac47e021a419c46a6bb9c8f8967e6236f606db218e1451",
+      "bytes": 2795
+    },
+    {
+      "path": "src/telemetry/recovery-preview.test.ts",
+      "sha256": "843d0ce821cf3f43afbef864843abbe958441e454d5c632c9aec2943afd86037",
+      "bytes": 3934
+    },
+    {
+      "path": "src/telemetry/recovery-preview.ts",
+      "sha256": "5c2dd88c74809ff053e19326086539ed811b4a3985d285554509ef0bbceda302",
+      "bytes": 4633
+    },
+    {
+      "path": "src/telemetry/service.test.ts",
+      "sha256": "c40571188e8ac3edeb8725f9a1cff95cf28475e9bf5bc6882c6f17741022f2da",
+      "bytes": 12306
+    },
+    {
+      "path": "src/telemetry/service.ts",
+      "sha256": "ba3df3fbbdf60495a3a12f0f4a7a8f5ca2b2c9bf940cef5ce5996388b9c3a9ab",
+      "bytes": 9177
+    },
+    {
+      "path": "tests/integration/telemetry-flow.test.ts",
+      "sha256": "ffa80a9dcd786d4061f43aa2434dce6765c6d5e009eb7581a56281604b8800e7",
+      "bytes": 10417
+    },
+    {
+      "path": "tests/integration/telemetry-operations.test.ts",
+      "sha256": "55cbd3856dc85dc1801baea59838b9803e9e2b659cf5f14546923ecc165a3bfc",
+      "bytes": 3625
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "23beef438150a3bf05b35e5bded75fa6fbd2cd0631a0332026ae730792bee17a",
+      "bytes": 352
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha256": "4b013d7964e2a9d396d9224ec0fb8558a91a9d07b2e1db002f54a88af961d511",
+      "bytes": 179
+    }
+  ],
+  "history": {
+    "available_commits": "11",
+    "shallow": "false"
+  },
+  "results": [
+    {
+      "date_utc": "2026-10-13T22:21:13.289916+00:00",
+      "command": [
+        "gitleaks",
+        "dir",
+        "--redact=100",
+        "--exit-code",
+        "1",
+        "C:\\Users\\Deivisito\\AppData\\Local\\Temp\\aidlc-u3-9b2e9fca-0497-46ec-a678-92701e065d3d\\clean.txt"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "output": "\n    ○\n    │╲\n    │ ○\n    ○ ░\n    ░    gitleaks\n\n6:21PM INF scanned ~27 bytes (27 bytes) in 32.3ms\n6:21PM INF no leaks found\n"
+    },
+    {
+      "date_utc": "2026-10-13T22:21:14.430309+00:00",
+      "command": [
+        "gitleaks",
+        "dir",
+        "--redact=100",
+        "--exit-code",
+        "1",
+        "C:\\Users\\Deivisito\\AppData\\Local\\Temp\\aidlc-u3-9b2e9fca-0497-46ec-a678-92701e065d3d\\synthetic.txt"
+      ],
+      "exit": 0,
+      "expected_exit": 1,
+      "output": "\n    ○\n    │╲\n    │ ○\n    ○ ░\n    ░    gitleaks\n\n6:21PM INF scanned ~44 bytes (44 bytes) in 34ms\n6:21PM INF no leaks found\n"
+    },
+    {
+      "date_utc": "2026-10-13T22:21:16.240822+00:00",
+      "command": [
+        "gitleaks",
+        "dir",
+        "--redact=100",
+        "--exit-code",
+        "1",
+        "C:\\Users\\Deivisito\\AppData\\Local\\Temp\\aidlc-u3-9b2e9fca-0497-46ec-a678-92701e065d3d\\projection-cb5e3b3d"
+      ],
+      "exit": 1,
+      "expected_exit": 0,
+      "output": "\n    ○\n    │╲\n    │ ○\n    ○ ░\n    ░    gitleaks\n\n6:21PM INF scanned ~3538058 bytes (3.54 MB) in 731ms\n6:21PM WRN leaks found: 3\n"
+    },
+    {
+      "date_utc": "2026-10-13T22:21:25.977942+00:00",
+      "command": [
+        "gitleaks",
+        "git",
+        "--redact=100",
+        "--exit-code",
+        "1",
+        "--log-opts=--all",
+        "D:\\guide_aidlc"
+      ],
+      "exit": 1,
+      "expected_exit": 0,
+      "output": "\n    ○\n    │╲\n    │ ○\n    ○ ░\n    ░    gitleaks\n\n6:21PM INF 11 commits scanned.\n6:21PM INF scanned ~12494167 bytes (12.49 MB) in 9.02s\n6:21PM WRN leaks found: 12\n"
+    }
+  ],
+  "overall_pass": false
+}

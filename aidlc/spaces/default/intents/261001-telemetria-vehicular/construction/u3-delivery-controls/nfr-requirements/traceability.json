@@ -17,22 +17,22 @@
     {
       "id": "NFR1",
       "status": "N/A",
-      "target": "U3 only packages and validates delivery controls; it does not change the request-serving path or latency budget, owned by U1/U2."
+      "target": "U3 empaqueta controles de entrega; latencia y presupuesto del servicio pertenecen a U1/U2."
     },
     {
       "id": "NFR2",
       "status": "N/A",
-      "target": "Durable event and Outbox processing are implemented by U1/U2; U3 preserves the agreed service contract and topology."
+      "target": "La persistencia transaccional pertenece a U1/U2; U3 conserva contratos e integración crítica."
     },
     {
       "id": "NFR3",
       "status": "N/A",
-      "target": "The availability SLO is measured in staging for the running service; U3 defines delivery controls and cannot establish runtime availability."
+      "target": "Disponibilidad se mide en staging; los controles de U3 no acreditan un mes observado."
     },
     {
       "id": "NFR4",
       "status": "N/A",
-      "target": "Telemetry TTL and retention indexing/backfill are owned by U2; U3 preserves the deployed schema and infrastructure contract."
+      "target": "TTL, índice y backfill pertenecen a U2; U3 conserva esquema y contrato de infraestructura."
     },
     {
       "id": "NFR5",
@@ -52,7 +52,7 @@
     {
       "id": "NFR7",
       "status": "N/A",
-      "target": "Runtime metrics, logs, dashboards, and alarms are owned by U2; U3 preserves their infrastructure and does not define service runtime telemetry."
+      "target": "Métricas, logs, paneles y alarmas pertenecen a U2; U3 preserva su configuración y evidencia."
     },
     {
       "id": "NFR9",
@@ -64,5 +64,6 @@
       "status": "OK",
       "target": "NFR10.1, NFR10.2, NFR10.3, NFR10.4"
     }
-  ]
+  ],
+  "scope_note": "OK indica cobertura de especificación, no controles desplegados. F1 impide integrar hasta obtener auditorías verdes; OIDC, protecciones y auditoría reales requieren evidencia posterior."
 }

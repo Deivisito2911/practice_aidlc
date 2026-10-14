@@ -2,6 +2,7 @@
 > This file is kept up to date automatically while the stage runs. Add observations at the review step, not by editing here directly.
 
 ## Interpretations
+- 2026-10-13T15:31:50Z — F6 concreta condiciones ya exigidas por la recuperación manual de U2: referencia verificable de alcance, IDs, límite y vigencia, identidad auditada por invocación y presupuesto global. Se preservan reglas BR7 y topología; los valores operativos se asignan en Infrastructure Design y las assertions faltantes permanecen en F7 hasta tener evidencia.
 <!-- example: 2026-05-29T10:14:32Z — chose REST over GraphQL; the consuming team only needs CRUD, revisit if subscriptions land -->
 
 ## Deviations

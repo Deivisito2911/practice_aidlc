@@ -28,6 +28,92 @@
         }
        },
        "Resource": "*"
+      },
+      {
+       "Action": "kms:GenerateDataKey*",
+       "Condition": {
+        "StringEquals": {
+         "aws:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":cloudtrail:",
+            {
+             "Ref": "AWS::Region"
+            },
+            ":",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":trail/telemetry-staging-audit"
+           ]
+          ]
+         }
+        },
+        "StringLike": {
+         "kms:EncryptionContext:aws:cloudtrail:arn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":cloudtrail:",
+            {
+             "Ref": "AWS::Region"
+            },
+            ":",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":trail/telemetry-staging-audit"
+           ]
+          ]
+         }
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cloudtrail.amazonaws.com"
+       },
+       "Resource": "*"
+      },
+      {
+       "Action": "kms:DescribeKey",
+       "Condition": {
+        "StringEquals": {
+         "aws:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":cloudtrail:",
+            {
+             "Ref": "AWS::Region"
+            },
+            ":",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":trail/telemetry-staging-audit"
+           ]
+          ]
+         }
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cloudtrail.amazonaws.com"
+       },
+       "Resource": "*"
       }
      ],
      "Version": "2012-10-17"
@@ -52,6 +138,46 @@
    },
    "Metadata": {
     "aws:cdk:path": "Telemetry-staging/DataKey/Alias/Resource"
+   }
+  },
+  "RecoveryMacKeyA629A8C2": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "KeySpec": "HMAC_256",
+    "KeyUsage": "GENERATE_VERIFY_MAC"
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Telemetry-staging/RecoveryMacKey/Resource"
    }
   },
   "AlertQueue78A7D684": {
@@ -141,10 +267,7 @@
        }
       ],
       "Projection": {
-       "NonKeyAttributes": [
-        "eventId"
-       ],
-       "ProjectionType": "INCLUDE"
+       "ProjectionType": "KEYS_ONLY"
       }
      }
     ],
@@ -326,6 +449,7 @@
       },
       {
        "Action": [
+        "dynamodb:GetItem",
         "dynamodb:PutItem",
         "dynamodb:UpdateItem"
        ],
@@ -368,6 +492,37 @@
           },
           "/index/DueByShard"
          ]
+        ]
+       }
+      },
+      {
+       "Action": "dynamodb:Query",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "EventsTableD24865E5",
+            "Arn"
+           ]
+          },
+          "/index/TtlByShard"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "kms:GenerateMac",
+        "kms:VerifyMac"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "RecoveryMacKeyA629A8C2",
+         "Arn"
         ]
        }
       },
@@ -421,10 +576,24 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "3e98c2cb6431e158dc48dec5489b6b063155115fa4d7af4162e0187868a77a57.zip"
+     "S3Key": "7437fd86270859a299b3878e5a286f6e67189ea6d64c4f457e9bfc2310c560b7.zip"
     },
     "Environment": {
      "Variables": {
+      "RECOVERY_MAC_KEY_ID": {
+       "Fn::GetAtt": [
+        "RecoveryMacKeyA629A8C2",
+        "Arn"
+       ]
+      },
+      "RECOVERY_MAC_ALLOWED_KEYS": {
+       "Fn::GetAtt": [
+        "RecoveryMacKeyA629A8C2",
+        "Arn"
+       ]
+      },
+      "RECOVERY_PREVIEW_TTL_SECONDS": "300",
+      "RECOVERY_MAX_EXECUTION_MS": "18000",
       "EVENTS_TABLE": {
        "Ref": "EventsTableD24865E5"
       },
@@ -465,7 +634,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "Telemetry-staging/TelemetryHandler/Resource",
-    "aws:asset:path": "asset.3e98c2cb6431e158dc48dec5489b6b063155115fa4d7af4162e0187868a77a57",
+    "aws:asset:path": "asset.7437fd86270859a299b3878e5a286f6e67189ea6d64c4f457e9bfc2310c560b7",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -971,7 +1140,24 @@
    "Type": "AWS::CloudTrail::Trail",
    "Properties": {
     "EnableLogFileValidation": true,
-    "EventSelectors": [],
+    "EventSelectors": [
+     {
+      "DataResources": [
+       {
+        "Type": "AWS::Lambda::Function",
+        "Values": [
+         {
+          "Fn::GetAtt": [
+           "TelemetryHandlerB0F6C54F",
+           "Arn"
+          ]
+         }
+        ]
+       }
+      ],
+      "ReadWriteType": "All"
+     }
+    ],
     "IncludeGlobalServiceEvents": true,
     "IsLogging": true,
     "IsMultiRegionTrail": true,
@@ -983,7 +1169,8 @@
     },
     "S3BucketName": {
      "Ref": "AuditBucketB01E0AE8"
-    }
+    },
+    "TrailName": "telemetry-staging-audit"
    },
    "DependsOn": [
     "AuditBucketPolicy9F807F4B"
@@ -995,7 +1182,13 @@
   "HandlerErrorsAlarmA4FC7B8A": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
-    "ComparisonOperator": "GreaterThanThreshold",
+    "AlarmActions": [
+     {
+      "Ref": "OperationsAlarmTopicArn"
+     }
+    ],
+    "AlarmDescription": "Alta: >=1% errores entre >=100 solicitudes elegibles; diagnosticar DynamoDB/Lambda/SQS.",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
     "EvaluationPeriods": 1,
     "Metrics": [
      {
@@ -1007,11 +1200,18 @@
       "Id": "requests",
       "MetricStat": {
        "Metric": {
-        "MetricName": "HttpRequests",
+        "Dimensions": [
+         {
+          "Name": "Service",
+          "Value": "TelemetryService"
+         }
+        ],
+        "MetricName": "HttpEligibleRequests",
         "Namespace": "VehicleTelemetry"
        },
        "Period": 300,
-       "Stat": "Sum"
+       "Stat": "Sum",
+       "Unit": "Count"
       },
       "ReturnData": false
      },
@@ -1019,11 +1219,18 @@
       "Id": "errors",
       "MetricStat": {
        "Metric": {
+        "Dimensions": [
+         {
+          "Name": "Service",
+          "Value": "TelemetryService"
+         }
+        ],
         "MetricName": "HttpServiceErrors",
         "Namespace": "VehicleTelemetry"
        },
        "Period": 300,
-       "Stat": "Sum"
+       "Stat": "Sum",
+       "Unit": "Count"
       },
       "ReturnData": false
      }
@@ -1037,14 +1244,27 @@
   "PendingCountAlarm41A05EDC": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "OperationsAlarmTopicArn"
+     }
+    ],
+    "AlarmDescription": "Media; PendingCountAlarm: revisar señal, permisos y causa; recuperación manual exige preview y confirmación; destino canal de guardia.",
     "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "Service",
+      "Value": "TelemetryService"
+     }
+    ],
     "EvaluationPeriods": 10,
     "MetricName": "OutboxPendingCount",
     "Namespace": "VehicleTelemetry",
     "Period": 60,
     "Statistic": "Maximum",
     "Threshold": 100,
-    "TreatMissingData": "notBreaching"
+    "TreatMissingData": "notBreaching",
+    "Unit": "Count"
    },
    "Metadata": {
     "aws:cdk:path": "Telemetry-staging/PendingCountAlarm/Resource"
@@ -1053,14 +1273,27 @@
   "PendingAgeAlarm938A0217": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "OperationsAlarmTopicArn"
+     }
+    ],
+    "AlarmDescription": "Alta; PendingAgeAlarm: revisar señal, permisos y causa; recuperación manual exige preview y confirmación; destino canal de guardia.",
     "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "Service",
+      "Value": "TelemetryService"
+     }
+    ],
     "EvaluationPeriods": 5,
     "MetricName": "OutboxOldestPendingAge",
     "Namespace": "VehicleTelemetry",
     "Period": 60,
     "Statistic": "Maximum",
     "Threshold": 600,
-    "TreatMissingData": "notBreaching"
+    "TreatMissingData": "notBreaching",
+    "Unit": "Seconds"
    },
    "Metadata": {
     "aws:cdk:path": "Telemetry-staging/PendingAgeAlarm/Resource"
@@ -1069,14 +1302,27 @@
   "TtlEligibleAlarmBB0982EE": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "OperationsAlarmTopicArn"
+     }
+    ],
+    "AlarmDescription": "Baja; TtlEligibleAlarm: revisar señal, permisos y causa; recuperación manual exige preview y confirmación; destino canal de guardia.",
     "ComparisonOperator": "GreaterThanThreshold",
+    "Dimensions": [
+     {
+      "Name": "Service",
+      "Value": "TelemetryService"
+     }
+    ],
     "EvaluationPeriods": 1,
     "MetricName": "TtlEligibleUndeleted",
     "Namespace": "VehicleTelemetry",
     "Period": 3600,
     "Statistic": "Maximum",
     "Threshold": 1000,
-    "TreatMissingData": "notBreaching"
+    "TreatMissingData": "notBreaching",
+    "Unit": "Count"
    },
    "Metadata": {
     "aws:cdk:path": "Telemetry-staging/TtlEligibleAlarm/Resource"
@@ -1085,6 +1331,12 @@
   "AlertQueueAgeAlarm2BB67F85": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "OperationsAlarmTopicArn"
+     }
+    ],
+    "AlarmDescription": "Media; antiguedad SQS: revisar consumidor y publicacion; canal de guardia del entorno.",
     "ComparisonOperator": "GreaterThanThreshold",
     "Dimensions": [
      {
@@ -1111,6 +1363,12 @@
   "AlertQueueDepthAlarm690F708C": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "OperationsAlarmTopicArn"
+     }
+    ],
+    "AlarmDescription": "Media; AlertQueueDepthAlarm: revisar señal, permisos y causa; recuperación manual exige preview y confirmación; destino canal de guardia.",
     "ComparisonOperator": "GreaterThanThreshold",
     "Dimensions": [
      {
@@ -1138,7 +1396,13 @@
   "EventBridgeFailuresAlarm2093FED1": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
-    "ComparisonOperator": "GreaterThanThreshold",
+    "AlarmActions": [
+     {
+      "Ref": "OperationsAlarmTopicArn"
+     }
+    ],
+    "AlarmDescription": "Alta; EventBridgeFailuresAlarm: revisar señal, permisos y causa; recuperación manual exige preview y confirmación; destino canal de guardia.",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
     "Dimensions": [
      {
       "Name": "RuleName",
@@ -1150,17 +1414,57 @@
     "Namespace": "AWS/Events",
     "Period": 300,
     "Statistic": "Sum",
-    "Threshold": 0,
+    "Threshold": 1,
     "TreatMissingData": "notBreaching"
    },
    "Metadata": {
     "aws:cdk:path": "Telemetry-staging/EventBridgeFailuresAlarm/Resource"
    }
   },
+  "OperationsDashboard06307C07": {
+   "Type": "AWS::CloudWatch::Dashboard",
+   "Properties": {
+    "DashboardBody": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"widgets\":[{\"type\":\"text\",\"width\":6,\"height\":2,\"x\":0,\"y\":0,\"properties\":{\"markdown\":\"SLI: p95 <= 0.5 Seconds bajo 100 solicitudes validas/s. Durable <30s: Within30s / CommitCreated; resultados inciertos no acreditan durabilidad. Disponibilidad mensual: disponibles / TODOS los minutos UTC calendario; incluye mantenimiento y no observados. Sin mes completo: Unverified. TTL >24h es corte estricto; medidas parciales son limites inferiores, no ausencia demostrada.\"}},{\"type\":\"metric\",\"width\":6,\"height\":6,\"x\":0,\"y\":2,\"properties\":{\"view\":\"timeSeries\",\"title\":\"HTTP y latencia p95\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/ApiGateway\",\"4XXError\",\"ApiName\",\"telemetry-staging-api\",{\"period\":60,\"stat\":\"Sum\"}],[\"AWS/ApiGateway\",\"Count\",\"ApiName\",\"telemetry-staging-api\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"HttpRequests\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"HttpEligibleRequests\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"HttpClientErrors\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"HttpQuotaRejected\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[{\"label\":\"IF(requests >= 100, 100 * errors / requests, 0)\",\"expression\":\"IF(requests >= 100, 100 * errors / requests, 0)\"}],[\"VehicleTelemetry\",\"HttpEligibleRequests\",\"Service\",\"TelemetryService\",{\"id\":\"requests\",\"visible\":false,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"HttpServiceErrors\",\"Service\",\"TelemetryService\",{\"id\":\"errors\",\"visible\":false,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"IngestLatency\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"p95\",\"yAxis\":\"right\"}],[\"VehicleTelemetry\",\"ReceiveToCommit\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"p95\",\"yAxis\":\"right\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":6,\"height\":6,\"x\":0,\"y\":8,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Durabilidad: sin datos no demuestra SLO\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[{\"label\":\"IF(commits > 0, 100 * within / commits, 0)\",\"expression\":\"IF(commits > 0, 100 * within / commits, 0)\",\"period\":60}],[\"VehicleTelemetry\",\"DurableCommitCount\",\"Service\",\"TelemetryService\",{\"id\":\"commits\",\"visible\":false,\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"DurableWithin30s\",\"Service\",\"TelemetryService\",{\"id\":\"within\",\"visible\":false,\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"CommitFailed\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"CommitUncertain\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"MeasurementInvalid\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":6,\"height\":6,\"x\":0,\"y\":14,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Outbox y TTL: parcial es limite inferior\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"VehicleTelemetry\",\"OutboxPendingCount\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Maximum\"}],[\"VehicleTelemetry\",\"TtlEligibleUndeleted\",\"Service\",\"TelemetryService\",{\"period\":3600,\"stat\":\"Maximum\"}],[\"VehicleTelemetry\",\"PendingMeasurementPartial\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"TtlMeasurementPartial\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"OutboxOldestPendingAge\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Maximum\",\"yAxis\":\"right\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":6,\"height\":6,\"x\":0,\"y\":20,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Publicacion y recuperacion\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"VehicleTelemetry\",\"SqsConfirmed\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"SqsFailed\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"SqsUncertain\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"OutboxPublished\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"ManualConfirmed\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"ManualFailed\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"VehicleTelemetry\",\"ManualUnprocessed\",\"Service\",\"TelemetryService\",{\"period\":60,\"stat\":\"Sum\"}],[\"AWS/Events\",\"FailedInvocations\",\"RuleName\",\"telemetry-staging-pending-recovery\",{\"stat\":\"Sum\"}],[\"AWS/SQS\",\"ApproximateNumberOfMessagesVisible\",\"QueueName\",\"",
+       {
+        "Fn::GetAtt": [
+         "AlertQueue78A7D684",
+         "QueueName"
+        ]
+       },
+       "\",{\"stat\":\"Maximum\"}]],\"yAxis\":{}}}]}"
+      ]
+     ]
+    },
+    "DashboardName": "telemetry-staging-operations"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Telemetry-staging/OperationsDashboard/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22STU/DMAyGfwv3zKAhwbmA4MB3gfPkpV7Jlo9SJ0xVlP+OknSMA5e+z+s0thNnCcvLJZyd4J4XststtFpDfPModwL3vIo7wxDvaRLXG5ul0Qo5mwJJ8BdDfA0UKAcrlO+L00pOv8Fqk+gmi8Z1a4jvuNZlU4EktOsZ4oPr70YXhrxw4CQ0mnWHK+s62jI8FbkNVnrlrFBoILauJit6rH0oy+crZCbP0GQRfA7xKsgd+StkEhXzhpmqHPP89Yd2IF5v7G8XuRiNRjErZ5PAQfXoaY8TxJbYN4Mq7R2xkdIF68UNDdpNhmyp/8e9eezLmSq0xC6MkkrDBzPnrPxI/tN1OTTTB2NPLxpLd/+bMtNBzROulAR9k/UMsQ3zrYY8Iald6PyISkN8z1Kml2Fe26OXnxAbjaOpbwRHk9Kx23L5+TjK9vmH5+CH4JPIg4Utn34vL+ASzk62rNRiDNYrQ9BW/QEe9UHeqgIAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22STW8bIRCGf0vueBrZUnLeJGoPbVp3456tWXayxuZjy0CsFdr/XgFrO4deeJ8XxHwwrGH9uIH7OzzzSvanlVYdpLeA8iTwzPt0MgzpO03i+d1mabRCzqbALPgvQ/odKVLerFDWrdNKTtfNamfRTxaN6ztIO+x0uVRgFtoNDOmHG755F8d8cOFZaDRdj3vrejoy/CzyNVoZlLNCoYHUuhqs6C33JS1v9shMgaHJIngD6SnKE4UnZBIV84WFqtzifPaXciA9v9trFTkZeaOYlbOzwFENGOiME6SWODSjKuXdsJHSRRvEC43aTYZsyf/JvQUcSk8VWmIXvaRS8MUsMSu/Uji4Pm8t9IdxoK3GUt3/TZnpqJYJV5oFfZANDKmNy6vGPCGpXeyDR6Uh7bKU6WVYzs4Y5AFSo9Gb+kcyvCAfOoe+VHY1s2DLsHOjkrmj+dZSmVDuWdkhX/kVwxjL42zRo6FAfhb5K8CRv3ysH+AR7u+OrNTKRxuUIWir/gMoAiRD3AIAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "Telemetry-staging/CDKMetadata/Default"
@@ -1228,6 +1532,17 @@
      "Arn"
     ]
    }
+  }
+ },
+ "Parameters": {
+  "OperationsAlarmTopicArn": {
+   "Type": "String",
+   "Description": "ARN del canal de guardia del entorno."
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
   }
  },
  "Conditions": {
@@ -1494,13 +1809,6 @@
      ]
     }
    ]
-  }
- },
- "Parameters": {
-  "BootstrapVersion": {
-   "Type": "AWS::SSM::Parameter::Value<String>",
-   "Default": "/cdk-bootstrap/hnb659fds/version",
-   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
   }
  },
  "Rules": {

@@ -55,13 +55,13 @@ describe('infraestructura de telemetría', () => {
     );
     template.resourceCountIs('AWS::Lambda::EventSourceMapping', 0);
   });
-  it('incluye permisos IAM requeridos para Put transaccional, CloudTrail y throttling del API', () => {
+  it('incluye permisos IAM requeridos para Put transaccional y throttling del API', () => {
     const policy = JSON.stringify(template.findResources('AWS::IAM::Policy'));
     expect(policy).toContain('dynamodb:PutItem');
     expect(policy).toContain('dynamodb:UpdateItem');
     expect(policy).toContain('dynamodb:Query');
     expect(policy).not.toContain('dynamodb:TransactWriteItems');
-    template.resourceCountIs('AWS::CloudTrail::Trail', 1);
+    template.resourceCountIs('AWS::CloudTrail::Trail', 0);
     template.hasResourceProperties('AWS::ApiGateway::UsagePlan', {
       Throttle: { RateLimit: 100, BurstLimit: 200 },
       Quota: { Limit: 5000000, Period: 'DAY' },

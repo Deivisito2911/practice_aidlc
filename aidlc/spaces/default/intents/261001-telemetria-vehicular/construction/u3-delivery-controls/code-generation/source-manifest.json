@@ -1,43 +1,21 @@
 {
-  "stage": "code-generation",
   "unit": "u3-delivery-controls",
   "version": 1,
   "writes": [
     {
-      "path": "README.md"
+      "path": ".gitleaks.toml"
     },
     {
-      "path": "bin/telemetry.ts"
+      "path": "package.json"
     },
     {
-      "path": "bin/telemetry-operations.ts"
+      "path": "package-lock.json"
     },
     {
       "path": "infra/telemetry-stack.ts"
     },
     {
-      "path": "infra/telemetry-stack-operations.test.ts"
-    },
-    {
       "path": "infra/telemetry-stack-delivery-controls.test.ts"
-    },
-    {
-      "path": "src/telemetry/adapters.ts"
-    },
-    {
-      "path": "src/telemetry/handlers.ts"
-    },
-    {
-      "path": "src/telemetry/handlers-operations.test.ts"
-    },
-    {
-      "path": "src/telemetry/manual-recovery.ts"
-    },
-    {
-      "path": "src/telemetry/manual-recovery.test.ts"
-    },
-    {
-      "path": "tests/integration/telemetry-operations.test.ts"
     },
     {
       "path": "docs/telemetry-delivery-controls.md"
@@ -46,7 +24,29 @@
       "path": "docs/telemetry-verification.md"
     },
     {
-      "path": "cdk.out/"
+      "path": "cdk.out/Telemetry-staging.assets.json"
+    },
+    {
+      "path": "cdk.out/Telemetry-staging.metadata.json"
+    },
+    {
+      "path": "cdk.out/Telemetry-staging.template.json"
+    },
+    {
+      "path": "cdk.out/manifest.json"
+    },
+    {
+      "path": "cdk.out/performance-counters.json"
+    },
+    {
+      "path": "cdk.out/tree.json"
+    },
+    {
+      "path": "cdk.out/asset.7437fd86270859a299b3878e5a286f6e67189ea6d64c4f457e9bfc2310c560b7/index.js"
+    },
+    {
+      "path": "cdk.out/asset.d5079708ad62356c52874f5125825fb4e1b5f5358dc9ebf801b3f6ca8f698c9b/index.js"
     }
-  ]
+  ],
+  "stage": "code-generation"
 }

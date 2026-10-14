@@ -587,7 +587,7 @@
     "unit": "u2-telemetry-operations",
     "requirement": "NFR9.8",
     "expected": [
-      "Métricas, alarmas y recuperación no dependen de una lectura ilimitada del Outbox; barrido y reintento manual tienen límite por ejecución."
+      "Métricas, alarmas y recuperación no dependen de una lectura ilimitada del Outbox; barrido y reintento manual tienen límite por ejecución y presupuesto global de tiempo. Antes de reclamar otra salida se verifica tiempo restante con reserva para devolver evidencia; al agotarse se informa resultado parcial y cantidad no iniciada."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/scalability-requirements.md#tabla de objetivos"
@@ -620,7 +620,7 @@
     "unit": "u2-telemetry-operations",
     "requirement": "NFR5.7",
     "expected": [
-      "La CLI muestra solo IDs, cantidad, límite y correlaciones necesarias; no devuelve secretos ni payload crudo. La confirmación se liga a la vista previa actual."
+      "La CLI muestra IDs, cantidad, límite, emisión, vencimiento y correlaciones necesarias sin secretos ni payload crudo. La confirmación verificable liga alcance, IDs ordenados, límite y vigencia de la vista previa emitida por el servicio; el cliente no puede renovarla ni alterar sus campos."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
@@ -631,7 +631,7 @@
     "unit": "u2-telemetry-operations",
     "requirement": "NFR5.8",
     "expected": [
-      "Las acciones registran actor, hora, alcance, límite, confirmación, correlación y conteos; logs y métricas excluyen claves API, secretos y cuerpo crudo."
+      "Las acciones registran hora, alcance, límite, confirmación, correlación, identificador de invocación asignado por la plataforma y conteos reconciliables. La identidad efectiva se consulta en la auditoría de esa invocación; nunca se confía en actor del payload. Logs y métricas excluyen claves API, secretos y cuerpo crudo."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u2-telemetry-operations/nfr-requirements/security-requirements.md#Límites de confianza y datos"
@@ -775,7 +775,7 @@
     "requirement": "NFR6.1",
     "expected": [
       "El pipeline debe autenticarse en AWS mediante federación OIDC y roles temporales; el sujeto confiable debe limitarse al repositorio y a las referencias de rama/entorno autorizadas.",
-      "Configurar una relación de confianza OIDC por repositorio y entorno. El rol de validación solo permite leer artefactos necesarios; el rol de *staging* solo permite desplegar el stack de la aplicación a la cuenta/entorno de staging; el rol de producción solo se asume desde el entorno protegido tras aprobación. Rechazar tokens cuyo sujeto no coincida exactamente con repositorio, rama/tag y entorno autorizados."
+      "Configurar confianza OIDC con audiencia y sujeto exactos para el repositorio/entorno. Validación de PR no recibe credenciales AWS ni permisos de token para despliegue. Los roles de staging y producción se separan; el sujeto de entorno se combina con reglas GitHub de ramas/tags y aprobación de producción. Probar rechazo de otro repositorio, PR/fork, rama no autorizada y entorno incorrecto."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR6 — Credenciales temporales de despliegue",
@@ -839,8 +839,8 @@
     "unit": "u3-delivery-controls",
     "requirement": "NFR8.3",
     "expected": [
-      "CI analiza dependencias y secretos; un hallazgo que supere los umbrales configurados o una credencial persistente bloquea la integración.",
-      "Ejecutar `npm run audit:deps` y análisis de secretos sobre el cambio y el historial incluido en el pull request. Una credencial detectada o vulnerabilidad por encima del umbral acordado bloquea integración; las excepciones requieren registro y responsable antes de reanudar."
+      "CI analiza dependencias y secretos; exige cero hallazgos high/critical en la auditoría npm configurada y ninguna credencial persistente detectada por el escáner versionado. Un exit distinto de cero, un escáner ausente o una ejecución incompleta bloquea la integración; un chequeo heurístico local no sustituye ese control.",
+      "Ejecutar auditoría npm configurada con cero high/critical y escáner de secretos versionado sobre fuente/historial acordados. F1 exige actualización acotada de CDK/lockfile, npm ci reproducible, diff de síntesis revisado y auditorías verdes. Una credencial, hallazgo, herramienta ausente, ejecución incompleta o exit no exitoso bloquea integración. No se reduce el umbral ni se presenta una excepción como pase."
     ],
     "sources": [
       "aidlc/spaces/default/intents/261001-telemetria-vehicular/construction/u3-delivery-controls/nfr-requirements/security-requirements.md#NFR8 — Puertas obligatorias de calidad",

@@ -10,9 +10,9 @@ Flujo de confianza:
 
 1. La identidad del operador obtiene la sesión P3 por el proveedor corporativo ya configurado.
 2. IAM decide si esa identidad puede invocar el caso operacional sobre la función exacta.
-3. TelemetryService valida la forma de solicitud, el alcance permitido y el límite configurado; en ejecución vuelve a obtener el conjunto y compara su huella con la preview confirmada.
+3. TelemetryService valida forma, alcance y límite. Emite un sobre canónico versionado con IDs ordenados únicos, alcance, límite, identificador de preview y tiempos de emisión/vencimiento. Calcula su digest SHA-256 y lo autentica con una clave KMS HMAC_256 mediante GenerateMac/HMAC_SHA_256; la clave nunca se exporta. Al ejecutar verifica el MAC con VerifyMac y la clave configurada, el digest y la vigencia antes de consultar/recomparar candidatos. El cliente no puede alterar límite, tiempos ni conjunto y reutilizar una firma anterior. Un fallo KMS rechaza sin efectos.
 4. El servicio procesa Outbox usando reclamación condicional y actualiza estado solo después de confirmación SQS.
-5. Logs/auditoría registran actor efectivo, operación, confirmación, correlación y resumen, sin credenciales ni datos crudos.
+5. Logs registran operación, confirmación, correlación, awsRequestId de Context y resumen. La CLI conserva también el requestId de la respuesta del API Invoke. La identidad efectiva se consulta en los eventos de datos Invoke de CloudTrail habilitados solo para la función; no se extrae de actor del payload ni se presume disponible en Context. El enlace entre ambos IDs y la auditoría se comprueba en staging sin asumir que todos los identificadores son iguales. Ningún registro imprime credenciales, MAC ni datos crudos.
 
 ## Protección y amenazas
 
@@ -29,3 +29,9 @@ Los datos persistidos mantienen KMS/TLS y los permisos mínimos de U1. La autori
 ## Fuentes
 
 `nfr-requirements/security-requirements.md`, `nfr-requirements/tech-stack-decisions.md`, `functional-design/entities.md`, `functional-design/rules.md`, `functional-design/functional-spec.md` y `inception/contract-design/contract-summary.md`.
+
+## Refinamiento de F6
+
+GenerateMac recibe el digest de 32 bytes, no la lista de IDs, para respetar el límite de mensaje de 4096 bytes. Solo Lambda puede GenerateMac/VerifyMac sobre la clave configurada; el rol CLI no tiene acceso KMS directo. La clave HMAC requiere rotación manual; se conservan claves previas únicamente durante la vigencia máxima de previews emitidas antes de retirarlas. Infrastructure Design fija vigencia y permisos; Code Generation prueba digest/MAC inválido, alteración de cada campo, expiración y repetición sin nuevas salidas.
+
+Fuentes técnicas: [AWS KMS HMAC](https://docs.aws.amazon.com/kms/latest/developerguide/hmac.html), [CloudTrail para Lambda](https://docs.aws.amazon.com/lambda/latest/dg/logging-using-cloudtrail.html) y [Context de Node.js](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-context.html). La documentación acredita mecanismos; el comportamiento desplegado sigue pendiente de evidencia.

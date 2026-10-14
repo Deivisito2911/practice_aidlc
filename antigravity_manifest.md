@@ -290,3 +290,28 @@ Según la guía `guia-aidlc-deivith.html`, para aprobar el taller se requieren *
   - *Resolución de Vulnerabilidad:* Actualización dirigida de `aws-cdk-lib` a `2.273.0` (con `brace-expansion 5.0.12`). `npm ci` limpio y `npm run audit:deps` cerró con **0 vulnerabilidades (exit 0)**, resolviendo definitivamente el hallazgo F1.
   - *Políticas CloudTrail y Secretos:* Ajuste de políticas KMS (`GenerateDataKey`/`DescribeKey`) e inicio de clasificación de falsos positivos en Gitleaks 8.30.1 sobre hashes SHA-256 de artefactos CDK en `cdk.out`.
   - *Pausa de Cuota:* Sesión pausada naturalmente por límite de ventana de OpenAI a las 18:31, con reinicio programado para las 21:30 (9:30 PM) para ejecutar los últimos 4 pasos de U3 y reingresar a `build-and-test`.
+
+### 20. Registro de Decisiones e Impacto (Día 11 - Cierre de Construcción, CI Pipeline y Entrada a Operación)
+- **Modo Operativo:** Sesión en ChatGPT Desktop (Codex) con GPT-6.1-Sol y asistencia técnica de Antigravity (Gemini 2.5).
+
+- **Interacción 40 (Aprobación de Checkpoint Skeleton U1 y Revalidación de U2):**
+  - *Contexto:* El motor exigió revalidar el walking skeleton de U1 tras los cambios compartidos en `infra/` y `adapters.ts`.
+  - *Acción:* Ejecución limpia de `telemetry-flow.test.ts` (7/7 tests, exit 0). Checkpoint Skeleton de U1 aprobado humanamente. U2 pasó su verificación autorizada con 7 pruebas y exit 0, recibiendo aprobación automática.
+
+- **Interacción 41 (Finalización y Aprobación de U3 - Delivery Controls):**
+  - *Entregables:* Creación de `.gitleaks.toml` con exclusión precisa de hashes SHA256 de artefactos CDK en `cdk.out`, actualización de `docs/telemetry-delivery-controls.md` y `docs/telemetry-verification.md`.
+  - *Evidencia:* 159 pruebas de regresión en verde, auditorías npm en 0 vulnerabilidades, escaneos de secretos en exit 0. Checkpoint de U3 aprobado formalmente.
+
+- **Interacción 42 (Pase Honesto de Build and Test a CI Pipeline):**
+  - *Decisión:* Ante la disyuntiva de "Accept failure" vs "Abort", se seleccionó **Accept failure**, reconociendo con Trazabilidad Honesta (§10) que los 39 criterios restantes (OIDC real, 100 RPS, disponibilidad mensual en AWS) no pueden falsearse en una laptop local y pertenecen a Operación.
+
+- **Interacción 43 (Etapa 3.7 CI Pipeline y Cierre de Construcción):**
+  - *Decisión de Arquitectura:* Se seleccionó GitHub Actions Artifacts para almacenar el ensamblado inmutable de CDK con hash SHA-256 ("build once, deploy anywhere").
+  - *Entregable:* Creación de `.github/workflows/ci.yml` con pipeline completo de quality-gates (Node 22, lint, typecheck, vitest, cdk synth, Gitleaks 8.30.1 y subida de artefacto).
+  - *Frontera de Fase:* Se autorizó continuar con el fallo documentado hacia Operación, cerrando formalmente el 100% de la **Fase 3 (Construcción)**.
+
+- **Interacción 44 (Etapa 4.2 Deployment Pipeline y 4.1 Environment Provisioning):**
+  - *Decisiones:* Aprobación del pipeline CD (Staging automático tras CI verde, Producción con aprobación humana, y separación de CloudTrail en `TelemetryAuditStack` para evitar sobrecostos por trails duplicados). Rechazo de AWS AppConfig para preservar el principio Minimal.
+  - *Configuración Real de AWS:* Se instaló AWS CLI v2 (`aws-cli/2.38.0`) en Windows. Se configuró el perfil formal `745708001009_AdministratorAccess` con sesiones temporales de AWS SSO en `sa-east-1` (`C:\Users\Deivisito\.aws\credentials` y `config`), validado exitosamente con `aws sts get-caller-identity` (exit 0).
+  - *Blindaje de Seguridad Corporativa:* Activación de guardarraíles estrictos para proteger las cargas de producción de CarConnect en otras regiones: aislamiento forzoso a `sa-east-1`, ámbito exclusivo al namespace `Telemetry-*` y prohibición de comandos destructivos.
+

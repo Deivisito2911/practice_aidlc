@@ -88,3 +88,5 @@ aidlc/.aidlc-turn-counter
 aidlc/.aidlc-readonly-latch
 # END AI-DLC:gitignore
 aidlc.settings.local.json
+.playwright-mcp/
+

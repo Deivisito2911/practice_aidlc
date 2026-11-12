@@ -141,41 +141,117 @@
       letter-spacing: 0.04em;
     }
 
-    /* Tab Navigation */
-    .nav-container {
+    /* Tab Navigation (Scrollable + Movable + Expandable) */
+    .nav-sticky-shell {
       position: sticky;
       top: 12px;
       z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      background: rgba(13, 19, 34, 0.85);
+      background: rgba(13, 19, 34, 0.9);
       border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 6px;
+      border-radius: 20px;
+      padding: 6px 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+    .nav-arrow-btn, .nav-wrap-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--ink);
+      width: 34px;
+      height: 36px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .nav-wrap-btn {
+      width: auto;
+      padding: 0 11px;
+      font: 600 11.5px var(--font-display);
+      color: var(--brand);
+      border-color: rgba(56, 189, 248, 0.3);
+      background: rgba(56, 189, 248, 0.08);
+      gap: 5px;
+      white-space: nowrap;
+    }
+    .nav-arrow-btn:hover, .nav-wrap-btn:hover {
+      background: rgba(148, 214, 0, 0.18);
+      border-color: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .nav-arrow-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+      transform: none;
+    }
+    .nav-container {
+      flex: 1;
       display: flex;
+      align-items: center;
       gap: 6px;
       overflow-x: auto;
-      scrollbar-width: none;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(148, 214, 0, 0.45) rgba(255, 255, 255, 0.04);
+      padding: 2px 4px 5px 4px;
+      cursor: grab;
+      user-select: none;
     }
-    .nav-container::-webkit-scrollbar { display: none; }
+    .nav-container.dragging {
+      cursor: grabbing;
+      scroll-behavior: auto;
+    }
+    .nav-container.wrapped {
+      flex-wrap: wrap;
+      overflow-x: visible;
+      justify-content: center;
+      padding-bottom: 2px;
+    }
+    .nav-container::-webkit-scrollbar {
+      height: 5px;
+    }
+    .nav-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+    }
+    .nav-container::-webkit-scrollbar-thumb {
+      background: rgba(148, 214, 0, 0.45);
+      border-radius: 999px;
+    }
+    .nav-container::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
     .nav-btn {
       background: none;
-      border: none;
+      border: 1px solid transparent;
       color: var(--ink2);
-      font: 600 14px var(--font-display);
-      padding: 10px 20px;
+      font: 600 13.5px var(--font-display);
+      padding: 9px 16px;
       border-radius: 999px;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
+      flex-shrink: 0;
     }
     .nav-btn:hover {
       color: var(--ink);
       background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.12);
     }
     .nav-btn.active {
       background: var(--accent);
@@ -871,30 +947,41 @@
       </div>
     </header>
 
-    <!-- INTERACTIVE TAB NAV -->
-    <nav class="nav-container" aria-label="Secciones del portal">
-      <button class="nav-btn active" onclick="switchTab('proposito', this)">
-        <span>🎯</span> Propósito & Visión
+    <!-- INTERACTIVE TAB NAV (Scrollable + Arrows + Drag + Wrap Toggle) -->
+    <div class="nav-sticky-shell">
+      <button type="button" class="nav-arrow-btn" id="nav-btn-left" onclick="scrollNav(-280)" title="Deslizar pestañas a la izquierda" aria-label="Deslizar a la izquierda">
+        ◀
       </button>
-      <button class="nav-btn" onclick="switchTab('arquitectura', this)">
-        <span>🏛️</span> Arquitectura & Walking Skeleton
+      <nav class="nav-container" id="main-tab-nav" aria-label="Secciones del portal">
+        <button class="nav-btn active" onclick="switchTab('proposito', this)">
+          <span>🎯</span> Propósito & Visión
+        </button>
+        <button class="nav-btn" onclick="switchTab('arquitectura', this)">
+          <span>🏛️</span> Arquitectura & Walking Skeleton
+        </button>
+        <button class="nav-btn" onclick="switchTab('historias', this)">
+          <span>📋</span> Historias de Usuario
+        </button>
+        <button class="nav-btn" onclick="switchTab('payloads', this)">
+          <span>📦</span> Payloads & Contratos (Tests)
+        </button>
+        <button class="nav-btn" onclick="switchTab('matriz', this)">
+          <span>🧪</span> Tests & Trazabilidad (159 Tests)
+        </button>
+        <button class="nav-btn" onclick="switchTab('bitacora', this)">
+          <span>📅</span> Bitácora Día a Día
+        </button>
+        <button class="nav-btn" onclick="switchTab('gobernanza', this)">
+          <span>🔐</span> Gobernanza AWS & Seguridad
+        </button>
+      </nav>
+      <button type="button" class="nav-arrow-btn" id="nav-btn-right" onclick="scrollNav(280)" title="Deslizar pestañas a la derecha" aria-label="Deslizar a la derecha">
+        ▶
       </button>
-      <button class="nav-btn" onclick="switchTab('historias', this)">
-        <span>📋</span> Historias de Usuario
+      <button type="button" class="nav-wrap-btn" id="nav-wrap-toggle" onclick="toggleNavWrap()" title="Alternar entre deslizar en 1 fila o ver todas las pestañas en 2 filas">
+        <span>⊞</span> Ver todas
       </button>
-      <button class="nav-btn" onclick="switchTab('payloads', this)">
-        <span>📦</span> Payloads & Contratos (Tests)
-      </button>
-      <button class="nav-btn" onclick="switchTab('matriz', this)">
-        <span>🧪</span> Tests & Trazabilidad (159 Tests)
-      </button>
-      <button class="nav-btn" onclick="switchTab('bitacora', this)">
-        <span>📅</span> Bitácora Día a Día
-      </button>
-      <button class="nav-btn" onclick="switchTab('gobernanza', this)">
-        <span>🔐</span> Gobernanza AWS & Seguridad
-      </button>
-    </nav>
+    </div>
 
     <!-- ========================================== -->
     <!-- TAB 1: PROPÓSITO & VISIÓN                  -->
@@ -1716,7 +1803,7 @@ expect(outboxes.has('LOW_BATTERY:event-20')).toBe(false);
     const suitesData = [{"file": "src/telemetry/handlers.test.ts", "title": "Handlers HTTP & Validación Exhaustiva BVA", "count": 34, "type": "Caja Negra / BVA / HTTP", "summary": "Valida todas las combinaciones de frontera BVA numéricas, desbordamientos, tipos inválidos, códigos HTTP de respuesta y regla anti-futuro.", "cases": ["Batería en frontera válida: 0, 0.01, 50, 99.99, 100 aceptados con 202", "Batería fuera de rango BVA: -0.01 y 100.01 rechazados con 400 Bad Request", "Temperatura en frontera válida: -50.0 y 150.0 aceptados con 202", "Temperatura fuera de rango BVA: -50.01 y 150.01 rechazados con 400 Bad Request", "Velocidad en frontera válida: 0.0 y 300.0 aceptados con 202", "Velocidad fuera de rango BVA: -0.01 y 300.01 rechazados con 400 Bad Request", "Valores no finitos: NaN, Infinity y -Infinity rechazados con 400 Bad Request", "Timestamp UTC exacto en frontera anti-futuro (+300s / 5 min) aceptado", "Timestamp con desvío mayor a +300s en el futuro rechazado con 400 Bad Request", "Campos obligatorios ausentes (eventId, vehicleId, timestamp, eventType, value) dan 400", "Rutas o verbos HTTP no soportados rechazados con 400 Bad Request", "Exceso de tasa de peticiones responde 429 Too Many Requests (Rate Limit)", "Fallo de transacción en DynamoDB responde 503 Service Unavailable sin datos parciales"]}, {"file": "src/telemetry/recovery-preview.test.ts", "title": "Criptografía AWS KMS & Firma HMAC-SHA256", "count": 24, "type": "Seguridad / Criptografía", "summary": "Valida la generación de sobre criptográfico para la CLI de operaciones, firmas KMS HMAC, expiración y blindaje contra manipulación.", "cases": ["Generación determinista de firmas HMAC-SHA256 usando clave KMS autorizada", "Verificación exitosa de sobre digital íntegro con digest y timestamp válidos", "Expiración forzosa: rechaza sobres con más de 300 segundos (5 minutos) de antigüedad", "Blindaje anti-tampering: alteración de 1 solo bit en el digest invalida la ejecución", "Control de acceso KMS: rechazo inmediato si la clave no está en la lista blanca de permitidas", "Aislamiento por requestId: sobre enlazado causalmente al contexto de ejecución"]}, {"file": "src/telemetry/service.test.ts", "title": "Lógica de Negocio, Reglas de Alerta & Outbox", "count": 23, "type": "Caja Negra / Dominio", "summary": "Valida la regla de negocio para alertas de batería, deduplicación inyectiva determinista, y ciclo de vida del Outbox.", "cases": ["Regla BVA batería baja: valor 19.99% genera registro Outbox PENDING para SQS", "Regla BVA frontera: valor 20.00% exacto persiste el evento pero NO genera alerta", "Eventos de tipo temperature y speed se persisten pero omiten la creación de alertas", "Identificador lógico determinista: alertId = LOW_BATTERY:{eventId} para deduplicación", "Transición condicional de estado: PENDING pasa a PUBLISHED únicamente tras confirmación SQS", "Resiliencia ante fallo de SQS: la alerta permanece PENDING sin pérdida de datos", "Procesamiento asíncrono sin estado acumulativo ante llegada de eventos desordenados", "Idempotencia de reintento: reintentar la creación de una alerta idéntica no duplica registros"]}, {"file": "src/telemetry/adapters.test.ts", "title": "Adaptador DynamoDB, Atomicidad & Retención TTL", "count": 15, "type": "Atomicidad / Base de Datos", "summary": "Valida el comportamiento transaccional con DynamoDB TransactWriteItems, causalidad estricta y cálculo de TTL de 90 días.", "cases": ["Escritura conjunta atómica en tabla Events y Outbox en una sola transacción", "Barrera de commit: fallo antes, durante o después del commit nunca devuelve un 202 falso", "Detección de colisión concurrente: mismo eventId con payload distinto produce 409 Conflict", "Idempotencia estricta: reintento concurrente con payload idéntico no duplica filas", "Cálculo exacto del atributo expiresAt: acceptedAt + 7,776,000 segundos (90 días)", "Control de concurrencia optimista en Outbox mediante claimToken y leaseUntil"]}, {"file": "src/telemetry/availability.test.ts", "title": "Cálculo Matemático de Disponibilidad Mensual (SLO)", "count": 13, "type": "Matemática / Disponibilidad", "summary": "Valida la fórmula del 99.9% de disponibilidad mensual sin deducciones engañosas de mantenimiento (NFR3).", "cases": ["Fórmula estricta: minutos disponibles divididos para minutos totales del mes", "Inclusión obligatoria de ventanas de mantenimiento en el denominador", "Validación para meses de 28, 29, 30 y 31 días (incluyendo años bisiestos)", "Ponderación exacta de minutos con degradación o indisponibilidad total"]}, {"file": "src/telemetry/model.test.ts", "title": "Modelo de Datos & Esquema Estricto TypeScript", "count": 11, "type": "Tipado & Esquema", "summary": "Valida la integridad del modelo de datos de telemetría, tipado discriminado y serialización canónica.", "cases": ["Parseo y validación de tipos permitidos (battery, temperature, speed)", "Serialización JSON canónica sin mutación de atributos", "Formato de fechas ISO-8601 estricto con zona horaria UTC", "Inmutabilidad de objetos de dominio tras su creación"]}, {"file": "src/telemetry/manual-recovery.test.ts", "title": "Herramienta CLI de Recuperación Manual", "count": 7, "type": "Operaciones / CLI", "summary": "Valida las reglas de seguridad de la consola de recuperación: límites de registros y sanitización.", "cases": ["Acotación estricta a un máximo de 25 registros por lote para evitar timeouts", "Filtrado exclusivo por scope due-pending (solo alertas no confirmadas)", "Sanitización de salida: no expone credenciales ni payloads crudos en terminal", "Comportamiento idempotente ante reintentos repetidos del mismo lote"]}, {"tests_count": 6, "file": "tests/integration/telemetry-flow.test.ts", "title": "Walking Skeleton E2E (Flujo Crítico Completo)", "count": 6, "type": "Integración E2E", "summary": "Valida el recorrido completo del Walking Skeleton de punta a punta con emulación de servicios AWS.", "cases": ["Flujo crítico E2E: Ingesta HTTP -> Lambda única -> DynamoDB Transaccional -> Outbox -> SQS", "Recuperación de alertas: simula caída transitoria de SQS y recuperación en siguiente barrido", "Regla periódica EventBridge (rate 1 min) invoca la misma Lambda y despacha alertas pendientes", "Deduplicación determinista: reentregas en SQS conservan alertId único", "Rechazo síncrono 400 sin escribir en DynamoDB ante violaciones de contrato", "Causalidad transaccional: 202 devuelto únicamente tras la confirmación en base de datos"]}, {"file": "src/telemetry/observability.test.ts", "title": "Observabilidad CloudWatch EMF & Sanitización de Logs", "count": 6, "type": "Métricas & Logs", "summary": "Valida la emisión de métricas nativas CloudWatch EMF y la trazabilidad distribuida sin fugas de información.", "cases": ["Emisión nativa en formato Embedded Metric Format (EMF) bajo VehicleTelemetry", "Métrica durable ReceiveToCommit que mide latencia real hasta el commit en DynamoDB", "Inyección y propagación de X-Correlation-Id en cada log estructurado", "Sanitización automática: exclusión de tokens o payloads crudos en los streams de log"]}, {"file": "infra/telemetry-stack-delivery-controls.test.ts", "title": "Aserciones CDK: Auditoría, CloudTrail & KMS", "count": 5, "type": "Infraestructura CDK", "summary": "Aserciones sobre la plantilla CloudFormation generada para verificar CloudTrail, KMS y políticas de retención.", "cases": ["Sintetiza CloudTrail con registro multirregión activo", "Sintetiza clave KMS CMK para cifrado en reposo de logs de auditoría", "Aplica política de bucket S3 que impide el borrado de logs por roles de la aplicación", "Desacoplamiento arquitectónico en TelemetryAuditStack para evitar sobrecostos"]}, {"file": "infra/telemetry-stack-operations.test.ts", "title": "Aserciones CDK: Alarmas CloudWatch & Permisos IAM", "count": 4, "type": "Infraestructura CDK", "summary": "Aserciones CDK sobre alarmas de umbral de errores y permisos de mínimo privilegio.", "cases": ["Alarma CloudWatch de tasa de fallos HTTP con comparador GreaterThanOrEqualToThreshold (>= 1%)", "Evaluación de umbral sobre mínimo 100 peticiones elegibles", "Permiso IAM Query restringido exclusivamente al ARN del índice TtlByShard en DynamoDB", "Configuración opcional de SNS para alarmas sin bloquear síntesis"]}, {"file": "infra/telemetry-stack.test.ts", "title": "Aserciones CDK: Topología Minimal (1 Sola Lambda)", "count": 4, "type": "Infraestructura CDK", "summary": "Aserciones que garantizan que la arquitectura CDK cumpla con el principio Minimal acordado.", "cases": ["Verificación de exactamente 1 sola función Lambda en el stack", "Verificación de exactamente 2 tablas DynamoDB (Events y Outbox) con cifrado KMS", "Verificación de exactamente 1 cola SQS de alertas con cifrado KMS", "Prohibición estricta de colas de entrada o DLQs no aprobadas por la arquitectura"]}, {"file": "src/telemetry/handlers-operations.test.ts", "title": "Enrutamiento Operativo & Presupuesto de Tiempo", "count": 3, "type": "Routing Interno", "summary": "Valida que las operaciones manuales respeten el presupuesto de tiempo del Lambda Context.", "cases": ["Enrutamiento interno de tareas operativas dentro de la misma función Lambda", "Cancelación segura de la operación si getRemainingTimeInMillis() es menor a 5000 ms", "Manejo ordenado de errores operacionales y emisión de métricas de rechazo"]}, {"file": "src/telemetry/operations-cli.test.ts", "title": "Consola Operativa & Confirmación Explícita", "count": 3, "type": "CLI / Seguridad", "summary": "Valida la seguridad interactiva de la CLI mediante confirmación obligatoria.", "cases": ["Rechazo de ejecución si el operador no escribe exactamente EXECUTE <digest>", "Validación del digest criptográfico contra el sobre generado", "Generación de reporte tabular de salidas confirmadas, pendientes y fallidas"]}, {"file": "tests/integration/telemetry-operations.test.ts", "title": "Integración Operativa con Lambda Context", "count": 1, "type": "Integración Operativa", "summary": "Valida el ciclo operativo completo integrando el awsRequestId de AWS Lambda.", "cases": ["Ejecución preview -> confirmación con firma KMS y trazabilidad atada a CloudTrail"]}];
     const daysData = [{"day": 1, "title": "Bootstrap & Onboarding Inicial", "stages": "Instalación y comprobación con aidlc --doctor. Lectura y estudio de la guía del taller.", "changes": "Sin cambios en código; configuración inicial de herramientas y preparación del entorno de trabajo.", "understand": "Comprensión del flujo general de AI-DLC y la estructura de directorios.", "highlight": "Inicio limpio del entorno con verificación de dependencias base."}, {"day": 2, "title": "Incepción: De Inicio a User Stories", "stages": "Desde Inicio (0.1) hasta la aprobación formal de User Stories (2.4).", "changes": "(1) Rechacé la arquitectura inicial en Requirements Analysis por falta de deduplicación. (2) Rechacé la historia US3.1 en User Stories exigiendo el uso estricto de MessageDeduplicationId en SQS para hacerla testeable (Completando 2 de 3 rechazos mandatorios del taller). Migración táctica a motor híbrido con Antigravity.", "understand": "Diagnóstico de los límites de hooks en Kiro bajo Windows y adopción de gobierno híbrido por consola.", "highlight": "2/3 Rechazos justificados completados; BDD y testabilidad blindadas."}, {"day": 3, "title": "Incepción: De Domain Design a Delivery Planning", "stages": "Desde Domain Design (2.6) hasta Delivery Planning (2.9), finalizando con éxito la fase de Inception.", "changes": "(1) En 2.6 resolví contradicciones arquitectónicas: rechacé opciones con múltiples Lambdas y fijé la ÚNICA Lambda directa acordada. (2) En 2.8 rechacé el contrato base exigiendo trazas (X-Correlation-Id) y el código 429 Too Many Requests para Day 2 Operations (Completando 3/3 rechazos del taller).", "understand": "Clarificación de cómo la arquitectura impacta la testeabilidad temprana y la observabilidad distribuida.", "highlight": "3/3 Rechazos obligatorios completados. Incepción cerrada formalmente."}, {"day": 4, "title": "Construcción (Bolt 1): Functional Design", "stages": "Inicio de la fase de Construcción (Bolt 1), etapa functional-design (3.1).", "changes": "El archivo traceability.json generado inicialmente dejó el arreglo de cobertura vacío. Corregí manualmente el mapeo de criterios de aceptación y completé los artefactos documentales.", "understand": "Descubrimiento de que el motor de AI-DLC requiere obligatoriamente una revisión interna de arquitectura (aidlc-architecture-reviewer-agent) para emitir el recibo de unidad y abrir la puerta humana.", "highlight": "Superación de bucles en consola y restauración de trazabilidad 100% íntegra."}, {"day": 5, "title": "Construcción: Code Generation del Walking Skeleton", "stages": "Desde la resolución del bucle en functional-design hasta la finalización de Code Generation.", "changes": "En las puertas de aclaración prioricé los requisitos de negocio (BDD): permití IDs flexibles para hardware IoT y forcé el patrón Outbox transaccional para alertas. Inyección manual de firmas de trust en Codex.", "understand": "Identificación de dependencia interna en bun para validaciones TypeScript en Windows y su estabilización.", "highlight": "23 pruebas unitarias y la prueba de integración del Walking Skeleton en verde a la primera."}, {"day": 6, "title": "Construcción: NFR e Infrastructure Design", "stages": "Desde NFR Design (3.3) hasta el rediseño y revisión humana en Infrastructure Design (3.4).", "changes": "Rechacé tajantemente el diseño de infraestructura porque Codex alucinó una arquitectura de 3 Lambdas que rompía la estrategia minimalista. Obligué al agente a regresar a la 'Única Lambda procesadora'. Rechacé su intento de cambiar el contrato a 202 asíncrono prematuro (forzándolo a mantener el 400 síncrono ante datos corruptos).", "understand": "Manejo del LLM Laziness: cuando el agente intenta auto-aprobarse etapas, el framework bloquea el avance porque los documentos invalidaron el checkpoint.", "highlight": "Gobierno humano implacable contra alucinaciones arquitectónicas de la IA."}, {"day": 7, "title": "Construcción a Incepción: Loop-Back de Dominio", "stages": "Desde la puerta de aprobación de Code Generation (3.5) en Construcción hasta la aprobación formal de Domain Design (2.6) en Incepción.", "changes": "Apliqué Request Changes en Code Generation al detectar que el código ejecutaba 3 Lambdas y SQS de entrada, contradiciendo la especificación aprobada. Se activó la retropropagación de AI-DLC hasta Practices Discovery (2.2), purgando reglas obsoletas en project.md y realineando en cascada Requirements (2.3), User Stories (2.4), Mockups (2.5) y Domain (2.6) con el componente único TelemetryService.", "understand": "Comprensión de la rigidez de la máquina de estados de AI-DLC y cómo reanudar estados tras cambios estructurales.", "highlight": "Demostración de maestría en AI-DLC ejecutando un retorno ordenado en cascada."}, {"day": 8, "title": "Construcción Integral: U1, U2 y U3", "stages": "Cierre formal de Inception (Verified) y generación de código de las 3 unidades de Construcción (U1 núcleo con Walking Skeleton, U2 operaciones y manual recovery, U3 controles de entrega con GitHub Actions). Entrada a Build and Test (3.6) con 49 pruebas.", "changes": "En U1 consolidé la topología estricta de una sola Lambda con Outbox y barrido por EventBridge. En U2 corregí discrepancias en el prompt del checkpoint. En U3 seleccioné GitHub Actions con OIDC sin credenciales estáticas y analicé y clasifiqué falsos positivos de hashes sintéticos de CDK en Gitleaks 8.30.1.", "understand": "Sensibilidad de los guardarraíles criptográficos de AI-DLC en Windows durante la aprobación de checkpoints.", "highlight": "U1, U2 y U3 compilando con 49 pruebas automatizadas y Gitleaks en Exit 0."}, {"day": 9, "title": "Loop-Back de Construcción: Resolución F1-F6 y Code Freeze", "stages": "Loop-Back desde Build and Test (3.6) hacia Code Generation (3.5) por los hallazgos F1–F7. Revalidación completa de U1, ejecución del plan de 15 pasos de U2 con 146 pruebas y avance en U3.", "changes": "Rechacé tocar el código del núcleo (U1), forzando un plan de solo revalidación para aislar defectos en U2 y U3. En U2 aprobé blindar la herramienta de recuperación manual con firmas KMS HMAC y expiración (300 s). En U3 apliqué la actualización quirúrgica a aws-cdk-lib: 2.273.0, cerrando el hallazgo F1 con 0 vulnerabilidades.", "understand": "Por qué el framework en modo unit-major exige certificar la base de no-regresión de U1 antes de tocar capas superiores, y el rol del Code Freeze para sellar evidencia bit a bit.", "highlight": "Defecto F1 resuelto a 0 vulnerabilidades y blindaje criptográfico de operaciones."}, {"day": 10, "title": "100% Construcción Cerrada, CI Pipeline y Entrada a Operación", "stages": "Aprobación del Checkpoint Skeleton de U1 (7/7 tests de integración), revalidación de U2 y cierre formal de U3 con 159 tests en verde, 0 vulnerabilidades y Gitleaks limpio. Cierre formal de Build and Test (3.6) y CI Pipeline (3.7) completando el 100% de Construcción con .github/workflows/ci.yml. Entrada a Operación: 4.2 (Deployment Pipeline) y 4.1 (Environment Provisioning con autenticación de cuenta corporativa 745708001009 en sa-east-1).", "changes": "(1) Rechacé la sugerencia de integrar AWS AppConfig, forzando 'Sin feature flags por ahora' para proteger el principio Minimal del Walking Skeleton. (2) En Build and Test, autoricé continuar con frontera en FAIL documentado en lugar de loop infinito en local (Trazabilidad Honesta: 100 RPS y disponibilidad 30d corresponden a la nube). (3) Rechacé institucionalizar el bypass como política permanente. (4) Ante la solicitud de desplegar TelemetryAudit con KMS y Object Lock de 90 días, frené el despliegue para consultarlo con Ronnie (validado y felicitado por Ronnie: 'genial!, dejale ahí, con eso estamos'). (5) Establecí aislamiento de seguridad estricto a sa-east-1 y namespace Telemetry-*.", "understand": "Clarificación de dos Lambdas (Staging y Producción conviviendo en cuenta compartida), variables de entorno en Windows vs ~/.aws/credentials, y roles de SNS (alarmas) y OIDC (despliegue sin contraseñas fijas).", "highlight": "100% de Construcción verificado, CI Pipeline completado y gobierno humano que salvó la cuenta corporativa de bloqueos de 90 días."}];
 
-    // Tab Switching
+    // Tab Switching + Smooth Horizontal Scroll
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1727,9 +1814,100 @@ expect(outboxes.has('LOW_BATTERY:event-20')).toBe(false);
       }
       if (btn) {
         btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(updateNavArrows, 260);
     }
+
+    // Horizontal Scroll Controls + Wheel + Drag + Wrap Mode
+    function scrollNav(delta) {
+      const nav = document.getElementById('main-tab-nav');
+      if (!nav) return;
+      nav.scrollBy({ left: delta, behavior: 'smooth' });
+      setTimeout(updateNavArrows, 280);
+    }
+
+    function toggleNavWrap() {
+      const nav = document.getElementById('main-tab-nav');
+      const toggleBtn = document.getElementById('nav-wrap-toggle');
+      const leftBtn = document.getElementById('nav-btn-left');
+      const rightBtn = document.getElementById('nav-btn-right');
+      if (!nav) return;
+      const isWrapped = nav.classList.toggle('wrapped');
+      if (toggleBtn) {
+        toggleBtn.innerHTML = isWrapped ? '<span>↔</span> 1 Fila' : '<span>⊞</span> Ver todas';
+      }
+      if (leftBtn && rightBtn) {
+        leftBtn.style.display = isWrapped ? 'none' : 'inline-flex';
+        rightBtn.style.display = isWrapped ? 'none' : 'inline-flex';
+      }
+    }
+
+    function updateNavArrows() {
+      const nav = document.getElementById('main-tab-nav');
+      const leftBtn = document.getElementById('nav-btn-left');
+      const rightBtn = document.getElementById('nav-btn-right');
+      if (!nav || !leftBtn || !rightBtn) return;
+      const maxScroll = nav.scrollWidth - nav.clientWidth;
+      leftBtn.disabled = nav.scrollLeft <= 4;
+      rightBtn.disabled = nav.scrollLeft >= maxScroll - 4;
+    }
+
+    (function initMovableNav() {
+      const nav = document.getElementById('main-tab-nav');
+      if (!nav) return;
+
+      // Mouse wheel vertical -> horizontal scroll on tab bar
+      nav.addEventListener('wheel', (e) => {
+        if (nav.classList.contains('wrapped')) return;
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          nav.scrollLeft += e.deltaY;
+          updateNavArrows();
+        }
+      }, { passive: false });
+
+      // Click & Drag to slide the tab bar
+      let isDown = false;
+      let startX = 0;
+      let scrollLeftStart = 0;
+      let moved = false;
+
+      nav.addEventListener('mousedown', (e) => {
+        if (nav.classList.contains('wrapped')) return;
+        isDown = true;
+        moved = false;
+        startX = e.pageX - nav.offsetLeft;
+        scrollLeftStart = nav.scrollLeft;
+      });
+      window.addEventListener('mouseup', () => {
+        isDown = false;
+        nav.classList.remove('dragging');
+      });
+      nav.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - nav.offsetLeft;
+        const walk = (x - startX) * 1.4;
+        if (Math.abs(walk) > 6) {
+          moved = true;
+          nav.classList.add('dragging');
+          e.preventDefault();
+          nav.scrollLeft = scrollLeftStart - walk;
+          updateNavArrows();
+        }
+      });
+      nav.addEventListener('click', (e) => {
+        if (moved) {
+          e.stopPropagation();
+          moved = false;
+        }
+      }, true);
+
+      nav.addEventListener('scroll', updateNavArrows);
+      window.addEventListener('resize', updateNavArrows);
+      setTimeout(updateNavArrows, 100);
+    })();
 
     // View Switcher (Matrix vs Suites in Tab 4)
     function switchTestView(view) {

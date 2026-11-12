@@ -684,7 +684,7 @@
       transform: translateY(0);
     }
 
-    /* Code Blocks */
+    /* Code Blocks & Payload Cards */
     pre, code {
       font-family: var(--font-mono);
     }
@@ -695,6 +695,110 @@
       border-radius: 4px;
       font-size: 12px;
       color: var(--accent-blue);
+    }
+    .payload-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .payload-box {
+      background: #0a0f1d;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .payload-box-header {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .payload-box-title {
+      font: 600 11px var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .payload-box-title.blue { color: var(--accent-blue); }
+    .payload-box-title.gold { color: var(--accent-gold); }
+    .payload-box-title.rose { color: var(--accent-rose); }
+    .payload-pre {
+      margin: 0;
+      padding: 14px;
+      font: 400 12.5px/1.55 var(--font-mono);
+      color: #e2e8f0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .copy-mini-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--ink2);
+      font: 500 10.5px var(--font-mono);
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-mini-btn:hover {
+      background: rgba(148, 214, 0, 0.18);
+      border-color: var(--accent);
+      color: var(--ink);
+    }
+    .path-Directory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .path-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-blue);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .path-card.gold { border-left-color: var(--accent-gold); }
+    .path-card.green { border-left-color: var(--accent); }
+    .path-card-lbl {
+      font: 600 11px var(--font-mono);
+      text-transform: uppercase;
+      color: var(--ink2);
+      letter-spacing: 0.04em;
+    }
+    .scenario-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+    .scenario-card:hover {
+      border-color: rgba(148, 214, 0, 0.45);
+    }
+    .scenario-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
     }
 
     /* Responsive */
@@ -777,6 +881,9 @@
       </button>
       <button class="nav-btn" onclick="switchTab('historias', this)">
         <span>📋</span> Historias de Usuario
+      </button>
+      <button class="nav-btn" onclick="switchTab('payloads', this)">
+        <span>📦</span> Payloads & Contratos (Tests)
       </button>
       <button class="nav-btn" onclick="switchTab('matriz', this)">
         <span>🧪</span> Tests & Trazabilidad (159 Tests)
@@ -967,8 +1074,33 @@
       <div class="sec-card">
         <h2 class="sec-h2"><span>📋</span> Historias de Usuario & Criterios de Aceptación</h2>
         <p class="sec-lead">
-          Backlog formal de las 12 historias de usuario (`Must Have`) generadas en la fase de Incepción (etapa 2.4). Cada historia incluye sus criterios de aceptación BDD (Given / When / Then) y la suite de pruebas que valida su conformidad objetiva.
+          Backlog formal de las 12 historias de usuario (<code>Must Have</code>) generadas en la fase de Incepción (etapa 2.4). Cada tarjeta desplegable incluye sus criterios de aceptación BDD (Given / When / Then), los <strong>Payloads JSON reales inyectados en las pruebas</strong> y la ubicación exacta del archivo y líneas del test.
         </p>
+
+        <!-- Quick Paths Directory in Tab 3 -->
+        <div class="path-Directory-grid">
+          <div class="path-card green">
+            <span class="path-card-lbl">📋 Artefacto de Historias de Usuario (Etapa 2.4)</span>
+            <strong style="color:#fff; font-size:14px;">Backlog BDD Given/When/Then (US1–US6)</strong>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/user-stories/stories.md')">
+              📄 aidlc/.../inception/user-stories/stories.md 📋
+            </div>
+          </div>
+          <div class="path-card">
+            <span class="path-card-lbl">📜 Contratos OpenAPI 3.0 & AsyncAPI 2.6 (Etapa 2.8)</span>
+            <strong style="color:#fff; font-size:14px;">Esquemas C1 (HTTP), C2 (SQS), C3 (DynamoDB), C5 (EventBridge)</strong>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/contract-design/contract-summary.md')">
+              📄 aidlc/.../inception/contract-design/contract-summary.md 📋
+            </div>
+          </div>
+          <div class="path-card gold">
+            <span class="path-card-lbl">🧪 Suite E2E Principal de Payloads (Etapa 3.6)</span>
+            <strong style="color:#fff; font-size:14px;">Flujo Crítico API Gateway → DynamoDB Outbox → SQS & EventBridge</strong>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/tests/integration/telemetry-flow.test.ts')">
+              📄 tests/integration/telemetry-flow.test.ts (L74–L284) 📋
+            </div>
+          </div>
+        </div>
 
         <!-- Filter Bar -->
         <div class="filter-bar">
@@ -988,6 +1120,433 @@
         <div class="us-grid" id="us-container">
           <!-- Dynamically populated via JS -->
         </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3B: PAYLOADS & CONTRATOS (TESTS)       -->
+    <!-- ========================================== -->
+    <section id="tab-payloads" class="tab-panel">
+      <div class="sec-card">
+        <h2 class="sec-h2"><span>📦</span> Payloads de las Historias de Usuario & Ubicación en Tests</h2>
+        <p class="sec-lead">
+          Referencia visual de todos los <strong>Payloads JSON de entrada, salida, persistencia y mensajería asíncrona</strong> asociados a cada Historia de Usuario (`US1` a `US4`), junto con las rutas exactas y rangos de líneas donde se construyen y validan dentro del repositorio <code>D:\guide_aidlc</code>.
+        </p>
+
+        <!-- Mapa de Rutas Exactas -->
+        <h3 style="font: 700 20px var(--font-display); color: var(--accent); margin: 0 0 14px;">
+          1. Mapa de Rutas de Archivos (Documentación AI-DLC vs Suites de Test)
+        </h3>
+        <div class="path-Directory-grid">
+          <div class="path-card green">
+            <span class="path-card-lbl">1. Historias de Usuario (US1.1 – US6.3)</span>
+            <strong style="color:#fff; font-size:14.5px;">Especificación BDD Given/When/Then</strong>
+            <span style="font-size:12.5px; color:var(--ink2);">Define los 12 cortes verticales y criterios medibles (incluyendo el Rechazo #2 en AC3.1.5).</span>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/user-stories/stories.md')">
+              📄 aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/user-stories/stories.md 📋
+            </div>
+          </div>
+
+          <div class="path-card">
+            <span class="path-card-lbl">2. Contratos Oficiales (OpenAPI 3.0 + AsyncAPI 2.6)</span>
+            <strong style="color:#fff; font-size:14.5px;">Esquemas C1–C5 (HTTP, SQS, DynamoDB, EventBridge)</strong>
+            <span style="font-size:12.5px; color:var(--ink2);">Define <code>TelemetryRequest</code>, <code>Accepted</code>, <code>LambdaError</code> y <code>LowBatteryAlert</code>.</span>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/contract-design/contract-summary.md')">
+              📄 aidlc/spaces/default/intents/261001-telemetria-vehicular/inception/contract-design/contract-summary.md 📋
+            </div>
+          </div>
+
+          <div class="path-card gold">
+            <span class="path-card-lbl">3. Test E2E del Walking Skeleton (6 Tests)</span>
+            <strong style="color:#fff; font-size:14.5px;">Ingesta HTTP, Outbox Transaccional, SQS y EventBridge</strong>
+            <span style="font-size:12.5px; color:var(--ink2);">Líneas 74–152 (flujo completo) y Líneas 161–284 (atomicidad y concurrencia en DynamoDB).</span>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/tests/integration/telemetry-flow.test.ts')">
+              📄 D:/guide_aidlc/tests/integration/telemetry-flow.test.ts (L74–L284) 📋
+            </div>
+          </div>
+
+          <div class="path-card">
+            <span class="path-card-lbl">4. Test Unitario de Modelo y Fronteras BVA (11 Tests)</span>
+            <strong style="color:#fff; font-size:14.5px;">Validación BVA, TTL 90 días y Umbral &lt; 20%</strong>
+            <span style="font-size:12.5px; color:var(--ink2);">Líneas 5–74: prueba <code>19.99</code> vs <code>20</code>, límites <code>0/100</code>, <code>-50/150</code>, <code>0/300</code> y <code>+5 min</code>.</span>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/src/telemetry/model.test.ts')">
+              📄 D:/guide_aidlc/src/telemetry/model.test.ts (L5–L74) 📋
+            </div>
+          </div>
+
+          <div class="path-card green">
+            <span class="path-card-lbl">5. Test de Handlers HTTP (34 Tests)</span>
+            <strong style="color:#fff; font-size:14.5px;">Respuestas 202, 400, 409, 429 y 503</strong>
+            <span style="font-size:12.5px; color:var(--ink2);">Valida encabezados <code>X-Correlation-Id</code>, cuerpos de error canónicos y rechazos síncronos.</span>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/src/telemetry/handlers.test.ts')">
+              📄 D:/guide_aidlc/src/telemetry/handlers.test.ts 📋
+            </div>
+          </div>
+
+          <div class="path-card gold">
+            <span class="path-card-lbl">6. Test de Operaciones CLI y Firma KMS HMAC (U2)</span>
+            <strong style="color:#fff; font-size:14.5px;">Sobre Criptográfico v1 (Preview 25 / Execute / Backfill)</strong>
+            <span style="font-size:12.5px; color:var(--ink2);">Valida firma <code>HMAC_SHA_256</code> con KMS, expiración de 300s y trazabilidad CloudTrail.</span>
+            <div class="file-tag" onclick="copyText('D:/guide_aidlc/tests/integration/telemetry-operations.test.ts')">
+              📄 D:/guide_aidlc/tests/integration/telemetry-operations.test.ts 📋
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font: 700 20px var(--font-display); color: var(--accent-gold); margin: 28px 0 14px;">
+          2. Catálogo de Payloads por Historia de Usuario y Escenario de Prueba
+        </h3>
+
+        <!-- ESCENARIO 1: US1.1 & US3.1 -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div>
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px;">
+                <span class="us-id">US1.1 + US3.1</span>
+                <span class="badge-slice">Contrato C1 (HTTP) + C2 (SQS) + C3 (DynamoDB)</span>
+                <span class="badge-status-green">HTTP 202 Accepted + Alerta SQS</span>
+              </div>
+              <h4 style="margin:0; font:700 19px var(--font-display); color:#fff;">
+                Escenario A: Evento Válido con Batería Baja (<code>value: 19.99 &lt; 20</code> dispara Outbox y Alerta SQS)
+              </h4>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <div class="file-tag" onclick="copyText('tests/integration/telemetry-flow.test.ts')">
+                📄 tests/integration/telemetry-flow.test.ts (L74–L114) 📋
+              </div>
+              <div class="file-tag" onclick="copyText('src/telemetry/model.test.ts')">
+                📄 src/telemetry/model.test.ts (L5–L19) 📋
+              </div>
+            </div>
+          </div>
+
+          <div class="payload-grid">
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title blue">➡️ 1. Request HTTP (POST /telemetry-events)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-req-valid').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-req-valid">// Headers:
+// x-api-key: &lt;valid-api-key&gt;
+// X-Correlation-Id: "corr"
+
+{
+  "eventId": "event-1",
+  "vehicleId": "vehicle",
+  "eventType": "battery",
+  "timestamp": "2026-10-08T12:00:00.000Z",
+  "value": 19.99
+}</pre>
+            </div>
+
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title">⬅️ 2. Response HTTP (202 Accepted)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-res-202').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-res-202">// Se emite SOLO después de confirmar TransactWriteItems
+// en DynamoDB (Events + Outbox en una sola transacción)
+
+{
+  "status": "accepted",
+  "eventId": "event-1",
+  "acceptedAt": "2026-10-08T12:00:00Z",
+  "correlationId": "corr"
+}</pre>
+            </div>
+
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title gold">🗄️ 3. Transacción DynamoDB (Events + Outbox)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-ddb-tx').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-ddb-tx">// Tabla 1: telemetry-events (TTL = acceptedAt + 90 días)
+{
+  "eventId": "event-1",
+  "vehicleId": "vehicle",
+  "eventType": "battery",
+  "timestamp": "2026-10-08T12:00:00.000Z",
+  "value": 19.99,
+  "acceptedAt": "2026-10-08T12:00:00Z",
+  "correlationId": "corr",
+  "expiresAt": 1799323200
+}
+
+// Tabla 2: telemetry-outbox
+{
+  "alertId": "LOW_BATTERY:event-1",
+  "eventId": "event-1",
+  "vehicleId": "vehicle",
+  "alertType": "LOW_BATTERY",
+  "batteryValue": 19.99,
+  "occurredAt": "2026-10-08T12:00:00.000Z",
+  "status": "PENDING",
+  "attempts": 0,
+  "nextAttemptAt": "2026-10-08T12:00:00.000Z"
+}</pre>
+            </div>
+
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title rose">📣 4. Payload Publicado en SQS (Contrato C2)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-sqs-alert').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-sqs-alert">// SQS MessageAttributes:
+// correlationId = "corr"
+
+{
+  "alertId": "LOW_BATTERY:event-1",
+  "eventId": "event-1",
+  "vehicleId": "vehicle",
+  "alertType": "LOW_BATTERY",
+  "batteryValue": 19.99,
+  "occurredAt": "2026-10-08T12:00:00.000Z"
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESCENARIO 2: FRONTERA BVA (20% NO ALERTA) -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div>
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px;">
+                <span class="us-id">US3.1 (AC3.1.2 &amp; AC3.1.3)</span>
+                <span class="badge-slice">Frontera BVA de Negocio</span>
+                <span class="badge-status-green">HTTP 202 (Sin Alerta SQS)</span>
+              </div>
+              <h4 style="margin:0; font:700 19px var(--font-display); color:#fff;">
+                Escenario B: Valor Límite Exacto (<code>battery: 20</code>, <code>temperature: 150</code>, <code>speed: 300</code>) — Persiste sin Alerta
+              </h4>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <div class="file-tag" onclick="copyText('tests/integration/telemetry-flow.test.ts')">
+                📄 tests/integration/telemetry-flow.test.ts (L126–L128) 📋
+              </div>
+              <div class="file-tag" onclick="copyText('src/telemetry/model.test.ts')">
+                📄 src/telemetry/model.test.ts (L20–L39, L62–L74) 📋
+              </div>
+            </div>
+          </div>
+
+          <div class="payload-grid">
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title blue">➡️ Request en Frontera Exacta (value = 20)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-req-20').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-req-20">{
+  "eventId": "event-20",
+  "vehicleId": "vehicle",
+  "eventType": "battery",
+  "timestamp": "2026-10-08T12:00:00.000Z",
+  "value": 20
+}</pre>
+            </div>
+
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title">✅ Efecto Validado en el Test</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-res-20').innerText)">Copiar</button>
+              </div>
+              <pre class="payload-pre" id="pl-res-20">// 1. Respuesta HTTP: 202 Accepted
+// 2. Tabla telemetry-events: contiene "event-20"
+// 3. Tabla telemetry-outbox:
+expect(outboxes.has('LOW_BATTERY:event-20')).toBe(false);
+// 4. Cola SQS: 0 mensajes enviados (umbral es estrictamente &lt; 20)</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESCENARIO 3: US1.2 RECHAZO SÍNCRONO 400 BVA -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div>
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px;">
+                <span class="us-id">US1.2 (AC1.2.1 – AC1.2.3)</span>
+                <span class="badge-slice">Rechazo Temprano Síncrono BVA</span>
+                <span class="ac-badge" style="color:var(--accent-rose); border:1px solid var(--accent-rose);">HTTP 400 VALIDATION_ERROR</span>
+              </div>
+              <h4 style="margin:0; font:700 19px var(--font-display); color:#fff;">
+                Escenario C: Violación de Límites BVA, Timestamp &gt; +5 min o Campos Vacíos (0 efectos en DB/SQS)
+              </h4>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <div class="file-tag" onclick="copyText('src/telemetry/model.test.ts')">
+                📄 src/telemetry/model.test.ts (L40–L61) 📋
+              </div>
+              <div class="file-tag" onclick="copyText('src/telemetry/handlers.test.ts')">
+                📄 src/telemetry/handlers.test.ts 📋
+              </div>
+            </div>
+          </div>
+
+          <div class="payload-grid">
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title rose">❌ Payloads Inválidos Probados en la Matriz BVA</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-req-400').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-req-400">// Caso 1: Batería fuera de rango (&gt; 100)
+{ "eventId": "invalid", "vehicleId": "v", "eventType": "battery", "timestamp": "2026-10-08T12:00:00Z", "value": 100.01 }
+
+// Caso 2: Temperatura bajo el mínimo (&lt; -50)
+{ "eventId": "invalid", "vehicleId": "v", "eventType": "temperature", "timestamp": "2026-10-08T12:00:00Z", "value": -50.01 }
+
+// Caso 3: Velocidad sobre el máximo (&gt; 300)
+{ "eventId": "invalid", "vehicleId": "v", "eventType": "speed", "timestamp": "2026-10-08T12:00:00Z", "value": 300.01 }
+
+// Caso 4: Timestamp &gt; +5 minutos en el futuro (reloj = 12:00:00Z)
+{ "eventId": "evt-1", "vehicleId": "car-1", "eventType": "battery", "timestamp": "2026-10-08T12:05:01Z", "value": 19.99 }</pre>
+            </div>
+
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title gold">⬅️ Response HTTP (400 Bad Request)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-res-400').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-res-400">{
+  "code": "VALIDATION_ERROR",
+  "message": "Invalid telemetry event payload",
+  "correlationId": "corr"
+}
+
+// Aserciones de No-Efecto en telemetry-flow.test.ts (L89-L91):
+// expect(invalid.statusCode).toBe(400);
+// expect(events.size).toBe(0);
+// expect(delivered).toHaveLength(0);</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESCENARIO 4: US2.1 IDEMPOTENCIA (202) VS CONFLICTO (409) VS FALLO DB (503) -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div>
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px;">
+                <span class="us-id">US2.1 (AC2.1.2 – AC2.1.4) + US1.2 (AC1.2.6)</span>
+                <span class="badge-slice">Idempotencia &amp; Causalidad</span>
+                <span class="ac-badge">HTTP 202 / 409 / 503</span>
+              </div>
+              <h4 style="margin:0; font:700 19px var(--font-display); color:#fff;">
+                Escenario D: Reintento Idéntico (<code>202</code>) vs Colisión de Payload con Mismo <code>eventId</code> (<code>409</code>) vs Caída de DB (<code>503</code>)
+              </h4>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <div class="file-tag" onclick="copyText('tests/integration/telemetry-flow.test.ts')">
+                📄 tests/integration/telemetry-flow.test.ts (L92–L125, L176–L284) 📋
+              </div>
+            </div>
+          </div>
+
+          <div class="payload-grid">
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title rose">⚠️ Request en Conflicto (mismo eventId, distinto value)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-req-409').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-req-409">// "event-1" ya fue persistido con value: 19.99.
+// Llega otro request con el mismo eventId pero value: 18:
+{
+  "eventId": "event-1",
+  "vehicleId": "vehicle",
+  "eventType": "battery",
+  "timestamp": "2026-10-08T12:00:00.000Z",
+  "value": 18
+}</pre>
+            </div>
+
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title gold">⬅️ Responses 409 Conflict y 503 Persistence Unavailable</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-res-409-503').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-res-409-503">// HTTP 409 (conserva intacto el primer evento con value 19.99):
+{
+  "code": "IDEMPOTENCY_CONFLICT",
+  "message": "Event already exists with different payload",
+  "correlationId": "corr"
+}
+
+// HTTP 503 (cuando falla DynamoDB antes o durante el commit):
+{
+  "code": "PERSISTENCE_UNAVAILABLE",
+  "message": "Persistence temporarily unavailable",
+  "correlationId": "corr"
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESCENARIO 5: US4.1 EVENTBRIDGE SWEEPER + US4.2 CLI KMS HMAC -->
+        <div class="scenario-card">
+          <div class="scenario-header">
+            <div>
+              <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:6px;">
+                <span class="us-id">US4.1 + US4.2</span>
+                <span class="badge-slice">Contrato C5 (EventBridge) + U2 CLI KMS HMAC</span>
+                <span class="badge-status-green">Auto-Recuperación &amp; CLI Segura</span>
+              </div>
+              <h4 style="margin:0; font:700 19px var(--font-display); color:#fff;">
+                Escenario E: Barrido Programado EventBridge (<code>rate(1 min)</code>) y Sobre Criptográfico CLI (<code>KMS HMAC_SHA_256</code>)
+              </h4>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <div class="file-tag" onclick="copyText('tests/integration/telemetry-flow.test.ts')">
+                📄 tests/integration/telemetry-flow.test.ts (L130–L152) 📋
+              </div>
+              <div class="file-tag" onclick="copyText('tests/integration/telemetry-operations.test.ts')">
+                📄 tests/integration/telemetry-operations.test.ts 📋
+              </div>
+            </div>
+          </div>
+
+          <div class="payload-grid">
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title blue">⏱️ Payload EventBridge → Misma Lambda (US4.1)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-eb').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-eb">{
+  "source": "aws.events",
+  "detail-type": "Scheduled Event",
+  "id": "schedule",
+  "time": "2026-10-08T12:01:00.000Z",
+  "version": "0",
+  "account": "a",
+  "region": "r",
+  "resources": [],
+  "detail": {}
+}
+
+// Resultado de la invocación:
+// { "processed": 1 } -> Outbox "LOW_BATTERY:event-1" pasa a "PUBLISHED"</pre>
+            </div>
+
+            <div class="payload-box">
+              <div class="payload-box-header">
+                <span class="payload-box-title gold">🔐 Sobre Preview v1 Autenticado con KMS HMAC (US4.2)</span>
+                <button class="copy-mini-btn" onclick="copyText(document.getElementById('pl-cli-kms').innerText)">Copiar JSON</button>
+              </div>
+              <pre class="payload-pre" id="pl-cli-kms">// Comando 1: npx tsx bin/telemetry-operations.ts preview --limit 25
+// Comando 2: npx tsx bin/telemetry-operations.ts execute --limit 25
+// (Exige confirmación interactiva: EXECUTE &lt;fingerprint-sha256&gt;)
+
+{
+  "version": "v1",
+  "previewId": "prev-01",
+  "scope": "due-pending",
+  "alertIds": ["LOW_BATTERY:event-1"],
+  "count": 1,
+  "limit": 25,
+  "issuedAt": "2026-10-08T12:00:00.000Z",
+  "expiresAt": "2026-10-08T12:05:00.000Z",
+  "keyId": "arn:aws:kms:sa-east-1:...:key/recovery-hmac"
+}</pre>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1298,6 +1857,94 @@
       });
     }
 
+    // Payloads Mapped per User Story for Tab 3 Cards
+    const usPayloadsMap = {
+      'US1.1': {
+        location: 'D:/guide_aidlc/tests/integration/telemetry-flow.test.ts (L74–L114) & src/telemetry/model.test.ts (L5–L39)',
+        inputTitle: '➡️ Request HTTP Válido (POST /telemetry-events)',
+        input: `// Header: X-Correlation-Id: "corr"\n{\n  "eventId": "event-1",\n  "vehicleId": "vehicle",\n  "eventType": "battery",\n  "timestamp": "2026-10-08T12:00:00.000Z",\n  "value": 19.99\n}`,
+        outputTitle: '⬅️ Response HTTP 202 Accepted (Tras Commit DynamoDB)',
+        output: `{\n  "status": "accepted",\n  "eventId": "event-1",\n  "acceptedAt": "2026-10-08T12:00:00Z",\n  "correlationId": "corr"\n}`
+      },
+      'US1.2': {
+        location: 'D:/guide_aidlc/src/telemetry/model.test.ts (L40–L61) & src/telemetry/handlers.test.ts',
+        inputTitle: '❌ Request Inválido Fuera de BVA (value: 100.01 / -50.01 / 300.01 / >+5min)',
+        input: `{\n  "eventId": "invalid",\n  "vehicleId": "vehicle",\n  "eventType": "battery",\n  "timestamp": "2026-10-08T12:00:00.000Z",\n  "value": 101\n}`,
+        outputTitle: '⬅️ Response HTTP 400 / 503 (0 escrituras en DB y 0 mensajes SQS)',
+        output: `// 400 Bad Request:\n{\n  "code": "VALIDATION_ERROR",\n  "message": "Invalid telemetry event payload",\n  "correlationId": "corr"\n}`
+      },
+      'US2.1': {
+        location: 'D:/guide_aidlc/tests/integration/telemetry-flow.test.ts (L115–L125, L176–L284)',
+        inputTitle: '⚠️ Reintento Idéntico (value: 19.99) vs Conflicto (mismo eventId, value: 18)',
+        input: `// Colisión de payload con mismo eventId "event-1":\n{\n  "eventId": "event-1",\n  "vehicleId": "vehicle",\n  "eventType": "battery",\n  "timestamp": "2026-10-08T12:00:00.000Z",\n  "value": 18\n}`,
+        outputTitle: '🗄️ Response 409 Conflict & Registro DynamoDB con TTL 90 días',
+        output: `// HTTP 409:\n{\n  "code": "IDEMPOTENCY_CONFLICT",\n  "message": "Event already exists with different payload",\n  "correlationId": "corr"\n}\n// TTL DynamoDB: expiresAt = acceptedAt + (90 * 86400)`
+      },
+      'US3.1': {
+        location: 'D:/guide_aidlc/tests/integration/telemetry-flow.test.ts (L107–L152) & src/telemetry/model.test.ts (L62–L74)',
+        inputTitle: '🔋 Comparativa BVA: value: 19.99 (Alerta) vs value: 20 (No Alerta)',
+        input: `// Caso 1 (Alerta): { "eventId": "event-1", "eventType": "battery", "value": 19.99 }\n// Caso 2 (Frontera sin alerta): { "eventId": "event-20", "eventType": "battery", "value": 20 }`,
+        outputTitle: '📣 Mensaje Publicado en Cola SQS de Alertas (Contrato C2)',
+        output: `{\n  "alertId": "LOW_BATTERY:event-1",\n  "eventId": "event-1",\n  "vehicleId": "vehicle",\n  "alertType": "LOW_BATTERY",\n  "batteryValue": 19.99,\n  "occurredAt": "2026-10-08T12:00:00.000Z"\n}`
+      },
+      'US3.2': {
+        location: 'D:/guide_aidlc/tests/integration/telemetry-flow.test.ts (L58–L68, L113–L152)',
+        inputTitle: '🗄️ Registro en Tabla DynamoDB telemetry-outbox (Estado PENDING)',
+        input: `{\n  "alertId": "LOW_BATTERY:event-1",\n  "eventId": "event-1",\n  "vehicleId": "vehicle",\n  "alertType": "LOW_BATTERY",\n  "batteryValue": 19.99,\n  "occurredAt": "2026-10-08T12:00:00.000Z",\n  "status": "PENDING",\n  "attempts": 0,\n  "nextAttemptAt": "2026-10-08T12:00:00.000Z"\n}`,
+        outputTitle: '✅ Transición Condicional a PUBLISHED tras Confirmación SQS',
+        output: `{\n  "alertId": "LOW_BATTERY:event-1",\n  "eventId": "event-1",\n  "status": "PUBLISHED",\n  "attempts": 1,\n  "lastAttemptAt": "2026-10-08T12:01:00.000Z"\n}`
+      },
+      'US4.1': {
+        location: 'D:/guide_aidlc/tests/integration/telemetry-flow.test.ts (L130–L152)',
+        inputTitle: '⏱️ Payload Programado de EventBridge (rate(1 minute))',
+        input: `{\n  "source": "aws.events",\n  "detail-type": "Scheduled Event",\n  "id": "schedule",\n  "time": "2026-10-08T12:01:00.000Z",\n  "version": "0",\n  "account": "a",\n  "region": "r",\n  "resources": [],\n  "detail": {}\n}`,
+        outputTitle: '⬅️ Resultado del Barrido & Deduplicación por alertId',
+        output: `// Retorno del handler:\n{ "processed": 1 }\n// Reentrega conserva alertId = "LOW_BATTERY:event-1" (1 único efecto lógico)`
+      },
+      'US4.2': {
+        location: 'D:/guide_aidlc/tests/integration/telemetry-operations.test.ts & src/telemetry/recovery-preview.test.ts',
+        inputTitle: '🔐 Sobre Criptográfico Preview v1 (KMS HMAC_SHA_256, TTL 300s)',
+        input: `{\n  "version": "v1",\n  "previewId": "prev-01",\n  "scope": "due-pending",\n  "alertIds": ["LOW_BATTERY:event-1"],\n  "count": 1,\n  "limit": 25,\n  "issuedAt": "2026-10-08T12:00:00.000Z",\n  "expiresAt": "2026-10-08T12:05:00.000Z"\n}`,
+        outputTitle: '🖥️ Confirmación CLI Obligatoria & Resultado de Ejecución',
+        output: `// Confirmación requerida: EXECUTE <sha256-digest>\n{\n  "confirmed": 1,\n  "failed": 0,\n  "skipped": 0,\n  "unprocessed": 0,\n  "pending": 0\n}`
+      },
+      'US5.1': {
+        location: 'D:/guide_aidlc/src/telemetry/observability.test.ts & src/telemetry/availability.test.ts',
+        inputTitle: '📊 Entrada de Cálculo de Disponibilidad Mensual (availability.ts)',
+        input: `// Ventana mes calendario UTC completo (sin excluir mantenimiento):\n{\n  "totalMinutes": 43200,\n  "unavailableMinutes": 20,\n  "maintenanceMinutes": 15\n}`,
+        outputTitle: '📈 Métrica CloudWatch EMF (ReceiveToCommit & SLO)',
+        output: `{\n  "_aws": { "CloudWatchMetrics": [{ "Namespace": "VehicleTelemetry" }] },\n  "Service": "TelemetryService",\n  "ReceiveToCommit": 18,\n  "Http202": 1\n}`
+      },
+      'US5.2': {
+        location: 'D:/guide_aidlc/infra/telemetry-stack-operations.test.ts & src/telemetry/observability.test.ts',
+        inputTitle: '🚨 Configuración de Alarma en Plantilla CDK',
+        input: `{\n  "MetricName": "EligibleErrorRate",\n  "Namespace": "VehicleTelemetry",\n  "ComparisonOperator": "GreaterThanOrEqualToThreshold",\n  "Threshold": 1,\n  "EvaluationPeriods": 1\n}`,
+        outputTitle: '🔍 Log Estructurado Sanitizado (Sin API Key ni Payload Crudo)',
+        output: `{\n  "level": "ERROR",\n  "operation": "ingest",\n  "errorClass": "PERSISTENCE_UNAVAILABLE",\n  "eventId": "event-1",\n  "correlationId": "corr"\n}`
+      },
+      'US6.1': {
+        location: 'D:/guide_aidlc/infra/telemetry-stack.ts & infra/telemetry-stack.test.ts',
+        inputTitle: '🏗️ Síntesis CDK (npm run cdk:synth)',
+        input: `// Topología validada por aserciones CDK:\n// - AWS::Lambda::Function = 1 (TelemetryService)\n// - AWS::DynamoDB::Table = 2 (Events + Outbox)\n// - AWS::SQS::Queue = 1 (VehicleAlertsQueue)`,
+        outputTitle: '✅ Invariante Arquitectónica Verificada',
+        output: `// 0 colas SQS de entrada\n// 0 Lambdas adicionales\n// Cifrado KMS y Point-in-Time Recovery (PITR) activos`
+      },
+      'US6.2': {
+        location: 'D:/guide_aidlc/infra/telemetry-audit-stack.ts & infra/telemetry-stack-delivery-controls.test.ts',
+        inputTitle: '🛡️ Stack de Auditoría (TelemetryAuditStack)',
+        input: `// CloudTrail multi-región + KMS CMK + S3 Object Lock (90 días)\n// Separado del stack de aplicación para evitar trails duplicados`,
+        outputTitle: '🔐 Federación OIDC en GitHub Actions (.github/workflows/ci.yml)',
+        output: `permissions:\n  id-token: write\n  contents: read\n# Sin AWS_SECRET_ACCESS_KEY estáticas en GitHub Secrets`
+      },
+      'US6.3': {
+        location: 'D:/guide_aidlc/.github/workflows/ci.yml & .gitleaks.toml',
+        inputTitle: '⚙️ Pipeline Quality Gate (GitHub Actions)',
+        input: `npm ci\nnpm run format:check\nnpm run lint\nnpm run typecheck\nnpm run test:unit\nnpm run test:integration\nnpm run audit:deps\ngitleaks detect`,
+        outputTitle: '📦 Artefacto Inmutable CDK con Digest SHA-256',
+        output: `// 159/159 tests en verde (Exit 0)\n// 0 vulnerabilidades npm (aws-cdk-lib 2.273.0)\n// 0 secretos expuestos en Gitleaks 8.30.1`
+      }
+    };
+
     // Render User Stories
     let currentSliceFilter = 'all';
     function renderUserStories(stories) {
@@ -1310,6 +1957,33 @@
         card.id = 'card-' + us.id;
         
         let reqsBadges = us.requirements.map(r => '<span class="code-pill">' + r + '</span>').join(' ');
+        const pl = usPayloadsMap[us.id];
+        const plBlock = pl ? `
+          <div style="margin-top: 8px; padding-top: 14px; border-top: 1px dashed var(--border);">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+              <strong style="font: 700 13px var(--font-mono); color: var(--accent-gold); text-transform: uppercase;">
+                📦 Payloads de Prueba & Ubicación Exacta (${us.id})
+              </strong>
+              <div class="file-tag" onclick="copyText('${pl.location}')">
+                📍 ${pl.location} 📋
+              </div>
+            </div>
+            <div class="payload-grid">
+              <div class="payload-box">
+                <div class="payload-box-header">
+                  <span class="payload-box-title blue">${pl.inputTitle}</span>
+                </div>
+                <pre class="payload-pre">${pl.input}</pre>
+              </div>
+              <div class="payload-box">
+                <div class="payload-box-header">
+                  <span class="payload-box-title">${pl.outputTitle}</span>
+                </div>
+                <pre class="payload-pre">${pl.output}</pre>
+              </div>
+            </div>
+          </div>
+        ` : '';
         
         let acRows = us.criteria.map(c => `
           <tr>
@@ -1357,6 +2031,7 @@
                 ${acRows}
               </tbody>
             </table>
+            ${plBlock}
           </div>
         `;
         container.appendChild(card);

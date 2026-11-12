@@ -90,3 +90,18 @@ aidlc/.aidlc-readonly-latch
 aidlc.settings.local.json
 .playwright-mcp/
 
+# Archivos privados / internos de CarConnect y GatherLeads (solo locales)
+*.local.md
+credentials_gatherleads_backup.local.md
+GatherLeads*
+gatherleads*
+Guia_Visual_GatherLeads*
+guia_gatherleads*
+guia_modulos_prioritarios.html
+gl_visuals/
+build_guide_pdf.py
+build_mobile_guide.py
+sqlite_mcp_server.db
+trust_output.txt
+
+
